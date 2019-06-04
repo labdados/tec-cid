@@ -36,4 +36,3 @@ class Dao:
         result = self.graph.run("match (part:Participante{ChaveParticipante:$codigo}) return part", codigo=codigo)
         nodes = [n for n in result]
         return nodes
-
