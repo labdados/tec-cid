@@ -10,6 +10,10 @@ class Dao:
         query = self.gerando_query_licitacao(ano, tipo, unidade, page, num_resultados)
         result = self.graph.run(query)
         nodes = [n for n in result]
+
+        for n in nodes:
+            n[0]['id'] = "{}-{}-{}".format(n[1], n[2], n[3])
+
         return nodes
 
     def get_participantes(self, codParticipante, page, num_resultados):
@@ -60,7 +64,7 @@ class Dao:
         elif tipo != None and last == False:
             query += "WHERE lic.CodTipoLicitacao = '{}' ".format(tipo)
         
-        query += "RETURN lic ORDER BY lic.Data SKIP {} LIMIT {}".format(skip, limite)
+        query += "RETURN lic, lic.CodUnidadeGest, lic.CodTipoLicitacao, lic.CodLicitacao ORDER BY lic.Data SKIP {} LIMIT {}".format(skip, limite)
 
     
         return query
