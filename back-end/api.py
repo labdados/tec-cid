@@ -22,9 +22,9 @@ class Licitacao(Resource):
       ''' 
       Retorna as licitações baseadas nos filtros que foram passados
       '''
-      ano = request.args.get("ano", None, str)
-      codUni = request.args.get("codUni", None, str)
-      tipoLic = request.args.get("tipoLic", None, str)
+      ano = request.args.get("ano", '', str)
+      codUni = request.args.get("codUni", '', str)
+      tipoLic = request.args.get("tipoLic", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
       return jsonify(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))

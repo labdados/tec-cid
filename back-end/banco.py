@@ -48,25 +48,25 @@ class Dao:
         last = False
         query = "MATCH (lic:Licitacao) "
 
-        if ano != None:
+        if ano != '':
             query += "WHERE lic.Data CONTAINS '{}' ".format(ano)
             last = True
 
-        if unidade != None and last == True:
+        if unidade != '' and last == True:
             query += "AND lic.CodUnidadeGest = '{}' ".format(unidade)
             last = True
-        elif unidade != None and last == False:
+        elif unidade != '' and last == False:
             query += "WHERE lic.CodUnidadeGest = '{}' ".format(unidade)
             last = True
 
-        if tipo != None and last == True:
+        if tipo != '' and last == True:
             query += "AND lic.CodTipoLicitacao = '{}' ".format(tipo)
-        elif tipo != None and last == False:
+        elif tipo != '' and last == False:
             query += "WHERE lic.CodTipoLicitacao = '{}' ".format(tipo)
         
         query += "RETURN lic, lic.CodUnidadeGest, lic.CodTipoLicitacao, lic.CodLicitacao ORDER BY lic.Data SKIP {} LIMIT {}".format(skip, limite)
 
-    
+
         return query
 
     def gerando_query_participante(self, codigo_participante, pagina, limite):
