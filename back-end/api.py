@@ -11,7 +11,7 @@ CORS(app, resources=r"/api/*", headers="Content-Type")
 
 dao = Dao()
 
-@api.route("/api/licitacao")
+@api.route("/api/licitacoes")
 @api.doc(params={"ano": "Ano das licitações"})
 @api.doc(params={"codUni": "Código da unidade gestora"})
 @api.doc(params={"tipoLic": "Código do tipo da licitação"})
@@ -30,7 +30,7 @@ class Licitacao(Resource):
       return jsonify(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
 
 
-@api.route("/api/participante")
+@api.route("/api/participantes")
 @api.doc(params={'codPart': 'Código do participante que está sendo buscado'})
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
@@ -40,7 +40,7 @@ class Participante(Resource):
       Retorna os participantes
       '''
 
-      codParticipante = request.args.get("codPart", None, str)
+      codParticipante = request.args.get("codPart", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
       return jsonify(dao.get_participantes(codParticipante, pagina, limite))

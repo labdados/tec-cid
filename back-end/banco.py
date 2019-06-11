@@ -74,7 +74,7 @@ class Dao:
         query = ""
 
 
-        if codigo_participante == None:
+        if codigo_participante == '':
             query += "MATCH (part:Participante) RETURN part ORDER BY part.NomeParticipante SKIP {} LIMIT {}".format(skip, limite)
         else:
             query += "MATCH (part:Participante) WHERE part.ChaveParticipante = '{}' return part".format(codigo_participante)
