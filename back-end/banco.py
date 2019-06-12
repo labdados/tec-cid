@@ -1,20 +1,35 @@
 from py2neo import Graph
-import config as cfg 
+from models import Licitacao
+import config as cfg
 
 class Dao:
     def __init__(self):
         self.graph = Graph(cfg.NEO4J_CFG["host"], auth=(cfg.NEO4J_CFG["user"], cfg.NEO4J_CFG["passwd"]))
 
-    def get_licitacoes(self, ano, tipo, unidade, page, num_resultados):
+    def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
+        skip = itens * (pagina - 1)
+        
+        filtros = {}
+        conditions = []
 
-        query = self.gerando_query_licitacao(ano, tipo, unidade, page, num_resultados)
-        result = self.graph.run(query)
-        nodes = [n for n in result]
+        if ano:
+            conditions.append("_.Data ENDS WITH '{}'".format(ano))
 
-        for n in nodes:
-            n[0]['id'] = "{}-{}-{}".format(n[1], n[2], n[3])
+        if tipo:
+            conditions.append("_.CodTipoLicitacao = '{}'".format(tipo))
 
-        return nodes
+        if unidade:
+            conditions.append("_.CodUnidadeGest = '{}'".format(unidade))
+
+        result = Licitacao.match(self.graph).where(*conditions).skip(skip).limit(itens)
+        
+        nodes = []
+        for lic in result:
+            node = lic.__node__
+            node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.nu_licitacao, lic.tp_licitacao)
+            nodes.append(node)
+        
+        return(nodes)
 
     def get_participantes(self, pagina, limite):
         skip = limite * (pagina - 1)
