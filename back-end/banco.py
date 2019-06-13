@@ -1,5 +1,5 @@
 from py2neo import Graph
-from models import Licitacao
+from models import Licitacao, Participante
 import config as cfg
 
 class Dao:
@@ -21,7 +21,7 @@ class Dao:
         if unidade:
             conditions.append("_.CodUnidadeGest = '{}'".format(unidade))
 
-        result = Licitacao.match(self.graph).where(*conditions).skip(skip).limit(itens)
+        result = Licitacao.match(self.graph).where(*conditions).order_by("_.Data").skip(skip).limit(itens)
         
         nodes = []
         for lic in result:
@@ -31,9 +31,10 @@ class Dao:
         
         return(nodes)
 
-    def get_participantes(self, pagina, limite):
-        skip = limite * (pagina - 1)
-        result = self.graph.run("MATCH (part:Participante) RETURN part ORDER BY part.NomeParticipante SKIP {} LIMIT {}".format(skip, limite))
+    def get_participantes(self, pagina, itens):
+        skip = itens * (pagina - 1)
+        #result = self.graph.run("MATCH (part:Participante) RETURN part ORDER BY part.NomeParticipante SKIP {} LIMIT {}".format(skip, limite))
+        result = Participante.match(self.graph).skip(skip).limit(itens)
         nodes = [n for n in result]
         return nodes
 
