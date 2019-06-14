@@ -31,17 +31,24 @@ class Dao:
         
         return(nodes)
 
+
+    def procurando_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
+        skip = limite * (pagina - 1)
+        result = self.graph.run("MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}'  RETURN r SKIP {} LIMIT {}".format(codUnidadeGestora, codTipoLicitacao, codLicitacao, skip, limite))
+        nodes = [n for n in result]
+        return nodes
+
+
     def get_participantes(self, pagina, itens):
         skip = itens * (pagina - 1)
-        #result = self.graph.run("MATCH (part:Participante) RETURN part ORDER BY part.NomeParticipante SKIP {} LIMIT {}".format(skip, limite))
-        result = Participante.match(self.graph).skip(skip).limit(itens)
-        nodes = [n for n in result]
+        result = Participante.match(self.graph).order_by("_.NomeParticipante").skip(skip).limit(itens)
+        nodes = [n.__node__ for n in result]
         return nodes
 
     # Busca participante pelo cpf ou cnpj
     def get_participante_por_codigo(self, codigo):
-        result = self.graph.run("MATCH (part:Participante{ChaveParticipante:$codigo}) return part", codigo=codigo)
-        nodes = [n for n in result]
+        result = Participante.match(self.graph).where("_.ChaveParticipante = '{}'".format(codigo))
+        nodes = [n.__node__ for n in result]
         return nodes
           
     # Gera a query baseada nos filtros que foram passados
@@ -72,11 +79,7 @@ class Dao:
 
         return query
     
-    def procurando_propostas(self, codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite):
-        skip = limite * (pagina - 1)
-        result = self.graph.run("MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}'  RETURN r SKIP {} LIMIT {}".format(codUnidadeGestora, codTipoLicitacao, codLicitacao, skip, limite))
-        nodes = [n for n in result]
-        return nodes
+    
 
     def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
