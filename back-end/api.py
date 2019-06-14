@@ -41,14 +41,13 @@ class Propostas(Resource):
 
       data = id.split("-")
       codUnidadeGestora = data[0]
-      codTipoLicitacao = data[1]
-      codLicitacao = data[2]
+      codLicitacao = data[1]
+      codTipoLicitacao = data[2]
 
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      return jsonify(dao.procurando_propostas(codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite))
-
+      return jsonify(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
 
 @api.route("/api/licitacoes/<string:id>")
 class LicitacaoEspecifica(Resource):
@@ -58,8 +57,8 @@ class LicitacaoEspecifica(Resource):
       '''
       data = id.split("-")
       codUnidadeGestora = data[0]
-      codTipoLicitacao = data[1]
-      codLicitacao = data[2]
+      codLicitacao = data[1]
+      codTipoLicitacao = data[2]
 
       return jsonify(dao.get_licitacao_especifica(codUnidadeGestora, codTipoLicitacao, codLicitacao))
 
