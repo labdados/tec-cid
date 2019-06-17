@@ -86,6 +86,13 @@ class ParticipanteEspecifico(Resource):
       '''
       return jsonify(dao.get_participante_por_codigo(id))
 
+@api.route("/api/unidades_gestoras")
+class UnidadesGest(Resource):
+   def get(self):
+      '''
+      Retorna uma lista com os nomes e os códigos das unidades gestoras
+      '''
+      return jsonify(dao.get_unidades_e_codigos())
 
 @app.route('/api')
 def olar():

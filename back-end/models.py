@@ -26,3 +26,13 @@ class Participante(GraphObject):
 
     def __iter__(self):
         return self.__node__
+
+
+class UnidadeGestora(GraphObject):
+    cod_unidade_gestora = Property("CodUnidadeGest")
+    nome_unidade_gestora = Property("NomeUnidadeGest")
+
+    realizou = RelatedTo("Licitacao", "REALIZOU")
+
+    def __iter__(self):
+        return self.__node__
