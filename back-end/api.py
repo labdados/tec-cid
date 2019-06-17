@@ -78,6 +78,7 @@ class Participante(Resource):
       return jsonify(dao.get_participantes(pagina, limite))
 
 @api.route("/api/participantes/<string:id>")
+@api.doc(params={'id': 'CPF/CNPJ do participante'})
 class ParticipanteEspecifico(Resource):
    def get(self, id):
       '''

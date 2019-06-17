@@ -31,6 +31,12 @@ class Dao:
         
         return(nodes)
 
+    
+    def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
+        result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
+        nodes = [n for n in result]
+        return nodes
+
 
     def procurando_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
         skip = limite * (pagina - 1)
@@ -81,7 +87,3 @@ class Dao:
     
     
 
-    def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
-        result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
-        nodes = [n for n in result]
-        return nodes
