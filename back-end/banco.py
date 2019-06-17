@@ -1,5 +1,5 @@
 from py2neo import Graph
-from models import Licitacao, Participante
+from models import Licitacao, Participante, UnidadeGestora
 import config as cfg
 
 class Dao:
@@ -31,6 +31,16 @@ class Dao:
         
         return(nodes)
 
+    def get_unidades_e_codigos(self):
+        result = UnidadeGestora.match(self.graph)
+        nodes = []
+            
+        for uni in result:
+            node = uni.__node__
+            if uni.nome_unidade_gestora != None:
+                nodes.append(node)
+
+        return nodes
     
     def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
@@ -40,6 +50,7 @@ class Dao:
 
     def procurando_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
         skip = limite * (pagina - 1)
+
         result = self.graph.run("MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}'  RETURN r SKIP {} LIMIT {}".format(codUnidadeGestora, codTipoLicitacao, codLicitacao, skip, limite))
         nodes = [n for n in result]
         return nodes
