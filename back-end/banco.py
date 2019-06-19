@@ -4,7 +4,8 @@ import config as cfg
 
 class Dao:
     def __init__(self):
-        self.graph = Graph(host='neodb', http_port=7474, https_port= 7473, bolt_port=7687, user='neo4j', password='tcctcc')
+        #self.graph = Graph(host='neodb', http_port=7474, https_port= 7473, bolt_port=7687, user='neo4j', password='tcctcc')
+        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"])       
 
     def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
         skip = itens * (pagina - 1)
@@ -30,6 +31,7 @@ class Dao:
             nodes.append(node)
         
         return(nodes)
+
 
     def get_unidades_e_codigos(self):
         result = UnidadeGestora.match(self.graph)
@@ -62,39 +64,9 @@ class Dao:
         nodes = [n.__node__ for n in result]
         return nodes
 
+
     # Busca participante pelo cpf ou cnpj
     def get_participante_por_codigo(self, codigo):
         result = Participante.match(self.graph).where("_.ChaveParticipante = '{}'".format(codigo))
         nodes = [n.__node__ for n in result]
         return nodes
-          
-    # Gera a query baseada nos filtros que foram passados
-    def gerando_query_licitacao(self, ano, tipo, unidade, pagina, limite):
-        skip = limite * (pagina - 1)
-
-        last = False
-        query = "MATCH (lic:Licitacao) "
-
-        if ano != '':
-            query += "WHERE lic.Data CONTAINS '{}' ".format(ano)
-            last = True
-
-        if unidade != '' and last == True:
-            query += "AND lic.CodUnidadeGest = '{}' ".format(unidade)
-            last = True
-        elif unidade != '' and last == False:
-            query += "WHERE lic.CodUnidadeGest = '{}' ".format(unidade)
-            last = True
-
-        if tipo != '' and last == True:
-            query += "AND lic.CodTipoLicitacao = '{}' ".format(tipo)
-        elif tipo != '' and last == False:
-            query += "WHERE lic.CodTipoLicitacao = '{}' ".format(tipo)
-        
-        query += "RETURN lic, lic.CodUnidadeGest, lic.CodTipoLicitacao, lic.CodLicitacao ORDER BY lic.Data SKIP {} LIMIT {}".format(skip, limite)
-
-
-        return query
-    
-    
-
