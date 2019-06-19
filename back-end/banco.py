@@ -4,7 +4,7 @@ import config as cfg
 
 class Dao:
     def __init__(self):
-        self.graph = Graph(cfg.NEO4J_CFG["host"], auth=(cfg.NEO4J_CFG["user"], cfg.NEO4J_CFG["passwd"]))
+        self.graph = Graph(host='neodb', http_port=7474, https_port= 7473, bolt_port=7687, user='neo4j', password='tcctcc')
 
     def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
         skip = itens * (pagina - 1)
