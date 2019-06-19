@@ -9,9 +9,11 @@ services:
             - 7473:7473
             - 7687:7687
         volumes:
-            - ./neo4j_data:/data
-            - ./neo4j_logs:/var/lib/neo4j/logs
-            - ./neo4j_conf:/var/lib/neo4j/conf
+            - ./storage/neo4j/data
+            - ./storage/neo4j/import
+            - ./var/lib/neo4j/plugins
+            - ./var/lib/neo4j/certificates
+            - ./var/log/neo4j
         environment:
             - NEO4J_AUTH=neo4j/tcctcc
     flask:
