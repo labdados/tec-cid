@@ -1,12 +1,39 @@
-from flask import Flask, jsonify, request, Blueprint
+from flask import Flask, jsonify, request, Blueprint, url_for
 from banco import Dao
 from flask_cors import CORS
-from flask_restplus import Api, Resource
+from flask_restplus import Api, Resource, apidoc
+import os
 
 app = Flask(__name__)
 
+custom_apidoc = apidoc.Apidoc('restplus_custom_doc', __name__,
+                              template_folder='templates',
+                              static_folder=os.path.dirname(apidoc.__file__) + '/static',
+                              static_url_path='/swaggerui')
+
+@custom_apidoc.add_app_template_global
+def swagger_static(filename):
+    return url_for('restplus_custom_doc.static',
+                   filename='bower/swagger-ui/dist/{0}'.format(filename))
+
+app.register_blueprint(custom_apidoc, url_prefix='/api/docs')
+
+
+class Custom_API(Api):
+     @property
+     def specs_url(self):
+         '''
+         The Swagger specifications absolute url (ie. `swagger.json`)
+
+         :rtype: str
+         '''
+         return url_for(self.endpoint('specs'), _external=False)
+
+
+# app = Flask(__name__)
+
 blueprint = Blueprint('api', __name__, url_prefix='/api')
-api = Api(blueprint, doc='/docs')
+api = Custom_API(blueprint, doc='/docs')
 
 app.register_blueprint(blueprint)
 
