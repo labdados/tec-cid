@@ -5,12 +5,11 @@ from flask_restplus import Api, Resource
 
 app = Flask(__name__)
 
-blueprint = Blueprint('api', __name__, url_prefix='/api')
+blueprint = Blueprint('api', __name__, url_prefix='/tec-cid/api')
 api = Api(blueprint, doc='/docs')
-
 app.register_blueprint(blueprint)
 
-CORS(app, resources=r"/api/*", headers="Content-Type")
+CORS(app, resources=r"/tec-cid/api/*", headers="Content-Type")
 
 dao = Dao()
 
