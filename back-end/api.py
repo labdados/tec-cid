@@ -98,4 +98,4 @@ class UnidadesGest(Resource):
       '''
       return jsonify(dao.get_unidades_e_codigos())
 
-app.run(debug=True)
+app.run(host = '0.0.0.0', debug=True)
