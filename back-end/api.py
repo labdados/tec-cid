@@ -33,6 +33,7 @@ class Licitacao(Resource):
 
 
 @api.route("/licitacoes/<string:id>/propostas")
+@api.doc(params={'id': 'id da licitação'})
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
 class Propostas(Resource):
@@ -52,6 +53,7 @@ class Propostas(Resource):
       return jsonify(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
 
 @api.route("/licitacoes/<string:id>")
+@api.doc(params={'id': 'id da licitação'})
 class LicitacaoEspecifica(Resource):
    def get(self, id):
       '''
@@ -88,7 +90,7 @@ class ParticipanteEspecifico(Resource):
       '''
       return jsonify(dao.get_participante_por_codigo(id))
 
-@api.route("/unidades_gestoras")
+@api.route("/unidades-gestoras")
 class UnidadesGest(Resource):
    def get(self):
       '''
@@ -96,4 +98,4 @@ class UnidadesGest(Resource):
       '''
       return jsonify(dao.get_unidades_e_codigos())
 
-app.run(host = '0.0.0.0', debug=True)
+app.run(debug=True)

@@ -31,17 +31,13 @@ class Dao:
         
         return(nodes)
 
+
     def get_unidades_e_codigos(self):
         result = UnidadeGestora.match(self.graph)
-        nodes = []
-            
-        for uni in result:
-            node = uni.__node__
-            if uni.nome_unidade_gestora != None:
-                nodes.append(node)
-
+        nodes = [n.__node__ for n in result]
         return nodes
     
+
     def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
         nodes = [n for n in result]
@@ -66,35 +62,4 @@ class Dao:
     def get_participante_por_codigo(self, codigo):
         result = Participante.match(self.graph).where("_.ChaveParticipante = '{}'".format(codigo))
         nodes = [n.__node__ for n in result]
-        return nodes
-          
-    # Gera a query baseada nos filtros que foram passados
-    def gerando_query_licitacao(self, ano, tipo, unidade, pagina, limite):
-        skip = limite * (pagina - 1)
-
-        last = False
-        query = "MATCH (lic:Licitacao) "
-
-        if ano != '':
-            query += "WHERE lic.Data CONTAINS '{}' ".format(ano)
-            last = True
-
-        if unidade != '' and last == True:
-            query += "AND lic.CodUnidadeGest = '{}' ".format(unidade)
-            last = True
-        elif unidade != '' and last == False:
-            query += "WHERE lic.CodUnidadeGest = '{}' ".format(unidade)
-            last = True
-
-        if tipo != '' and last == True:
-            query += "AND lic.CodTipoLicitacao = '{}' ".format(tipo)
-        elif tipo != '' and last == False:
-            query += "WHERE lic.CodTipoLicitacao = '{}' ".format(tipo)
-        
-        query += "RETURN lic, lic.CodUnidadeGest, lic.CodTipoLicitacao, lic.CodLicitacao ORDER BY lic.Data SKIP {} LIMIT {}".format(skip, limite)
-
-
-        return query
-    
-    
-
+        return nodes          
