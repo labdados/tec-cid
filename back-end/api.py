@@ -5,12 +5,11 @@ from flask_restplus import Api, Resource
 
 app = Flask(__name__)
 
-blueprint = Blueprint('api', __name__, url_prefix='/api')
+blueprint = Blueprint('api', __name__, url_prefix='/tec-cid/api')
 api = Api(blueprint, doc='/docs')
-
 app.register_blueprint(blueprint)
 
-CORS(app, resources=r"/api/*", headers="Content-Type")
+CORS(app, resources=r"/tec-cid/api/*", headers="Content-Type")
 
 dao = Dao()
 
@@ -34,6 +33,7 @@ class Licitacao(Resource):
 
 
 @api.route("/licitacoes/<string:id>/propostas")
+@api.doc(params={'id': 'id da licitação'})
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
 class Propostas(Resource):
@@ -53,6 +53,7 @@ class Propostas(Resource):
       return jsonify(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
 
 @api.route("/licitacoes/<string:id>")
+@api.doc(params={'id': 'id da licitação'})
 class LicitacaoEspecifica(Resource):
    def get(self, id):
       '''
@@ -89,8 +90,7 @@ class ParticipanteEspecifico(Resource):
       '''
       return jsonify(dao.get_participante_por_codigo(id))
 
-
-@api.route("/api/unidades-gestoras")
+@api.route("/unidades-gestoras")
 class UnidadesGest(Resource):
    def get(self):
       '''
@@ -98,9 +98,4 @@ class UnidadesGest(Resource):
       '''
       return jsonify(dao.get_unidades_e_codigos())
 
-@app.route('/api')
-def olar():
-   dao.gerando_query_participante("35422468000159", 1, 10)
-   return "inicio"
-   
 app.run(host = '0.0.0.0', debug=True)

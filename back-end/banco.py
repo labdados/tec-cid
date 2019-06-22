@@ -4,8 +4,7 @@ import config as cfg
 
 class Dao:
     def __init__(self):
-        #self.graph = Graph(host='neodb', http_port=7474, https_port= 7473, bolt_port=7687, user='neo4j', password='tcctcc')
-        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"])       
+        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"]) 
 
     def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
         skip = itens * (pagina - 1)
@@ -35,15 +34,10 @@ class Dao:
 
     def get_unidades_e_codigos(self):
         result = UnidadeGestora.match(self.graph)
-        nodes = []
-            
-        for uni in result:
-            node = uni.__node__
-            if uni.nome_unidade_gestora != None:
-                nodes.append(node)
-
+        nodes = [n.__node__ for n in result]
         return nodes
     
+
     def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
         nodes = [n for n in result]
@@ -64,9 +58,8 @@ class Dao:
         nodes = [n.__node__ for n in result]
         return nodes
 
-
     # Busca participante pelo cpf ou cnpj
     def get_participante_por_codigo(self, codigo):
         result = Participante.match(self.graph).where("_.ChaveParticipante = '{}'".format(codigo))
         nodes = [n.__node__ for n in result]
-        return nodes
+        return nodes          
