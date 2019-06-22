@@ -63,3 +63,4 @@ class Dao:
         result = Participante.match(self.graph).where("_.ChaveParticipante = '{}'".format(codigo))
         nodes = [n.__node__ for n in result]
         return nodes          
+
