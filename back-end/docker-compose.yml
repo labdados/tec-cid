@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+    neodb:
+        restart: always
+        container_name: teccid-neodb
+        image: neo4j:latest
+        ports: 
+            - 7474:7474
+            - 7473:7473
+            - 7687:7687
+        volumes:
+            - ./storage/neo4j/data
+            - ./storage/neo4j/import
+            - ./var/lib/neo4j/plugins
+            - ./var/lib/neo4j/certificates
+            - ./var/log/neo4j
+        environment:
+            - NEO4J_AUTH=neo4j/tcctcc
+    flask:
+        restart: always
+        build: .
+        image: teccid-flask-image:tag
+        container_name: teccid-flask
+        ports:
+            - 5000:5000
+        volumes:
+            - .:/app
+        depends_on:
+            - neodb
+
+
+
