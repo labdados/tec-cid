@@ -1,12 +1,10 @@
-from flask import Flask, jsonify, request, Blueprint, url_for
+from flask import Flask, jsonify, request, Blueprint
 from banco import Dao
 from flask_cors import CORS
 from flask_restplus import Api, Resource, apidoc
-from werkzeug.contrib.fixers import ProxyFix
 
 api_url_prefix = "/tec-cid/api"
 app = Flask(__name__)
-#app.wsgi_app = ProxyFix(app.wsgi_app)
 
 class MyCustomApi(Api):
     def _register_apidoc(self, app: Flask) -> None:
