@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint
+from flask import Flask, jsonify, request, Blueprint, url_for
 from banco import Dao
 from flask_cors import CORS
 from flask_restplus import Api, Resource, apidoc
