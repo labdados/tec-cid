@@ -4,7 +4,16 @@ import config as cfg
 
 class Dao:
     def __init__(self):
-        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"]) 
+        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"])
+        self.count_lic = self.get_count("Licitacao")
+        self.count_part = self.get_count("Participante")
+
+
+    def get_count(self, tipo):
+        result = self.graph.run("MATCH (l:{}) RETURN count(*)".format(tipo)).data()
+        dic = result[0]
+        count = dic['count(*)']
+        return count
 
     def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
         skip = itens * (pagina - 1)

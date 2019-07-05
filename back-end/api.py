@@ -45,6 +45,7 @@ class Licitacao(Resource):
       tipoLic = request.args.get("tipoLic", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
+      print(dao.count_lic)
       return jsonify(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
 
 
@@ -95,6 +96,7 @@ class Participante(Resource):
       codParticipante = request.args.get("codPart", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
+      print(dao.count_part)
       return jsonify(dao.get_participantes(pagina, limite))
 
 @api.route("/participantes/<string:id>")
