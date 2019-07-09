@@ -37,9 +37,37 @@ class Dao:
             node = lic.__node__
             node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.nu_licitacao, lic.tp_licitacao)
             nodes.append(node)
-        
+
+        nodes.append(self.secao_de_links(pagina, itens, ano, tipo, unidade))
         return(nodes)
 
+    def secao_de_links(self, pagina, limite, ano="", tipo="", unidade=""):
+        #url = "http://labdados.dcx.ufpb.br/tec-cid/api/licitacoes"
+        url = "http://localhost:5000/tec-cid/api/licitacoes"
+
+        last = int(self.count_lic / limite)
+        prox = pagina + 1
+
+        links = {"links": [
+            {
+                "rel": "self",
+                "href": url + "&limite={limite}&pagina={pagina}&ano={ano}&tipoLic={tipoLic}&codUni={codUni}".format(limite = limite, pagina = pagina, ano = ano, tipoLic = tipo, codUni = unidade)
+            },
+            {
+                "rel": "next",
+                "href": url + "?pagina={page}".format(page = prox)
+            },
+            {
+                "rel": "first",
+                "href": url
+            },
+            {
+                "rel": "last",
+                "href": url + "?pagina={pagina}".format(pagina = last)
+            }
+        ]}
+
+        return links
 
     def get_unidades_e_codigos(self):
         result = UnidadeGestora.match(self.graph)
