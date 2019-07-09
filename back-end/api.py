@@ -46,6 +46,9 @@ class Licitacao(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
       print(dao.count_lic)
+
+      #dao.secao_de_links(pagina, limite, ano, tipoLic, codUni)
+
       return jsonify(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
 
 
