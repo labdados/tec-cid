@@ -14,8 +14,8 @@ services:
             - ./var/lib/neo4j/plugins
             - ./var/lib/neo4j/certificates
             - ./var/log/neo4j
-        environment:
-            - NEO4J_AUTH=neo4j/tcctcc
+        env_file:
+            - .env
     flask:
         restart: always
         build: .
