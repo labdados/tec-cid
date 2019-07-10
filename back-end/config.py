@@ -7,4 +7,5 @@ NEO4J_CFG = {
     'bolt_port': config('BOLT_PORT', cast=int, default='7687'),
     'user': config('USER', default='neo4j'),
     'passwd': config('PASSWORD', default='neo4j')
+
 }

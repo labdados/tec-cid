@@ -13,8 +13,13 @@ sed -i "s/\r//g" licitacao.txt
 mv licitacao.txt /var/lib/neo4j/import
 mv participante.txt /var/lib/neo4j/import
 
+cat cria_index_licitacao.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat cria_index_participante.cypher | cypher-shell -u neo4j -p tcctcc --format plain	
+cat cria_index_unidade_gestora.cypher | cypher-shell -u neo4j -p tcctcc --format plain	
 cat carrega_unidade_gestora.cypher | cypher-shell -u neo4j -p tcctcc --format plain
 cat carrega_licitacao.cypher | cypher-shell -u neo4j -p tcctcc --format plain
 cat carrega_participante.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat carrega_candidatos.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat carrega_municipios.cypher | cypher-shell -u neo4j -p tcctcc --format plain
 
  
