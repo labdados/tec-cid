@@ -5,7 +5,7 @@ MATCH (u:UnidadeGestora {
         CodUnidadeGest: line.codigo_sagres
         })
 MERGE (m:Municipio {
-        Codigo: line.codigo_sagres
+        codigo_sagres: line.codigo_sagres
         })
-ON CREATE SET m.Nome= line.municipio_importacao
+ON CREATE SET m.municipio_importacao= line.municipio_importacao
 CREATE (m)-[:POSSUI]->(u);
