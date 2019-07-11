@@ -41,6 +41,33 @@ class Dao:
         nodes.append(self.secao_de_links(pagina, itens, ano, tipo, unidade))
         return(nodes)
 
+    def secao_de_links_participantes(self, pagina, limite):
+        url = "http://localhost:5000/tec-cid/api/participantes"
+
+        last = int(self.count_part / limite)
+        prox = pagina + 1
+
+        links = {"links": [
+            {
+                "rel": "self",
+                "href": url + "?pagina={page}&limite={limite}".format(page = pagina, limite = limite)
+            },
+            {
+                "rel": "next",
+                "href": url + "?pagina={page}".format(page=prox)
+            },
+            {
+                "rel": "first",
+                "href": url
+            },
+            {
+                "rel": "last",
+                "href": url + "?pagina={page}".format(page=last)
+            },
+        ]}
+        return links
+
+
     def secao_de_links(self, pagina, limite, ano="", tipo="", unidade=""):
         #url = "http://labdados.dcx.ufpb.br/tec-cid/api/licitacoes"
         url = "http://localhost:5000/tec-cid/api/licitacoes"
@@ -93,6 +120,7 @@ class Dao:
         skip = itens * (pagina - 1)
         result = Participante.match(self.graph).order_by("_.NomeParticipante").skip(skip).limit(itens)
         nodes = [n.__node__ for n in result]
+        nodes.append(self.secao_de_links_participantes(pagina, itens))
         return nodes
 
     # Busca participante pelo cpf ou cnpj

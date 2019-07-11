@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint, url_for
+from flask import Flask, jsonify, request, Blueprint, url_for, json
 from banco import Dao
 from flask_cors import CORS
 from flask_restplus import Api, Resource, apidoc
@@ -27,7 +27,8 @@ app.register_blueprint(blueprint)
 
 CORS(app, resources=r"/tec-cid/api/*", headers="Content-Type")
 
-dao = Dao()
+dao = Dao()   
+   
 
 @api.route("/licitacoes")
 @api.doc(params={"ano": "Ano das licitações"})
@@ -46,10 +47,18 @@ class Licitacao(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
       print(dao.count_lic)
+     
+      licitacoes =  json.dumps(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
+      links = dao.secao_de_links(pagina, limite, ano, tipoLic, codUni)
+      total = dao.count_lic
 
-      #dao.secao_de_links(pagina, limite, ano, tipoLic, codUni)
+      response = app.response_class(response=licitacoes, headers={
+         "X-Total-Count": dao.count_lic,
+         "Links": links['links']
+      }, mimetype="application/json")
 
-      return jsonify(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
+      return response
+
 
 
 @api.route("/licitacoes/<string:id>/propostas")
@@ -100,7 +109,20 @@ class Participante(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
       print(dao.count_part)
-      return jsonify(dao.get_participantes(pagina, limite))
+      #return jsonify(dao.get_participantes(pagina, limite))
+
+      participantes =  json.dumps(dao.get_participantes(pagina, limite))
+      links = dao.secao_de_links_participantes(pagina, limite)
+      total = dao.count_part
+
+      response = app.response_class(response=participantes, headers={
+         "X-Total-Count": dao.count_part,
+         "Links": links['links']
+      }, mimetype="application/json")
+
+      return response
+
+
 
 @api.route("/participantes/<string:id>")
 @api.doc(params={'id': 'CPF/CNPJ do participante'})
