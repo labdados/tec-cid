@@ -1,1 +1,0 @@
-CREATE INDEX ON :Licitacao(CodUnidadeGest,CodLicitacao,CodTipoLicitacao);
