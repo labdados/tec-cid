@@ -2,10 +2,10 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///jurisdicionado.csv" AS line fieldterminator ","
 MATCH (u:UnidadeGestora { 
-        CodUnidadeGest: line.codigo_sagres
+        CodUnidadeGest: line.CODIGO_SAGRES
         })
 MERGE (m:Municipio {
-        codigo_sagres: line.codigo_sagres
+        codigo_sagres: line.CODIGO_SAGRES
         })
-ON CREATE SET m.municipio_importacao= line.municipio_importacao
+ON CREATE SET m.municipioImportacao= line.MUNICIPIO_IMPORTACAO
 CREATE (m)-[:POSSUI]->(u);
