@@ -10,7 +10,7 @@ services:
             - 7687:7687
         volumes:
             - ./database/conf:/conf
-            - ./database/dados:/data
+            - ./database/data:/data
             - ./database/import:/import
             - ./database/plugins:/plugins
         env_file:
