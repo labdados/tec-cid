@@ -3,17 +3,17 @@ services:
     neodb:
         restart: always
         container_name: teccid-neodb
-        image: neo4j:latest
+        image: neo4j:3.5.7
         ports: 
             - 7474:7474
             - 7473:7473
             - 7687:7687
         volumes:
-            - ./storage/neo4j/data
-            - ./storage/neo4j/import
-            - ./var/lib/neo4j/plugins
-            - ./var/lib/neo4j/certificates
-            - ./var/log/neo4j
+            - /storage/neo4j/data:/data
+            - /storage/neo4j/import:/storage/neo4j/import
+            - /var/lib/neo4j/plugins:/var/lib/neo4j/plugins
+            - /usr/share/neo4j/lib:/usr/share/neo4j/lib
+            - /etc/neo4j:/conf
         env_file:
             - .env
     flask:
