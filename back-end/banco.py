@@ -1,10 +1,11 @@
 from py2neo import Graph
 from models import Licitacao, Participante, UnidadeGestora
-import config as cfg
+from settings import *
 
 class Dao:
     def __init__(self):
-        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"]) 
+        self.graph = Graph(host=NEO4J_CFG["host"] , port=NEO4J_CFG["port"],
+                           user=NEO4J_CFG["user"], password=NEO4J_CFG["passwd"]) 
 
     def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
         skip = itens * (pagina - 1)
