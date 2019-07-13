@@ -4,9 +4,8 @@ LOAD CSV WITH HEADERS FROM "file:///receita_2016.txt" AS line fieldterminator ";
 MATCH (p:Partido {
         SiglaPartido: line.SiglaPartido
 })
-MERGE (c:Candidato {
-        CPFdocandidato: line.CPFdocandidato
+MATCH (c:Candidato {
+        CPF: line.CPFdocandidato
         })
-ON CREATE SET c.NumCandidato= line.Numerocandidato, c.Nome= line.Nomecandidato, c.SiglaPartido = line.SiglaPartido
 MERGE (p)-[:LANÇA]->(c);
 

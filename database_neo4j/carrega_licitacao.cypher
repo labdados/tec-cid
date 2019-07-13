@@ -15,5 +15,5 @@ ON CREATE SET l.TipoLicitacao = line.de_TipoLicitacao,
         l.NomeObg = line.de_TipoObjeto, 
         l.Valor = line.vl_Licitacao, 
         l.Obs = line.de_Obs
-CREATE (u)-[:REALIZOU]->(l);
+MERGE (u)-[:REALIZOU]->(l);
 

@@ -19,7 +19,9 @@ cat cria_index_unidade_gestora.cypher | cypher-shell -u neo4j -p tcctcc --format
 cat carrega_unidade_gestora.cypher | cypher-shell -u neo4j -p tcctcc --format plain
 cat carrega_licitacao.cypher | cypher-shell -u neo4j -p tcctcc --format plain
 cat carrega_participante.cypher | cypher-shell -u neo4j -p tcctcc --format plain
-cat carrega_candidatos.cypher | cypher-shell -u neo4j -p tcctcc --format plain
-cat carrega_municipios.cypher | cypher-shell -u neo4j -p tcctcc --format plain
-
- 
+cat carrega_partido.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat carrega_candidato.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat carrega_municipio.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat cria_relacionamento_governa.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat cria_relacionamento_lança.cypher | cypher-shell -u neo4j -p tcctcc --format plain
+cat cria_relacionamento_doapara.cypher | cypher-shell -u neo4j -p tcctcc --format plain
