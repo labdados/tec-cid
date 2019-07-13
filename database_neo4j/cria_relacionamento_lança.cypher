@@ -7,5 +7,5 @@ MATCH (p:Partido {
 MATCH (c:Candidato {
         CPF: line.CPFdocandidato
         })
-MERGE (p)-[:LANÇA]->(c);
+MERGE (p)-[:FILIADO_A]->(c);
 
