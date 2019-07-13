@@ -13,6 +13,7 @@ services:
             - ./database/data:/data
             - ./database/import:/import
             - ./database/plugins:/plugins
+            - ./database/feed:/feed
         env_file:
             - .env
 

@@ -23,7 +23,6 @@ class Dao:
             conditions.append("_.CodUnidadeGest = '{}'".format(unidade))
 
         result = Licitacao.match(self.graph).where(*conditions).order_by("_.Data").skip(skip).limit(itens)
-        
         nodes = []
         for lic in result:
             node = lic.__node__
