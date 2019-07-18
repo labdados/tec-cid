@@ -1,1 +1,0 @@
-CREATE INDEX ON :Partido(SiglaPartido);
