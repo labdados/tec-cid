@@ -5,14 +5,15 @@ import config as cfg
 class Dao:
     def __init__(self):
         self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"])
-        self.count_lic = self.get_count("Licitacao")
-        self.count_part = self.get_count("Participante")
+        self.count_lic = 0
+        self.count_part = 0
+        self.count_props = 0
 
 
-    def get_count(self, tipo):
-        result = self.graph.run("MATCH (l:{}) RETURN count(*)".format(tipo)).data()
+    def get_count(self, query):
+        result = self.graph.run(query).data()     
         dic = result[0]
-        count = dic['count(*)']
+        count = dic['COUNT(*)']
         return count
 
     def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
@@ -30,6 +31,8 @@ class Dao:
         if unidade:
             conditions.append("_.CodUnidadeGest = '{}'".format(unidade))
 
+        self.count_lic = len(Licitacao.match(self.graph).where(*conditions))
+
         result = Licitacao.match(self.graph).where(*conditions).order_by("_.Data").skip(skip).limit(itens)
         
         nodes = []
@@ -41,60 +44,6 @@ class Dao:
         nodes.append(self.secao_de_links(pagina, itens, ano, tipo, unidade))
         return(nodes)
 
-    def secao_de_links_participantes(self, pagina, limite):
-        url = "http://localhost:5000/tec-cid/api/participantes"
-
-        last = int(self.count_part / limite)
-        prox = pagina + 1
-
-        links = {"links": [
-            {
-                "rel": "self",
-                "href": url + "?pagina={page}&limite={limite}".format(page = pagina, limite = limite)
-            },
-            {
-                "rel": "next",
-                "href": url + "?pagina={page}".format(page=prox)
-            },
-            {
-                "rel": "first",
-                "href": url
-            },
-            {
-                "rel": "last",
-                "href": url + "?pagina={page}".format(page=last)
-            },
-        ]}
-        return links
-
-
-    def secao_de_links(self, pagina, limite, ano="", tipo="", unidade=""):
-        #url = "http://labdados.dcx.ufpb.br/tec-cid/api/licitacoes"
-        url = "http://localhost:5000/tec-cid/api/licitacoes"
-
-        last = int(self.count_lic / limite)
-        prox = pagina + 1
-
-        links = {"links": [
-            {
-                "rel": "self",
-                "href": url + "&limite={limite}&pagina={pagina}&ano={ano}&tipoLic={tipoLic}&codUni={codUni}".format(limite = limite, pagina = pagina, ano = ano, tipoLic = tipo, codUni = unidade)
-            },
-            {
-                "rel": "next",
-                "href": url + "?pagina={page}".format(page = prox)
-            },
-            {
-                "rel": "first",
-                "href": url
-            },
-            {
-                "rel": "last",
-                "href": url + "?pagina={pagina}".format(pagina = last)
-            }
-        ]}
-
-        return links
 
     def get_unidades_e_codigos(self):
         result = UnidadeGestora.match(self.graph)
@@ -111,7 +60,11 @@ class Dao:
     def procurando_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
         skip = limite * (pagina - 1)
 
-        result = self.graph.run("MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}'  RETURN r SKIP {} LIMIT {}".format(codUnidadeGestora, codTipoLicitacao, codLicitacao, skip, limite))
+        query = "MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}' ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+
+        self.count_props = self.get_count(query+"RETURN COUNT(*)")
+
+        result = self.graph.run(query + " RETURN r SKIP {} LIMIT {}".format(skip, limite))
         nodes = [n for n in result]
         return nodes
 
@@ -119,6 +72,9 @@ class Dao:
     def get_participantes(self, pagina, itens):
         skip = itens * (pagina - 1)
         result = Participante.match(self.graph).order_by("_.NomeParticipante").skip(skip).limit(itens)
+
+        self.count_part = len(Participante.match(self.graph))
+
         nodes = [n.__node__ for n in result]
         nodes.append(self.secao_de_links_participantes(pagina, itens))
         return nodes

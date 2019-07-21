@@ -49,17 +49,19 @@ class Licitacao(Resource):
       print(dao.count_lic)
      
       licitacoes =  json.dumps(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
-      links = dao.secao_de_links(pagina, limite, ano, tipoLic, codUni)
       total = dao.count_lic
 
-      response = app.response_class(response=licitacoes, headers={
-         "X-Total-Count": dao.count_lic,
-         "Links": links['links']
-      }, mimetype="application/json")
+      response = gerando_response(licitacoes, total)
 
       return response
 
-
+def gerando_response(results, x_total_count):
+   print(results)
+   response = app.response_class(response=results, headers={
+         "X-Total-Count": x_total_count
+      }, mimetype="application/json")
+   
+   return response
 
 @api.route("/licitacoes/<string:id>/propostas")
 @api.doc(params={'id': 'id da licitação'})
@@ -79,7 +81,12 @@ class Propostas(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      return jsonify(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
+      results = json.dumps(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
+
+      response = gerando_response(results, dao.count_props)
+
+      return response
+
 
 @api.route("/licitacoes/<string:id>")
 @api.doc(params={'id': 'id da licitação'})
@@ -108,17 +115,11 @@ class Participante(Resource):
       codParticipante = request.args.get("codPart", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      print(dao.count_part)
-      #return jsonify(dao.get_participantes(pagina, limite))
 
       participantes =  json.dumps(dao.get_participantes(pagina, limite))
-      links = dao.secao_de_links_participantes(pagina, limite)
       total = dao.count_part
 
-      response = app.response_class(response=participantes, headers={
-         "X-Total-Count": dao.count_part,
-         "Links": links['links']
-      }, mimetype="application/json")
+      response = gerando_response(participantes, total)
 
       return response
 
