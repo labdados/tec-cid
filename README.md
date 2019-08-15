@@ -1,33 +1,38 @@
 # tec-cid
+
 Sistema do projeto Tecnologia Cidadã - PROBEX 2019
 
-
-## Como executar a API e o Banco do projeto localmente:
+## Como rodar a API REST e o banco de dados Neo4j
 
 ### Pré-requesitos
-Docker
+
+- Docker
 
 ### Passo a passo
 
-1º Clonar o repositório do [tec-cid](https://github.com/labdados/tec-cid.git).
-
-2º No diretório /tec-cid criar um .env com os seguintes dados:
-```bash
-
-NEO4J_HOST=neo4j
-NEO4J_PORT=7687
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=password
-NEO4J_AUTH=neo4j/password
-NEO4J_DIR_IMPORT=/import
-
-NEO4J_dbms_memory_heap_initial__size=1G
-NEO4J_dbms_memory_heap_max__size=4G
-NEO4J_dbms_connectors_default__listen__address=0.0.0.0
+1. Clonar este repositório:
 
 ```
-3º No diretório ``` /tec-cid ``` rodar o ```docker-compose up```
+git clone https://github.com/labdados/tec-cid.git`
+```
 
-4º Após isso é necessário popular o banco, para isso vá para o diretório ```database/feed``` e rode o script ```feed_docker_neo4j.sh``` (Caso haja erro de permissão, dar um ```chmod -R 777```).
+2. No diretório `tec-cid`, criar um `.env` com base no `.env.example`:
 
-5º Verificar se tudo ocorreu como esperado acessando a [API](http://localhost:5000/tec-cid/api/docs) e o [Banco](http://localhost:7474/browser).
+```
+cd tec-cid
+cp .env.example .env
+```
+
+3. Executar banco de dados neo4j e servidor da API REST, configurados no docker-compose.yml:
+```
+docker-compose up
+```
+
+4. Popular o banco de dados, executando script que baixa arquivos e alimenta o neo4j:
+
+```
+cd database/feed
+./feed_docker_neo4j.sh
+```
+
+5. Verificar se tudo ocorreu como esperado acessando a [API](http://localhost:5000/tec-cid/api/docs) e o [browser do neo4j](http://localhost:7474/browser), usando as credenciais especificadas no `.env`
