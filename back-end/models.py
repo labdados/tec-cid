@@ -4,7 +4,7 @@ class Licitacao(GraphObject):
     cd_ugestora = Property("CodUnidadeGest")
     nu_licitacao = Property("CodLicitacao")
     tp_licitacao = Property("CodTipoLicitacao")
-    de_tipolicitacao = TipoLicitacao = Property("TipoLicitacao")
+    de_tipolicitacao = Property("TipoLicitacao")
     tp_objeto = Property("CodObj")
     dt_homologacao = Property("Data")
     de_tipoobjeto = Property("NomeObg")
