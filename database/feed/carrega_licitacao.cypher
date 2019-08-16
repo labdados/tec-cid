@@ -9,11 +9,15 @@ MERGE (l:Licitacao{
         CodLicitacao: line.nu_Licitacao,
         CodTipoLicitacao: line.tp_Licitacao
 })
-ON CREATE SET l.TipoLicitacao = line.de_TipoLicitacao, 
-        l.Data = line.dt_Homologacao,
+ON CREATE SET
+        l.TipoLicitacao = line.de_TipoLicitacao, 
+        l.Data = date({year: toInt(split(line.dt_Homologacao, "/")[2]),
+                       month: toInt(split(line.dt_Homologacao, "/")[1]),
+                       day: toInt(split(line.dt_Homologacao, "/")[0])
+                      }),
         l.CodObj = line.tp_Objeto, 
         l.NomeObg = line.de_TipoObjeto, 
-        l.Valor = line.vl_Licitacao, 
+        l.Valor = toFloat(line.vl_Licitacao),
         l.Obs = line.de_Obs
 CREATE (u)-[:REALIZOU]->(l);
 

@@ -35,6 +35,7 @@ class Dao:
         for lic in result:
             node = lic.__node__
             node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.nu_licitacao, lic.tp_licitacao)
+            node["Data"] = node["Data"].__str__()
             nodes.append(node)
         
         return(nodes)
