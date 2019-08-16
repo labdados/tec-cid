@@ -7,20 +7,23 @@ class Dao:
         self.graph = Graph(host=NEO4J_CFG["host"] , port=NEO4J_CFG["port"],
                            user=NEO4J_CFG["user"], password=NEO4J_CFG["passwd"])
 
-    def get_licitacoes(self, ano, tipo, unidade, pagina, itens, ordenar_por, ordem):
+    def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem):
         skip = itens * (pagina - 1)
         
         filtros = {}
         conditions = ["_.Valor IS NOT NULL"]
-
-        if ano:
-            conditions.append("_.Data ENDS WITH '{}'".format(ano))
 
         if tipo:
             conditions.append("_.CodTipoLicitacao = '{}'".format(tipo))
 
         if unidade:
             conditions.append("_.CodUnidadeGest = '{}'".format(unidade))
+
+        if data_inicio:
+            conditions.append("_.Data >= date('{}')".format(data_inicio))
+
+        if data_fim:
+            conditions.append("_.Data <= date('{}')".format(data_fim))
 
         if not ordenar_por:
             ordenar_por = "_.Data"

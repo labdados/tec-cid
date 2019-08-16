@@ -30,24 +30,30 @@ CORS(app, resources=r"/tec-cid/api/*", headers="Content-Type")
 dao = Dao()
 
 @api.route("/licitacoes")
-@api.doc(params={"ano": "Ano das licitações"})
-@api.doc(params={"codUni": "Código da unidade gestora"})
-@api.doc(params={"tipoLic": "Código do tipo da licitação"})
-@api.doc(params={'pagina': 'Página que será acessada'})
-@api.doc(params={'limite': 'Quantos resultados serão retornados'})
+@api.doc(params={
+   "codUni": "Código da unidade gestora",
+   "tipoLic": "Código do tipo da licitação",
+   "dataInicio": "Data de início de um intervalo de tempo, no formato `AAAA-MM-DD`.",
+   "dataFim": "Data de término de um intervalo de tempo, no formato `AAAA-MM-DD`.",
+   "limite": "Quantos resultados serão retornados",
+   "pagina": "Página que será acessada",
+   "ordenarPor": "Nome do campo pelo qual a lista deve ser ordenada.",
+   "ordem": "O sentido da ordenação: `ASC` para A a Z ou 0 a 9, e `DESC` para Z a A ou 9 a 0."
+})
 class Licitacao(Resource):
    def get(self):
       ''' 
       Retorna as licitações baseadas nos filtros que foram passados
       '''
-      ano = request.args.get("ano", '', str)
-      codUni = request.args.get("codUni", '', str)
-      tipoLic = request.args.get("tipoLic", '', str)
+      data_inicio = request.args.get("dataInicio", '', str)
+      data_fim = request.args.get("dataFim", '', str)
+      cod_uni = request.args.get("codUni", '', str)
+      tipo_lic = request.args.get("tipoLic", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
       ordenar_por = request.args.get("ordenarPor", "Data", str)
       ordem = request.args.get("ordem", '', str)
-      return jsonify(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite, ordenar_por, ordem))
+      return jsonify(dao.get_licitacoes(cod_uni, tipo_lic, data_inicio, data_fim, pagina, limite, ordenar_por, ordem))
 
 
 @api.route("/licitacoes/<string:id>/propostas")
