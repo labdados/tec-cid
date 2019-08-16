@@ -11,7 +11,7 @@ class Dao:
         skip = itens * (pagina - 1)
         
         filtros = {}
-        conditions = []
+        conditions = ["_.Valor IS NOT NULL"]
 
         if ano:
             conditions.append("_.Data ENDS WITH '{}'".format(ano))
