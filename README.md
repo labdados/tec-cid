@@ -13,7 +13,7 @@ Sistema do projeto Tecnologia Cidadã - PROBEX 2019
 1. Clonar este repositório:
 
 ```
-git clone https://github.com/labdados/tec-cid.git`
+git clone https://github.com/labdados/tec-cid.git
 ```
 
 2. No diretório `tec-cid`, criar um `.env` com base no `.env.example`:
