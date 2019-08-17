@@ -53,7 +53,9 @@ class Licitacao(Resource):
       limite = request.args.get("limite", 20, int)
       ordenar_por = request.args.get("ordenarPor", "Data", str)
       ordem = request.args.get("ordem", '', str)
-      return jsonify(dao.get_licitacoes(cod_uni, tipo_lic, data_inicio, data_fim, pagina, limite, ordenar_por, ordem))
+      licitacoes = dao.get_licitacoes(cod_uni, tipo_lic, data_inicio, data_fim,
+                                      pagina, limite, ordenar_por, ordem)
+      return jsonify({"dados": licitacoes})
 
 
 @api.route("/licitacoes/<string:id>/propostas")
