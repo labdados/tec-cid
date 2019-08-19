@@ -1,9 +1,13 @@
 #!/bin/bash
 
 # if env variables do not exist, use default values
-${NEO4J_DIR_IMPORT:="../import"}
-${NEO4J_USERNAME:="neo4j"}
-${NEO4J_PASSWORD:="neo4j"}
+NEO4J_DIR_IMPORT=${NEO4J_DIR_IMPORT:-"../import"}
+NEO4J_USERNAME=${NEO4J_USERNAME:-"neo4j"}
+NEO4J_PASSWORD=${NEO4J_PASSWORD:-"password"}
+
+echo $NEO4J_DIR_IMPORT
+
+mkdir -p $NEO4J_DIR_IMPORT
 
 curl -o $NEO4J_DIR_IMPORT/licitacao.txt.gz https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Licitacao_Esfera_Municipal.txt.gz
 curl -o $NEO4J_DIR_IMPORT/participante.txt.gz https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Propostas_Licitacao_Esfera_Municipal.txt.gz
