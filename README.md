@@ -28,10 +28,12 @@ cp .env.example .env
 docker-compose up
 ```
 
-4. Popular o banco de dados, executando script que baixa arquivos e alimenta o neo4j:
+4. Fazer download dos dados do TCE-PB e TSE, e alimentar o banco de dados neo4j:
 
 ```
 cd database/feed
+./extract_data_tce-pb.sh
+./extract_data_tse.sh
 ./feed_docker_neo4j.sh
 ```
 
