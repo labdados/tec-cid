@@ -22,5 +22,5 @@ fi
 
 gunzip licitacao.txt.gz
 gunzip participante.txt.gz
-sed -i .sed -e 's/"/ /g' -e "s/\r//g" licitacao.txt 
+sed -i'.tmp' -e 's/"/ /g' -e "s/\r//g" licitacao.txt 
 
