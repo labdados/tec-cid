@@ -11,7 +11,7 @@ services:
         volumes:
             - ./database/conf:/conf
             - ./database/data:/data
-            - ./database/import:/import
+            - ./dados:/import
             - ./database/plugins:/plugins
             - ./database/feed:/feed
         env_file:

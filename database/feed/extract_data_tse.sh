@@ -1,29 +1,31 @@
 #!/bin/bash
 
 # if env variables do not exist, use default values
-NEO4J_DIR_IMPORT=${NEO4J_DIR_IMPORT:-"../import"}
+IMPORT_DATA_DIR=${IMPORT_DATA_DIR:-"../../dados"}
 
-echo $NEO4J_DIR_IMPORT
+echo $IMPORT_DATA_DIR
 
-mkdir -p $NEO4J_DIR_IMPORT
+mkdir -p $IMPORT_DATA_DIR
 
-cd $NEO4J_DIR_IMPORT
+cd $IMPORT_DATA_DIR
 
-curl -o prestacao_2016.zip http://agencia.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_contas_relatorio_financeiro_2016.zip
-curl -o prefeitos_eleitos_pb_2016_com_acento.csv https://raw.githubusercontent.com/StewenAscari/tcc-licitacoes-doacoes/master/dados/prefeitos_eleitos_pb_2016.csv
+curl -o prestacao_2016.zip.tmp http://agencia.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_contas_relatorio_financeiro_2016.zip
+curl -o prefeitos_pb_2016.csv.tmp https://raw.githubusercontent.com/StewenAscari/tcc-licitacoes-doacoes/master/dados/prefeitos_eleitos_pb_2016.csv
 
-if [ -f "$NEO4J_DIR_IMPORT/receitas_2016_PB.txt" ]; then
-    mv $NEO4J_DIR_IMPORT/receitas_2016_PB.txt $NEO4J_DIR_IMPORT/receitas_2016_PB.txt.bkp
+if [ -f "receitas_2016_PB.txt" ]; then
+    mv receitas_2016_PB.txt receitas_2016_PB.txt.bkp
 fi
 
-if [ -f "$NEO4J_DIR_IMPORT/prefeitos_2016_PB.csv" ]; then
-    mv $NEO4J_DIR_IMPORT/prefeitos_2016_PB.csv $NEO4J_DIR_IMPORT/prefeitos_2016_PB.csv.bkp
+if [ -f "prefeitos_2016_PB.csv" ]; then
+    mv prefeitos_2016_PB.csv prefeitos_2016_PB.csv.bkp
 fi
 
-unzip -p prestacao_2016.zip receitas_candidatos_relatorio_financeiro_2016_PB.txt > receitas_2016_PB_latin1.txt
-iconv -f UTF8 -t ASCII//TRANSLIT < prefeitos_eleitos_pb_2016_com_acento.csv > prefeitos_2016_PB.csv
-iconv --from latin1 --to-code utf-8 receitas_2016_PB_latin1.txt > receitas_2016_PB_com_acento.txt
-iconv -f UTF8 -t ASCII//TRANSLIT < receitas_2016_PB_com_acento.txt > receitas_2016_PB.txt
-sed -i'.tmp' -e '1s/\///g' -e '1s/ //g' -e 's/"//g' receitas_2016_PB.txt
+# retirando acentos
+iconv -f UTF8 -t ASCII//TRANSLIT < prefeitos_2016_PB.csv.tmp > prefeitos_2016_PB.csv
 
-rm prestacao_2016.zip receitas_2016_PB_latin1.txt receitas_2016_PB_com_acento.txt
+unzip -p prestacao_2016.zip.tmp receitas_candidatos_relatorio_financeiro_2016_PB.txt > receitas_2016_PB.txt_1.tmp
+iconv --from latin1 --to-code utf-8 receitas_2016_PB.txt_1.tmp > receitas_2016_PB.txt_2.tmp
+iconv -f UTF8 -t ASCII//TRANSLIT < receitas_2016_PB.txt_2.tmp > receitas_2016_PB.txt_3.tmp
+sed -e '1s/\///g' -e '1s/ //g' -e 's/"//g' receitas_2016_PB.txt_3.tmp > receitas_2016_PB.txt
+
+rm prestacao_2016.zip.tmp prefeitos_pb_2016.csv.tmp receitas_2016_PB.txt_?.tmp
