@@ -1,6 +1,6 @@
 //carrega participante
 USING PERIODIC COMMIT
-LOAD CSV WITH HEADERS FROM "file:///participante.txt" AS line fieldterminator "|"
+LOAD CSV WITH HEADERS FROM "file:///propostas.txt" AS line fieldterminator "|"
 MATCH (l:Licitacao { 
         CodUnidadeGest: line.cd_ugestora,
         CodLicitacao: line.nu_licitacao,

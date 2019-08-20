@@ -1,26 +1,27 @@
 #!/bin/bash
 
 # if env variables do not exist, use default values
-NEO4J_DIR_IMPORT=${NEO4J_DIR_IMPORT:-"../import"}
+IMPORT_DATA_DIR=${IMPORT_DATA_DIR:-"../../dados"}
 
-echo $NEO4J_DIR_IMPORT
+echo $IMPORT_DATA_DIR
 
-mkdir -p $NEO4J_DIR_IMPORT
+mkdir -p $IMPORT_DATA_DIR
 
-cd $NEO4J_DIR_IMPORT
+cd $IMPORT_DATA_DIR
 
 curl -o licitacao.txt.gz https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Licitacao_Esfera_Municipal.txt.gz
-curl -o participante.txt.gz https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Propostas_Licitacao_Esfera_Municipal.txt.gz
+curl -o propostas.txt.gz https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Propostas_Licitacao_Esfera_Municipal.txt.gz
 
 if [ -f "licitacao.txt" ]; then
     mv licitacao.txt licitacao.txt.bkp
 fi
     
-if [ -f "participante.txt" ]; then
-    mv participante.txt participante.txt.bkp
+if [ -f "propostas.txt" ]; then
+    mv propostas.txt propostas.txt.bkp
 fi
 
 gunzip licitacao.txt.gz
-gunzip participante.txt.gz
-sed -i'.tmp' -e 's/"/ /g' -e "s/\r//g" licitacao.txt 
-
+gunzip propostas.txt.gz
+sed -i".tmp" -e 's/"/ /g' -e "s/\r//g" licitacao.txt
+ 
+ rm licitacao.txt.tmp
