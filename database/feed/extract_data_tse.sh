@@ -24,6 +24,6 @@ unzip -p prestacao_2016.zip receitas_candidatos_relatorio_financeiro_2016_PB.txt
 iconv -f UTF8 -t ASCII//TRANSLIT < prefeitos_eleitos_pb_2016_com_acento.csv > prefeitos_2016_PB.csv
 iconv --from latin1 --to-code utf-8 receitas_2016_PB_latin1.txt > receitas_2016_PB_com_acento.txt
 iconv -f UTF8 -t ASCII//TRANSLIT < receitas_2016_PB_com_acento.txt > receitas_2016_PB.txt
-sed -e  '1s/\///g' -e '1s/ //g' -e 's/"//g' -i .sed receitas_2016_PB.txt
+sed -i'.tmp' -e '1s/\///g' -e '1s/ //g' -e 's/"//g' receitas_2016_PB.txt
 
 rm prestacao_2016.zip receitas_2016_PB_latin1.txt receitas_2016_PB_com_acento.txt
