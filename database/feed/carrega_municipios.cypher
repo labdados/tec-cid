@@ -8,4 +8,4 @@ MERGE (m:Municipio {
         codigo_sagres: line.codigo_sagres
         })
 ON CREATE SET m.municipio_importacao= line.municipio_importacao
-CREATE (m)-[:POSSUI]->(u);
+MERGE (m)-[:POSSUI]->(u);

@@ -8,6 +8,6 @@ MERGE (c:Candidato {
         CPF: line.CPFdocandidato
         })
 ON CREATE SET c.NumCandidato= line.Numerocandidato, c.Nome= line.Nomecandidato, c.SiglaPartido = line.SiglaPartido
-CREATE (p)-[:DOA_PARA{
+MERGE (p)-[:DOA_PARA{
         ValorDoado: line.Valorreceita
 }]->(c);
