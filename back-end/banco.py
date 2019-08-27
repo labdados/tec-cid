@@ -51,7 +51,7 @@ class Dao:
             node["Data"] = node["Data"].__str__()
             nodes.append(node)
 
-        nodes.append(self.secao_de_links(pagina, itens, ano, tipo, unidade))
+        #nodes.append(self.secao_de_links(pagina, itens, ano, tipo, unidade))
         return(nodes)
 
     
@@ -86,7 +86,7 @@ class Dao:
         self.count_part = len(Participante.match(self.graph))
 
         nodes = [n.__node__ for n in result]
-        nodes.append(self.secao_de_links_participantes(pagina, itens))
+        #nodes.append(self.secao_de_links_participantes(pagina, itens))
         return nodes
 
     # Busca participante pelo cpf ou cnpj
