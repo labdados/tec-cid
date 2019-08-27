@@ -1,5 +1,5 @@
 from py2neo import Graph
-from models import Licitacao, Participante, UnidadeGestora
+from models import Licitacao, Participante, UnidadeGestora, Candidato, Partido, Municipio
 from settings import *
 
 class Dao:
@@ -76,3 +76,20 @@ class Dao:
         nodes = [n.__node__ for n in result]
         return nodes          
 
+    def get_candidatos(self, pagina, limite):
+        skip = limite * (pagina - 1)
+        result = Candidato.match(self.graph).order_by("_.Nome").skip(skip).limit(limite)
+        nodes = [n.__node__ for n in result]
+        return nodes
+    
+    def get_partidos(self, pagina, limite):
+        skip = limite * (pagina - 1)
+        result = Partido.match(self.graph).order_by("_.SiglaPartido").skip(skip).limit(limite)
+        nodes = [n.__node__ for n in result]
+        return nodes
+
+    def get_municipios(self, pagina, limite):
+        skip = limite * (pagina - 1)
+        result = Municipio.match(self.graph).skip(skip).limit(limite)
+        nodes = [n.__node__ for n in result]
+        return nodes
