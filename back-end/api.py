@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint, url_for
+from flask import Flask, jsonify, request, Blueprint, url_for, json
 from banco import Dao
 from flask_cors import CORS
 from flask_restplus import Api, Resource, apidoc
@@ -27,7 +27,8 @@ app.register_blueprint(blueprint)
 
 CORS(app, resources=r"/tec-cid/api/*", headers="Content-Type")
 
-dao = Dao()
+dao = Dao()   
+   
 
 @api.route("/licitacoes")
 @api.doc(params={
@@ -55,8 +56,20 @@ class Licitacao(Resource):
       ordem = request.args.get("ordem", '', str)
       licitacoes = dao.get_licitacoes(cod_uni, tipo_lic, data_inicio, data_fim,
                                       pagina, limite, ordenar_por, ordem)
-      return jsonify({"dados": licitacoes})
+      
+      licitacoes =  json.dumps({"dados": licitacoes})
+      total = dao.count_lic
 
+      response = gera_response(licitacoes, total)
+
+      return response
+
+def gera_response(results, x_total_count):
+   response = app.response_class(response=results, headers={
+         "X-Total-Count": x_total_count
+      }, mimetype="application/json")
+   
+   return response
 
 @api.route("/licitacoes/<string:id>/propostas")
 @api.doc(params={'id': 'id da licitação'})
@@ -76,7 +89,12 @@ class Propostas(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      return jsonify(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
+      results = json.dumps(dao.procura_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
+
+      response = gera_response(results, dao.count_props)
+
+      return response
+
 
 @api.route("/licitacoes/<string:id>")
 @api.doc(params={'id': 'id da licitação'})
@@ -105,7 +123,15 @@ class Participante(Resource):
       codParticipante = request.args.get("codPart", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      return jsonify(dao.get_participantes(pagina, limite))
+
+      participantes =  json.dumps(dao.get_participantes(pagina, limite))
+      total = dao.count_part
+
+      response = gera_response(participantes, total)
+
+      return response
+
+
 
 @api.route("/participantes/<string:id>")
 @api.doc(params={'id': 'CPF/CNPJ do participante'})
