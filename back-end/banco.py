@@ -1,14 +1,14 @@
 from py2neo import Graph
 from models import Licitacao, Participante, UnidadeGestora
-import config as cfg
+from settings import *
 
 class Dao:
     def __init__(self):
-        self.graph = Graph(host=cfg.NEO4J_CFG["host"] , http_port=cfg.NEO4J_CFG["http_port"], https_port=cfg.NEO4J_CFG["https_port"] , bolt_port=cfg.NEO4J_CFG["bolt_port"], user=cfg.NEO4J_CFG["user"], password=cfg.NEO4J_CFG["passwd"])
+        self.graph = Graph(host=NEO4J_CFG["host"] , port=NEO4J_CFG["port"],
+                           user=NEO4J_CFG["user"], password=NEO4J_CFG["passwd"])
         self.count_lic = 0
         self.count_part = 0
         self.count_props = 0
-
 
     def get_count(self, query):
         result = self.graph.run(query).data()     
@@ -16,14 +16,11 @@ class Dao:
         count = dic['COUNT(*)']
         return count
 
-    def get_licitacoes(self, ano, tipo, unidade, pagina, itens):
+    def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem):
         skip = itens * (pagina - 1)
         
         filtros = {}
-        conditions = []
-
-        if ano:
-            conditions.append("_.Data ENDS WITH '{}'".format(ano))
+        conditions = ["_.Valor IS NOT NULL"]
 
         if tipo:
             conditions.append("_.CodTipoLicitacao = '{}'".format(tipo))
@@ -31,20 +28,33 @@ class Dao:
         if unidade:
             conditions.append("_.CodUnidadeGest = '{}'".format(unidade))
 
-        self.count_lic = len(Licitacao.match(self.graph).where(*conditions))
+        if data_inicio:
+            conditions.append("_.Data >= date('{}')".format(data_inicio))
 
-        result = Licitacao.match(self.graph).where(*conditions).order_by("_.Data").skip(skip).limit(itens)
-        
+        if data_fim:
+            conditions.append("_.Data <= date('{}')".format(data_fim))
+
+        if not ordenar_por:
+            ordenar_por = "_.Data"
+        else:
+            ordenar_por = "_." + ordenar_por
+
+        if ordem.upper() in ["DESC", "ASC"]:
+            ordenar_por += " {}".format(ordem)
+
+        self.count_lic = len(Licitacao.match(self.graph).where(*conditions))
+        result = Licitacao.match(self.graph).where(*conditions).order_by(ordenar_por).skip(skip).limit(itens)
         nodes = []
         for lic in result:
             node = lic.__node__
             node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.nu_licitacao, lic.tp_licitacao)
+            node["Data"] = node["Data"].__str__()
             nodes.append(node)
 
         nodes.append(self.secao_de_links(pagina, itens, ano, tipo, unidade))
         return(nodes)
 
-
+    
     def get_unidades_e_codigos(self):
         result = UnidadeGestora.match(self.graph)
         nodes = [n.__node__ for n in result]
