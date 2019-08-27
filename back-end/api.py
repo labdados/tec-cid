@@ -31,31 +31,40 @@ dao = Dao()
    
 
 @api.route("/licitacoes")
-@api.doc(params={"ano": "Ano das licitações"})
-@api.doc(params={"codUni": "Código da unidade gestora"})
-@api.doc(params={"tipoLic": "Código do tipo da licitação"})
-@api.doc(params={'pagina': 'Página que será acessada'})
-@api.doc(params={'limite': 'Quantos resultados serão retornados'})
+@api.doc(params={
+   "codUni": "Código da unidade gestora",
+   "tipoLic": "Código do tipo da licitação",
+   "dataInicio": "Data de início de um intervalo de tempo, no formato `AAAA-MM-DD`.",
+   "dataFim": "Data de término de um intervalo de tempo, no formato `AAAA-MM-DD`.",
+   "limite": "Quantos resultados serão retornados",
+   "pagina": "Página que será acessada",
+   "ordenarPor": "Nome do campo pelo qual a lista deve ser ordenada.",
+   "ordem": "O sentido da ordenação: `ASC` para A a Z ou 0 a 9, e `DESC` para Z a A ou 9 a 0."
+})
 class Licitacao(Resource):
    def get(self):
       ''' 
       Retorna as licitações baseadas nos filtros que foram passados
       '''
-      ano = request.args.get("ano", '', str)
-      codUni = request.args.get("codUni", '', str)
-      tipoLic = request.args.get("tipoLic", '', str)
+      data_inicio = request.args.get("dataInicio", '', str)
+      data_fim = request.args.get("dataFim", '', str)
+      cod_uni = request.args.get("codUni", '', str)
+      tipo_lic = request.args.get("tipoLic", '', str)
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      print(dao.count_lic)
-     
-      licitacoes =  json.dumps(dao.get_licitacoes(ano, tipoLic, codUni, pagina, limite))
+      ordenar_por = request.args.get("ordenarPor", "Data", str)
+      ordem = request.args.get("ordem", '', str)
+      licitacoes = dao.get_licitacoes(cod_uni, tipo_lic, data_inicio, data_fim,
+                                      pagina, limite, ordenar_por, ordem)
+      
+      licitacoes =  json.dumps({"dados": licitacoes})
       total = dao.count_lic
 
-      response = gerando_response(licitacoes, total)
+      response = gera_response(licitacoes, total)
 
       return response
 
-def gerando_response(results, x_total_count):
+def gera_response(results, x_total_count):
    print(results)
    response = app.response_class(response=results, headers={
          "X-Total-Count": x_total_count
@@ -83,7 +92,7 @@ class Propostas(Resource):
 
       results = json.dumps(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
 
-      response = gerando_response(results, dao.count_props)
+      response = gera_response(results, dao.count_props)
 
       return response
 
