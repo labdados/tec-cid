@@ -62,19 +62,28 @@ class Dao:
     
 
     def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
-        result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao))
-        nodes = [n for n in result]
+        result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
+        nodes = []
+        for lic in result:
+            node = lic["l"]
+            node["id"] = "{}-{}-{}".format(codUnidadeGestora, codLicitacao, codTipoLicitacao)
+            node["Data"] = node["Data"].__str__()
+            nodes.append(node)
         return nodes
 
 
-    def procurando_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
+    def procura_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
         skip = limite * (pagina - 1)
 
-        query = "MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}' ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+        query = "MATCH (p:Participante)<-[r:RECEBEU_PROPOSTA_DE]-(l:Licitacao) \
+            WHERE l.CodUnidadeGest='{}' and l.CodTipoLicitacao='{}' and l.CodLicitacao='{}'".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+        #query = "MATCH p=()-[r:FEZ_PROPOSTA_EM]->() WHERE r.CodUnidadeGest='{}' and r.CodTipoLicitacao='{}' and r.CodLicitacao='{}' ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
 
         self.count_props = self.get_count(query+"RETURN COUNT(*)")
 
-        result = self.graph.run(query + " RETURN r SKIP {} LIMIT {}".format(skip, limite))
+        result = self.graph.run(query + " RETURN p.NomeParticipante, p.ChaveParticipante, r.CodUnidadeGest, \
+                                          r.CodLicitacao, r.CodTipoLicitacao, r.QuantidadeOferdada, r.ValorOfertado \
+                                          SKIP {} LIMIT {}".format(skip, limite))
         nodes = [n for n in result]
         return nodes
 

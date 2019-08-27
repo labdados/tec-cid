@@ -65,7 +65,6 @@ class Licitacao(Resource):
       return response
 
 def gera_response(results, x_total_count):
-   print(results)
    response = app.response_class(response=results, headers={
          "X-Total-Count": x_total_count
       }, mimetype="application/json")
@@ -90,7 +89,7 @@ class Propostas(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      results = json.dumps(dao.procurando_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
+      results = json.dumps(dao.procura_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
 
       response = gera_response(results, dao.count_props)
 
@@ -128,7 +127,7 @@ class Participante(Resource):
       participantes =  json.dumps(dao.get_participantes(pagina, limite))
       total = dao.count_part
 
-      response = gerando_response(participantes, total)
+      response = gera_response(participantes, total)
 
       return response
 
