@@ -10,7 +10,7 @@ mkdir -p $IMPORT_DATA_DIR
 cd $IMPORT_DATA_DIR
 
 curl -o prestacao_2016.zip.tmp http://agencia.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_contas_relatorio_financeiro_2016.zip
-curl -o prefeitos_pb_2016.csv.tmp https://raw.githubusercontent.com/StewenAscari/tcc-licitacoes-doacoes/master/dados/prefeitos_eleitos_pb_2016.csv
+curl -o prefeitos_2016_PB.csv.tmp https://raw.githubusercontent.com/StewenAscari/tcc-licitacoes-doacoes/master/dados/prefeitos_eleitos_pb_2016.csv
 
 if [ -f "receitas_2016_PB.txt" ]; then
     mv receitas_2016_PB.txt receitas_2016_PB.txt.bkp
@@ -28,4 +28,4 @@ iconv --from latin1 --to-code utf-8 receitas_2016_PB.txt_1.tmp > receitas_2016_P
 iconv -f UTF8 -t ASCII//TRANSLIT < receitas_2016_PB.txt_2.tmp > receitas_2016_PB.txt_3.tmp
 sed -e '1s/\///g' -e '1s/ //g' -e 's/"//g' receitas_2016_PB.txt_3.tmp > receitas_2016_PB.txt
 
-rm prestacao_2016.zip.tmp prefeitos_pb_2016.csv.tmp receitas_2016_PB.txt_?.tmp
+rm prestacao_2016.zip.tmp prefeitos_2016_PB.csv.tmp receitas_2016_PB.txt_?.tmp
