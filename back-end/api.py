@@ -126,7 +126,8 @@ class Participante(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      participantes =  json.dumps(dao.get_participantes(pagina, limite))
+      participantes = dao.get_participantes(pagina, limite)
+      participantes =  json.dumps({"dados": participantes})
       total = dao.count_part
 
       response = gera_response(participantes, total)
@@ -162,7 +163,8 @@ class Candidatos(Resource):
       '''
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      return jsonify(dao.get_candidatos(pagina, limite))
+      candidatos = dao.get_candidatos(pagina, limite)
+      return jsonify({"dados": candidatos})
 
 @api.route("/partidos")
 @api.doc(params={'pagina': 'Página que será acessada'})
@@ -174,7 +176,8 @@ class Partidos(Resource):
       '''
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      return jsonify(dao.get_partidos(pagina, limite))
+      partidos = dao.get_partidos(pagina, limite)
+      return jsonify({"dados": partidos})
 
 @api.route("/municipios")
 @api.doc(params={'pagina': 'Página que será acessada'})
@@ -186,7 +189,8 @@ class Municipios(Resource):
       '''
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      return jsonify(dao.get_municipios(pagina, limite))
+      municipios = dao.get_municipios(pagina, limite)
+      return jsonify({"dados": municipios})
 
 
 app.run(host = '0.0.0.0', debug=True)
