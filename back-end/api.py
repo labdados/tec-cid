@@ -127,13 +127,12 @@ class Participante(Resource):
       limite = request.args.get("limite", 20, int)
 
       participantes = dao.get_participantes(pagina, limite)
-      participantes =  json.dumps({"dados": participantes})
+      results = json.dumps({"dados": participantes})
       total = dao.count_part
 
-      response = gera_response(participantes, total)
+      response = gera_response(results, total)
 
       return response
-
 
 
 @api.route("/participantes/<string:id>")
@@ -143,7 +142,8 @@ class ParticipanteEspecifico(Resource):
       '''
       Retorna um participante específico
       '''
-      return jsonify(dao.get_participante_por_codigo(id))
+      participante = dao.get_participante_por_codigo(id)
+      return jsonify({"dados": participante})
 
 @api.route("/unidades-gestoras")
 class UnidadesGest(Resource):
@@ -151,7 +151,8 @@ class UnidadesGest(Resource):
       '''
       Retorna uma lista com os nomes e os códigos das unidades gestoras
       '''
-      return jsonify(dao.get_unidades_e_codigos())
+      unidades = dao.get_unidades_e_codigos()
+      return jsonify({"dados": unidades})
 
 @api.route("/candidatos")
 @api.doc(params={'pagina': 'Página que será acessada'})
