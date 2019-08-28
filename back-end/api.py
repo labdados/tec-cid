@@ -89,7 +89,8 @@ class Propostas(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      results = json.dumps(dao.procura_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite))
+      propostas = dao.get_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite)
+      results = json.dumps({"dados": propostas})
 
       response = gera_response(results, dao.count_props)
 
@@ -107,8 +108,9 @@ class LicitacaoEspecifica(Resource):
       codUnidadeGestora = data[0]
       codLicitacao = data[1]
       codTipoLicitacao = data[2]
-
-      return jsonify(dao.get_licitacao_especifica(codUnidadeGestora, codTipoLicitacao, codLicitacao))
+      licitacao = dao.get_licitacao_especifica(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+      result = json.dumps({"dados": licitacao})
+      return result
 
 
 @api.route("/participantes")

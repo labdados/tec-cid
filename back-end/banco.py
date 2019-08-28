@@ -72,7 +72,7 @@ class Dao:
         return nodes
 
 
-    def procura_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
+    def get_propostas(self, codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite):
         skip = limite * (pagina - 1)
 
         query = "MATCH (p:Participante)<-[r:RECEBEU_PROPOSTA_DE]-(l:Licitacao) \
@@ -81,11 +81,13 @@ class Dao:
 
         self.count_props = self.get_count(query+"RETURN COUNT(*)")
 
-        result = self.graph.run(query + " RETURN p.NomeParticipante, p.ChaveParticipante, r.CodUnidadeGest, \
-                                          r.CodLicitacao, r.CodTipoLicitacao, r.QuantidadeOferdada, r.ValorOfertado \
-                                          SKIP {} LIMIT {}".format(skip, limite))
-        nodes = [n for n in result]
-        return nodes
+        result = self.graph.run(query + " RETURN p.NomeParticipante as NomeParticipante, p.ChaveParticipante as ChaveParticipante, \
+                                          r.CodUnidadeGest as CodUnidadeGest, r.CodLicitacao as CodLicitacao, \
+                                          r.CodTipoLicitacao as CodTipoLicitacao, r.QuantidadeOferdada as QuantidadeOferdada, \
+                                          r.ValorOfertado as ValorOfertado \
+                                          SKIP {} LIMIT {}".format(skip, limite)).data()
+        #nodes = [n for n in result]
+        return result
 
 
     def get_participantes(self, pagina, itens):
