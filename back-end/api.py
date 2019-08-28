@@ -126,13 +126,13 @@ class Participante(Resource):
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      participantes =  json.dumps(dao.get_participantes(pagina, limite))
+      participantes = dao.get_participantes(pagina, limite)
+      results = json.dumps({"dados": participantes})
       total = dao.count_part
 
-      response = gera_response(participantes, total)
+      response = gera_response(results, total)
 
       return response
-
 
 
 @api.route("/participantes/<string:id>")
@@ -142,7 +142,8 @@ class ParticipanteEspecifico(Resource):
       '''
       Retorna um participante específico
       '''
-      return jsonify(dao.get_participante_por_codigo(id))
+      participante = dao.get_participante_por_codigo(id)
+      return jsonify({"dados": participante})
 
 @api.route("/unidades-gestoras")
 class UnidadesGest(Resource):
@@ -150,6 +151,47 @@ class UnidadesGest(Resource):
       '''
       Retorna uma lista com os nomes e os códigos das unidades gestoras
       '''
-      return jsonify(dao.get_unidades_e_codigos())
+      unidades = dao.get_unidades_e_codigos()
+      return jsonify({"dados": unidades})
+
+@api.route("/candidatos")
+@api.doc(params={'pagina': 'Página que será acessada'})
+@api.doc(params={'limite': 'Quantos resultados serão retornados'})
+class Candidatos(Resource):
+   def get(self):
+      '''
+      Retorna os candidatos
+      '''
+      pagina = request.args.get("pagina", 1, int)
+      limite = request.args.get("limite", 20, int)
+      candidatos = dao.get_candidatos(pagina, limite)
+      return jsonify({"dados": candidatos})
+
+@api.route("/partidos")
+@api.doc(params={'pagina': 'Página que será acessada'})
+@api.doc(params={'limite': 'Quantos resultados serão retornados'})
+class Partidos(Resource):
+   def get(self):
+      '''
+      Retorna os partidos
+      '''
+      pagina = request.args.get("pagina", 1, int)
+      limite = request.args.get("limite", 20, int)
+      partidos = dao.get_partidos(pagina, limite)
+      return jsonify({"dados": partidos})
+
+@api.route("/municipios")
+@api.doc(params={'pagina': 'Página que será acessada'})
+@api.doc(params={'limite': 'Quantos resultados serão retornados'})
+class Municipios(Resource):
+   def get(self):
+      '''
+      Retorna os municipios
+      '''
+      pagina = request.args.get("pagina", 1, int)
+      limite = request.args.get("limite", 20, int)
+      municipios = dao.get_municipios(pagina, limite)
+      return jsonify({"dados": municipios})
+
 
 app.run(host = '0.0.0.0', debug=True)
