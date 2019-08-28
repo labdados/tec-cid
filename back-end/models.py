@@ -36,3 +36,29 @@ class UnidadeGestora(GraphObject):
 
     def __iter__(self):
         return self.__node__
+
+
+class Candidato(GraphObject):
+    cpf = Property("CPF")
+    nome = Property("Nome")
+    num_candidato = Property("NumCandidato")
+    sigla_partido = Property("SiglaPartido")
+
+    def __iter__(self):
+        return self.__node__
+
+
+class Partido(GraphObject):
+    num_partido = Property("NumeroPartido")
+    siglaPartido = Property("SiglaPartido")
+
+    def __iter__(self):
+        return self.__node__
+
+
+class Municipio(GraphObject):
+    cod_sagres = Property("codigo_sagres")
+    municipio_importacao = Property("municipioImportacao")
+
+    def __iter__(self):
+        return self.__node__
