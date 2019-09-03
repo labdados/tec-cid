@@ -1,1 +1,1 @@
-match (n:Participante)  detach delete (n);
+match (n:Licitacao)  detach delete (n);
