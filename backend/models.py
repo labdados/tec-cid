@@ -17,6 +17,27 @@ class Licitacao(GraphObject):
     def __iter__(self):
         return self.__node__
 
+class Licitacao2(GraphObject):
+    __primarykey__ = "uuid"
+    
+    uuid = Property("uuid")
+    cd_ugestora = Property("cd_ugestora")
+    de_Obs = Property("de_Obs")
+    de_TipoLicitacao = Property("de_TipoLicitacao")
+    de_TipoObjeto = Property("de_TipoObjeto")
+    de_ugestora = Property("de_ugestora")
+    dt_Homologacao = Property("dt_Homologacao")
+    nu_Licitacao = Property("nu_Licitacao")
+    tp_Licitacao = Property("tp_Licitacao")
+    tp_Objeto = Property("tp_Objeto")
+    vl_Licitacao = Property("vl_Licitacao")
+    
+    propostas = RelatedFrom("Participante", "FEZ_PROPOSTA_EM")
+    unidade_gestora = RelatedFrom("UnidadeGestora", "REALIZOU")
+    
+    def __iter__(self):
+        return self.__node__
+
 
 class Participante(GraphObject):
     chave_participante = Property("ChaveParticipante")
