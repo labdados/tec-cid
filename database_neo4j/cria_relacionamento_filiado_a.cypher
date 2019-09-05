@@ -5,7 +5,7 @@ MATCH (p:Partido {
         SiglaPartido: line.SiglaPartido
 })
 MATCH (c:Candidato {
-        CPF: line.CPFdocandidato
+        CPF: SUBSTRING('00000000000000', SIZE(line.CPFdocandidato)) + line.CPFdocandidato
         })
-MERGE (p)-[:FILIADO_A]->(c);
+MERGE (c)-[:FILIADO_A]->(p);
 
