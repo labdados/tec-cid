@@ -1,13 +1,9 @@
-from ..model.models import Licitacao
-from py2neo import Graph
-from settings import *
+from ..model.licitacao import Licitacao
+from app.main.__init_ import db
 
 class Licitacao_Service:
     
     def __init__(self):
-    	self.graph = Graph(host=NEO4J_CFG["host"] , port=NEO4J_CFG["port"],
-                           user=NEO4J_CFG["user"], password=NEO4J_CFG["passwd"])
-
     	self.count_lic = 0
     	self.count_props = 0
 
@@ -37,8 +33,8 @@ class Licitacao_Service:
         if ordem.upper() in ["DESC", "ASC"]:
             ordenar_por += " {}".format(ordem)
 
-        self.count_lic = len(Licitacao.match(self.graph).where(*conditions))
-        result = Licitacao.match(self.graph).where(*conditions).order_by(ordenar_por).skip(skip).limit(itens)
+        self.count_lic = len(Licitacao.match(db).where(*conditions))
+        result = Licitacao.match(db).where(*conditions).order_by(ordenar_por).skip(skip).limit(itens)
         nodes = []
         for lic in result:
             node = lic.__node__
@@ -49,7 +45,7 @@ class Licitacao_Service:
         return(nodes)
 
     def get_licitacao_especifica(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
-        result = self.graph.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
+        result = db.run("MATCH (l:Licitacao) WHERE l.CodUnidadeGest='{}' AND l.CodTipoLicitacao='{}' AND l.CodLicitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
         nodes = []
         for lic in result:
             node = lic["l"]
@@ -66,7 +62,7 @@ class Licitacao_Service:
 
         self.count_props = self.get_count(query+"RETURN COUNT(*)")
 
-        result = self.graph.run(query + " RETURN p.NomeParticipante as NomeParticipante, p.ChaveParticipante as ChaveParticipante, \
+        result = db.run(query + " RETURN p.NomeParticipante as NomeParticipante, p.ChaveParticipante as ChaveParticipante, \
                                           r.CodUnidadeGest as CodUnidadeGest, r.CodLicitacao as CodLicitacao, \
                                           r.CodTipoLicitacao as CodTipoLicitacao, r.QuantidadeOferdada as QuantidadeOferdada, \
                                           r.ValorOfertado as ValorOfertado \

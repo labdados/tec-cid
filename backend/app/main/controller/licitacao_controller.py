@@ -44,7 +44,7 @@ class Licitacao(Resource):
       licitacoes =  json.dumps({"dados": licitacoes})
       total = lic_service.count_lic
 
-      response = gera_response(licitacoes, total)
+      response = gerando_response(licitacoes, total)
 
       return response
 
@@ -84,6 +84,6 @@ class Propostas(Resource):
       propostas = lic_service.get_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite)
       results = json.dumps({"dados": propostas})
 
-      response = gera_response(results, lic_service.count_props)
+      response = gerando_response(results, lic_service.count_props)
 
       return response

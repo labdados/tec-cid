@@ -16,5 +16,5 @@ class Municipios(Resource):
       '''
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      municipios = dao.get_municipios(pagina, limite)
-      return jsonify({"dados": municipios})
+      result = municipios.get_municipios(pagina, limite)
+      return jsonify({"dados": result})
