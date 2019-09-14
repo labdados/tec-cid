@@ -1,6 +1,6 @@
 from ..service.participante_service import Participante_Service
 from flask_restplus import Resource, Namespace
-from flask import Flask, json, request
+from flask import Flask, json, request, jsonify
 
 participante_service = Participante_Service()
 
@@ -30,7 +30,7 @@ class Participante(Resource):
       results = json.dumps({"dados": participantes})
       total = participante_service.count_part
 
-      response = gera_response(results, total)
+      response = gerando_response(results, total)
 
       return response
 

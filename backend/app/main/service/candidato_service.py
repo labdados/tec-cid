@@ -1,16 +1,11 @@
-from ..model.models import Candidato
-from settings import *
-from py2neo import Graph
+from ..model.candidato import Candidato
+from app.main.__init_ import db
 
-class Candidato_Service:
-    def __init__(self):
-        self.graph = Graph(host=NEO4J_CFG["host"] , port=NEO4J_CFG["port"],
-                           user=NEO4J_CFG["user"], password=NEO4J_CFG["passwd"])
-
+class CandidatoService:
 
     def get_candidatos(self, pagina, limite):
         skip = limite * (pagina - 1)
-        result = Candidato.match(self.graph).order_by("_.Nome").skip(skip).limit(limite)
+        result = Candidato.match(db).order_by("_.Nome").skip(skip).limit(limite)
         nodes = [n.__node__ for n in result]
         return nodes
 

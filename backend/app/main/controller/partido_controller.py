@@ -16,5 +16,5 @@ class Partidos(Resource):
       '''
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      partidos = partidos.get_partidos(pagina, limite)
-      return jsonify({"dados": partidos})
+      result = partidos.get_partidos(pagina, limite)
+      return jsonify({"dados": result})
