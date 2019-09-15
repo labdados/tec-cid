@@ -1,8 +1,8 @@
-from ..service.partido_service import Partido_Service
+from ..service.partido_service import PartidoService
 from flask_restplus import Resource, Namespace
 from flask import request, jsonify
 
-partidos = Partido_Service()
+partidos = PartidoService()
 
 api = Namespace('Partido', 'Operações relacionadas a partidos políticos')
 

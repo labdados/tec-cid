@@ -1,7 +1,7 @@
 from ..model.municipio import Municipio
 from app.main.__init_ import db
 
-class Municipio_Service:
+class MunicipioService:
 
     def get_municipios(self, pagina, limite):
         skip = limite * (pagina - 1)

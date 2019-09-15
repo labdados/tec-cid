@@ -1,10 +1,10 @@
-from ..service.licitacao_service import Licitacao_Service
+from ..service.licitacao_service import LicitacaoService
 from flask_restplus import Namespace, Resource
 from flask import Flask, json, request, jsonify
 
 api = Namespace('Licitação', description='Operações relacionadas a licitações')
 
-lic_service = Licitacao_Service()
+lic_service = LicitacaoService()
 
 def gerando_response(results, x_total_count):
    print(results)
