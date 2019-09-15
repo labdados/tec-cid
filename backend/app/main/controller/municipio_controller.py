@@ -1,8 +1,8 @@
-from ..service.municipio_service import Municipio_Service
+from ..service.municipio_service import MunicipioService
 from flask_restplus import Resource, Namespace
 from flask import request, jsonify
 
-municipios = Municipio_Service()
+municipios = MunicipioService()
 
 api = Namespace('Munícipio', 'Operações relacionadas aos municípios')
 

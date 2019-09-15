@@ -1,7 +1,7 @@
 from ..model.licitacao import Licitacao
 from app.main.__init_ import db
 
-class Licitacao_Service:
+class LicitacaoService:
     
     def __init__(self):
     	self.count_lic = 0

@@ -1,7 +1,7 @@
 from ..model.participante import Participante
 from app.main.__init_ import db
 
-class Participante_Service:
+class ParticipanteService:
 
 	def __init__(self):
 		self.count_part = 0

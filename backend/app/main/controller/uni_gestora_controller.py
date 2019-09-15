@@ -1,8 +1,8 @@
-from ..service.unidades_gestoras_service import Unidade_Gestora_Service
+from ..service.unidades_gestoras_service import UnidadeGestoraService
 from flask_restplus import Resource, Namespace
 from flask import jsonify
 
-unidades = Unidade_Gestora_Service()
+unidades = UnidadeGestoraService()
 
 api = Namespace('Unidade Gestora', description='Operações relacionadas as unidades gestoras')
 

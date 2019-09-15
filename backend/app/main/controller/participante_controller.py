@@ -1,8 +1,8 @@
-from ..service.participante_service import Participante_Service
+from ..service.participante_service import ParticipanteService
 from flask_restplus import Resource, Namespace
 from flask import Flask, json, request, jsonify
 
-participante_service = Participante_Service()
+participante_service = ParticipanteService()
 
 api = Namespace('Participante', description='Operações relacionadas aos participantes')
 

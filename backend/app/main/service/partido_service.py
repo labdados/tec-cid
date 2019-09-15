@@ -1,7 +1,7 @@
 from ..model.partido import Partido
 from app.main.__init_ import db
 
-class Partido_Service:
+class PartidoService:
   
   def get_partidos(self, pagina, limite):
     skip = limite * (pagina - 1)
