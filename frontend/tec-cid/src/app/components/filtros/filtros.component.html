@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <div class="row">
+
+        <div class="col-md-8 offset-md-2">
+            <div class="form-group">
+                <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="unidadeGestora" [options]="municipios"
+                    [config]="config" (change)="filtroUnidadeGestora()"></ngx-select-dropdown>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- TIRAR DA DAQUI PRA MELHOR ORGANIZAÇÃO -->
+    <div *ngIf="exibir" class="row mt-5" style="justify-content: center">
+        <div class="card" style="width: 16rem;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Patos%2CPB_701.JPG" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{unidadeGestora.NomeUnidadeGest}}</h5>
+                <h5>Prefeito: Nome do Prefeito</h5>
+                <a [routerLink]="['/municipio', codUnidadeGestora]" routerLinkActive="router-link-active"  class="btn btn-primary mt-1">VEJA MAIS</a>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,1 @@
+export const API_URL:string = 'http://labdados.dcx.ufpb.br/tec-cid/api'; 
