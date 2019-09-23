@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5">
+            <h1 id="titulo">Tecnologia cidadã</h1> <br>
+            <p id="paragrafo" align="justify">
+                O projeto tecnologia cidadã tem como objetivo ajudar os cidadãos a fiscalizar
+                os gastos públicos nos munícipios do estado da Paraíba. Aqui você poderá ver para onde
+                está indo o dinheiro da sua contribuição e assim cobrar seus representantes.
+            </p>
+        </div>
+        <div class="col-md-7" style="border: red solid 1px; justify-content: center;">
+            <h2 align="center">MAPA DA PARAÍBA</h2>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="ml-auto">
+            <a [routerLink]="['/pesquisa']" routerLinkActive="router-link-active"  class="btn btn-prosseguir">Prosseguir</a>
+        </div>
+    </div>
+</div>
