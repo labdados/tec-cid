@@ -1,5 +1,5 @@
 from ..model.unidade_gestora import UnidadeGestora
-from app.main.__init_ import db
+from app.main import db
 
 class UnidadeGestoraService:
 

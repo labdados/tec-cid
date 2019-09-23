@@ -1,5 +1,5 @@
 from ..model.candidato import Candidato
-from app.main.__init_ import db
+from app.main import db
 
 class CandidatoService:
 

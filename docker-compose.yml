@@ -20,12 +20,12 @@ services:
     flask:
         restart: always
         build:
-            context: back-end/
+            context: backend/
         container_name: teccid-flask
         ports:
             - 5000:5000
         volumes:
-            - ./back-end/:/app
+            - ./backend/:/teccid-api
         depends_on:
             - neo4j
         env_file:

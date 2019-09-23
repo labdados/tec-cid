@@ -1,5 +1,5 @@
 from ..model.partido import Partido
-from app.main.__init_ import db
+from app.main import db
 
 class PartidoService:
   

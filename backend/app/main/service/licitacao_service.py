@@ -1,5 +1,5 @@
 from ..model.licitacao import Licitacao
-from app.main.__init_ import db
+from app.main import db
 
 class LicitacaoService:
     
