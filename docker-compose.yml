@@ -25,7 +25,7 @@ services:
         ports:
             - 5000:5000
         volumes:
-            - ./backend/:/app
+            - ./backend/:/teccid-api
         depends_on:
             - neo4j
         env_file:
