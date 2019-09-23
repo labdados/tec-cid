@@ -1,5 +1,5 @@
 from ..model.participante import Participante
-from app.main.__init_ import db
+from app.main import db
 
 class ParticipanteService:
 

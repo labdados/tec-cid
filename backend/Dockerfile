@@ -1,9 +1,9 @@
-FROM python:3.6
+FROM python:3.7
 EXPOSE 5000
 LABEL maintainer "Kewyn Akshlley <kewynakshlley@gmail.com>"
 RUN apt-get update
-RUN mkdir /app
-WORKDIR /app
-COPY . /app
-RUN pip install --no-cache-dir -r dependencias.txt
-CMD python api.py
+RUN mkdir /teccid-api
+WORKDIR /teccid-api
+COPY . /teccid-api
+RUN pip install --no-cache-dir -r requirements.txt
+CMD python manage.py run

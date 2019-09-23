@@ -1,5 +1,5 @@
 from ..model.municipio import Municipio
-from app.main.__init_ import db
+from app.main import db
 
 class MunicipioService:
 
