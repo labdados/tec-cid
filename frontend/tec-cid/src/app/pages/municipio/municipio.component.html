@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<div class="col-md-10 offset-md-1 mt-5">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">NomeObg</th>
+                <th scope="col">NomeUnidadeGest</th>
+                <th scope="col">Obs</th>
+                <th scope="col">TipoLicitacao</th>
+                <th scope="col">Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr *ngFor="let i of licitacoes">
+                <td>{{i.Data}}</td>
+                <td>{{i.NomeObg}}</td>
+                <td>{{i.NomeUnidadeGest}}</td>
+                <td>{{i.Obs}}</td>
+                <td>{{i.TipoLicitacao}}</td>
+                <td>{{i.Valor}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
