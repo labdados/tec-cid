@@ -2,7 +2,7 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///receitas_2016_PB.txt" AS line fieldterminator ";"
 MATCH (p:Participante { 
-        ChaveParticipante: line.CPFCNPJdodoador
+        cpf_cnpj_proponente: line.CPFCNPJdodoador
         })
 MATCH (c:Candidato {
         CPF: line.CPFdocandidato
