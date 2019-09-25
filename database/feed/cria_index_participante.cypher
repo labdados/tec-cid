@@ -1,1 +1,1 @@
-CREATE INDEX ON :Participante(ChaveParticipante);
+CREATE INDEX ON :Participante(cpf_cnpj_proponente);
