@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row mt-5">
-        <div class="col-md-5">
+        <div class="col-md-5 animated bounceInLeft">
             <h1 id="titulo">Tecnologia cidadã</h1> <br>
             <p id="paragrafo" align="justify">
                 O projeto tecnologia cidadã tem como objetivo ajudar os cidadãos a fiscalizar
@@ -10,14 +10,15 @@
                 está indo o dinheiro da sua contribuição e assim cobrar seus representantes.
             </p>
         </div>
-        <div class="col-md-7" style="border: red solid 1px; justify-content: center;">
-            <h2 align="center">MAPA DA PARAÍBA</h2>
+        <div class="col-md-7 animated bounceInRight">
+            <img src="../../../assets/images/mapa-paraiba.png" class="img-fluid" alt="">
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="ml-auto">
-            <a [routerLink]="['/pesquisa']" routerLinkActive="router-link-active"  class="btn btn-prosseguir">Prosseguir</a>
+            <a [routerLink]="['/pesquisa']" routerLinkActive="router-link-active"
+                class="btn btn-prosseguir">Prosseguir</a>
         </div>
     </div>
 </div>

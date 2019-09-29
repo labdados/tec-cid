@@ -1,0 +1,68 @@
+#foto {
+    width: 200px;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: flex-end;
+    padding-bottom: 10px;
+}
+
+#cidade {
+    font-size: 60px;
+    color: #0d4247
+}
+
+.infos h3 {
+    font-size: 30px;
+    color: #0d4247
+}
+
+.infos h5 {
+    font-size: 16px;
+    color: #585858
+}
+
+#mapa {
+    width: 200px;
+}
+
+.infos-cidade {
+    justify-content: center;
+    align-items: center;
+}
+
+#habitantes {
+    font-size: 35px;
+    color: #0d4247
+}
+
+.gasto {
+    justify-content: center;
+    align-items: center;
+}
+
+.gasto h1 {
+    align-self: center;
+    font-size: 50px;
+    color: #0d4247;
+}
+
+.gasto p {
+    font-size: 12px;
+    color: #585858;
+    margin-top: -10px;
+}
+
+.btn-detalhes {
+    background-color: #0d4247;
+    color: white;
+    border-radius: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 10px;
+}
