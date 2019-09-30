@@ -1,0 +1,72 @@
+#cidade {
+    font-size: 40px;
+    color: #0d4247;
+    font-weight: bold;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: flex-end;
+    padding-bottom: 10px;
+}
+
+.infos h3 {
+    font-size: 30px;
+    color: #0d4247
+}
+
+.infos h5 {
+    font-size: 16px;
+    color: #585858
+}
+
+.gasto {
+    justify-content: center;
+    align-items: center;
+}
+
+.gasto h1 {
+    align-self: center;
+    font-size: 50px;
+    color: #0d4247;
+}
+
+.gasto p {
+    font-size: 12px;
+    color: #585858;
+    margin-top: -10px;
+}
+
+.btn-next {
+    background: none;
+    border: none;
+    color: #23b0be;
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.btn-next:disabled {
+    color: #0d4247;
+}
+
+.btn-prev {
+    background: none;
+    border: none;
+    color: #23b0be;
+    font-size: 30px
+}
+
+.btn-prev:disabled {
+    color: #0d4247;
+}
+
+.linha {
+    flex-direction: row-reverse
+}
+
+.table  {
+    font-size: 16px;
+    color: #0d4247
+}
