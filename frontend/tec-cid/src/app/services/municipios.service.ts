@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { UnidadeGestora } from '../models/unidade-gestora.model';
 import { API_URL } from './tc.api';
+import { Licicatao } from '../models/licitacao.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,9 @@ import { API_URL } from './tc.api';
 export class MunicipiosService {
 
   municipios: UnidadeGestora [];
-  unidadesGestoras: UnidadeGestora [];
+  unidadesGestoras: UnidadeGestora [] = [];
   cidades: any[];
+  unidadeGestora: UnidadeGestora;
 
   constructor(
     private http: HttpClient
@@ -29,10 +31,8 @@ export class MunicipiosService {
     })
   }
 
-  getLicitacoesMunicipio(codUni:any){
-    let ano = '';
-    let tipoLic = '';
-    return this.http.get<any>(`${API_URL}/licitacoes?limite=20&pagina=${1}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
+  getLicitacoesMunicipio(codUni:any, ano: any, tipoLic: any, pagina:number){
+    return this.http.get<any>(`${API_URL}/licitacoes?limite=10&pagina=${pagina}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
   }
 
   filter(filter: string){
