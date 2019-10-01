@@ -70,3 +70,7 @@
     font-size: 16px;
     color: #0d4247
 }
+
+.table tbody tr:hover {
+    cursor: pointer;
+}

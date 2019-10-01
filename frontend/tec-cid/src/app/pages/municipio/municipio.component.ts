@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UnidadeGestora } from 'src/app/models/unidade-gestora.model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MunicipiosService } from 'src/app/services/municipios.service';
-import { Licicatao } from 'src/app/models/licitacao.model';
+import { Licitacao } from 'src/app/models/licitacao.model';
 
 @Component({
   selector: 'app-municipio',
@@ -13,7 +13,7 @@ import { Licicatao } from 'src/app/models/licitacao.model';
 export class MunicipioComponent implements OnInit {
 
   municipio: UnidadeGestora
-  licitacoes: Licicatao[] = [];
+  licitacoes: Licitacao[] = [];
   codUni: any;
   ano: string = '';
   tipoLic: any = '';
@@ -41,6 +41,7 @@ export class MunicipioComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private municipioService: MunicipiosService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -140,6 +141,10 @@ export class MunicipioComponent implements OnInit {
     } else {
       this.next = false;
     }
+  }
+
+  exibirLicitacao(idLicitacao:any) {
+    this.router.navigate([`/municipio/${this.codUni}/licitacao/${idLicitacao}`])
   }
 
 }

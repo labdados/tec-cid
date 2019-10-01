@@ -1,4 +1,4 @@
-export class Licicatao {
+export class Licitacao {
     constructor(
         public CodLicitacao: string,
         public CodObj: string,
