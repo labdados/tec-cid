@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { UnidadeGestora } from '../models/unidade-gestora.model';
 import { API_URL } from './tc.api';
-import { Licicatao } from '../models/licitacao.model';
 
 @Injectable({
   providedIn: 'root'

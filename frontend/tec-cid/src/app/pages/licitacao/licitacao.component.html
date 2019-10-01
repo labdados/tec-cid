@@ -1,0 +1,68 @@
+<app-header></app-header>
+
+<div class="container mt-5 mb-5">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1 id="cidade">Nome unidade gestora</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row mb-4">
+                <div id="area" class="col-md-10">
+                    <!-- <i class="fas fa-hands-helping fa-3x"></i> -->
+                    <img src="../../../assets/images/icon-confianca-2.png" class="img-fluid img-areas" alt=""> &nbsp;
+                    {{ licitacao.NomeObg }}
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-2">
+                    <i style="color: #08A5CA" class="far fa-calendar-alt fa-5x"></i>
+                </div>
+                <div class="col-md-10 data">
+                    &nbsp;{{ licitacao.Data }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <i style="color: #08A5CA" class="far fa-file-alt fa-5x"></i>
+                </div>
+                <div class="col-md-10 data">
+                    &nbsp;{{ licitacao.TipoLicitacao }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="row mb-4">
+                <div class="mx-auto">
+                    <div class="info-gasto">
+                        <h1 id="valor">{{ licitacao.Valor | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
+                        <p id="info" align="center">Total gasto nesta licitação</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mx-auto">
+                        <h4 align="center" id="vencedor">Vencedor</h4>
+                    </div>
+                </div>
+                <div class="col-md-10 offset-md-1">
+
+                    <div class="table-responsive-md">
+                        <table id="tabela" class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td><img src="../../../assets/images/gold_medal_PNG60.png" width="40" alt=""></td>
+                                    <td>MEGAFARMA</td>
+                                    <td> <a href="#"><i class="fas fa-search fa-2x"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
