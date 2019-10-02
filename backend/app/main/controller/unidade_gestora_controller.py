@@ -1,4 +1,4 @@
-from ..service.unidades_gestoras_service import UnidadeGestoraService
+from ..service.unidade_gestora_service import UnidadeGestoraService
 from flask_restplus import Resource, Namespace
 from flask import jsonify
 
