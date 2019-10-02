@@ -9,7 +9,7 @@ class ParticipanteService:
 	def get_participantes(self, pagina, itens):
 		skip = itens * (pagina - 1)
 		
-		result = Participante.match(db).order_by("_.NomeParticipante").skip(skip).limit(itens)
+		result = Participante.match(db).order_by("_.nome").skip(skip).limit(itens)
 		
 		self.count_part = len(Participante.match(db))
 		
@@ -18,7 +18,7 @@ class ParticipanteService:
 		return nodes
 
 	# Busca participante pelo cpf ou cnpj
-	def get_participante_por_codigo(self, codigo):
-	    result = Participante.match(db).where("_.ChaveParticipante = '{}'".format(codigo))
+	def get_participante(self, cpf_cnpj):
+	    result = Participante.match(db).where("_.cpf_cnpj = '{}'".format(cpf_cnpj))
 	    nodes = [n.__node__ for n in result]
 	    return nodes

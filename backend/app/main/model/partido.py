@@ -1,8 +1,11 @@
-from py2neo.ogm import GraphObject, Property
+from py2neo.ogm import GraphObject, Property, RelatedFrom
 
 class Partido(GraphObject):
-    num_partido = Property("NumeroPartido")
-    siglaPartido = Property("SiglaPartido")
+    nome = Property()
+    numero = Property()
+    sigla = Property()
+
+    candidatos = RelatedFrom("Candidato", "FILIADO_A")
 
     def __iter__(self):
         return self.__node__
