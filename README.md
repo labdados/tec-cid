@@ -33,6 +33,7 @@ docker-compose up
 ```
 . .env
 cd database/feed
+pip3 install -r requirements.txt
 python3 download_data_tce.py
 python3 download_data_tse.py
 python3 extract_transform_data_tce.py
