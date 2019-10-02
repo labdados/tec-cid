@@ -1,6 +1,0 @@
-py2neo
-flask==1.0.2
-flask-cors
-Flask-RestPlus
-python-decouple==3.1
-python-dotenv==0.10.3

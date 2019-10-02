@@ -7,10 +7,10 @@ unidades = UnidadeGestoraService()
 api = Namespace('Unidade Gestora', description='Operações relacionadas as unidades gestoras')
 
 @api.route("")
-class UnidadesGest(Resource):
+class UnidadesGestoraList(Resource):
    def get(self):
       '''
       Retorna uma lista com os nomes e os códigos das unidades gestoras
       '''
-      result = unidades.get_unidades_e_codigos()
+      result = unidades.get_unidades_gestoras()
       return jsonify({"dados": result})

@@ -1,10 +1,10 @@
 from py2neo.ogm import GraphObject, Property, RelatedTo
 
 class Participante(GraphObject):
-    chave_participante = Property("ChaveParticipante")
-    nome_participante = Property("NomeParticipante")
+    cpf_cnpj = Property()
+    nome = Property()
 
-    licitacoes_que_participou = RelatedTo("Licitacao", "FEZ_PROPOSTA_EM")
+    fez_proposta_em = RelatedTo("Licitacao")
 
     def __iter__(self):
         return self.__node__

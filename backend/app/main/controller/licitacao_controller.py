@@ -7,7 +7,6 @@ api = Namespace('Licitação', description='Operações relacionadas a licitaç�
 lic_service = LicitacaoService()
 
 def gerando_response(results, x_total_count):
-   print(results)
    response = Flask.response_class(response=results, headers={
          "X-Total-Count": x_total_count
       }, mimetype="application/json")
@@ -25,7 +24,7 @@ def gerando_response(results, x_total_count):
    "ordenarPor": "Nome do campo pelo qual a lista deve ser ordenada.",
    "ordem": "O sentido da ordenação: `ASC` para A a Z ou 0 a 9, e `DESC` para Z a A ou 9 a 0."
 })
-class Licitacao(Resource):
+class LicitacaoList(Resource):
    def get(self):
       ''' 
       Retorna as licitações baseadas nos filtros que foram passados
@@ -50,24 +49,25 @@ class Licitacao(Resource):
 
 @api.route("/<string:id>")
 @api.doc(params={'id': 'id da licitação'})
-class LicitacaoEspecifica(Resource):
+class Licitacao(Resource):
    def get(self, id):
       '''
       Retorna uma licitação específica
       '''
       data = id.split("-")
       codUnidadeGestora = data[0]
-      codLicitacao = data[1]
-      codTipoLicitacao = data[2]
+      codTipoLicitacao = data[1]
+      codLicitacao = data[2]
       licitacao = lic_service.get_licitacao_especifica(codUnidadeGestora, codTipoLicitacao, codLicitacao)
-      result = json.dumps({"dados": licitacao})
-      return result
+      licitacao = json.dumps({"dados": licitacao})
+      response = gerando_response(licitacao, 1)
+      return response
 
 @api.route("/<string:id>/propostas")
 @api.doc(params={'id': 'id da licitação'})
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
-class Propostas(Resource):
+class PropostaList(Resource):
    def get(self, id):
       '''
       Retorna as propostas que um participante fez em uma determinada licitação
@@ -75,13 +75,13 @@ class Propostas(Resource):
 
       data = id.split("-")
       codUnidadeGestora = data[0]
-      codLicitacao = data[1]
-      codTipoLicitacao = data[2]
+      codTipoLicitacao = data[1]
+      codLicitacao = data[2]
 
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      propostas = lic_service.get_propostas(codUnidadeGestora, codLicitacao, codTipoLicitacao, pagina, limite)
+      propostas = lic_service.get_propostas(codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite)
       results = json.dumps({"dados": propostas})
 
       response = gerando_response(results, lic_service.count_props)

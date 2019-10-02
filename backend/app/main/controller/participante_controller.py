@@ -16,7 +16,7 @@ def gerando_response(results, x_total_count):
 @api.route("")
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
-class Participante(Resource):
+class ParticipanteList(Resource):
    def get(self):
       ''' 
       Retorna os participantes
@@ -36,10 +36,10 @@ class Participante(Resource):
 
 @api.route("/<string:id>")
 @api.doc(params={'id': 'CPF/CNPJ do participante'})
-class ParticipanteEspecifico(Resource):
+class Participante(Resource):
    def get(self, id):
       '''
       Retorna um participante específico
       '''
-      participante = participante_service.get_participante_por_codigo(id)
+      participante = participante_service.get_participante(id)
       return jsonify({"dados": participante})

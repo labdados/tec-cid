@@ -1,1 +1,1 @@
-CREATE INDEX ON :UnidadeGestora(CodUnidadeGest);
+CREATE INDEX ON :UnidadeGestora(cd_ugestora);
