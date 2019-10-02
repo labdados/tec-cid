@@ -1,1 +1,1 @@
-CREATE INDEX ON :Licitacao(numero_licitacao, cd_ugestora, nome_modalidade_licitacao);
+CREATE INDEX ON :Licitacao(cd_ugestora, cd_modalidade, numero_licitacao);

@@ -1,1 +1,1 @@
-CREATE INDEX ON :Candidato(codigo_sagres);
+CREATE INDEX ON :Candidato(cpf, cd_eleicao);

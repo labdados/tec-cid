@@ -9,7 +9,7 @@ api = Namespace('Partido', 'Operações relacionadas a partidos políticos')
 @api.route("")
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
-class Partidos(Resource):
+class PartidoList(Resource):
    def get(self):
       '''
       Retorna os partidos
