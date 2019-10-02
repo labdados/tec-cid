@@ -1,2 +1,3 @@
+decouple
 py2neo
 tqdm
