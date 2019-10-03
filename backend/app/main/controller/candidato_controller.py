@@ -9,7 +9,7 @@ api = Namespace('Candidato', 'Operações relacionadas aos candidatos de partido
 @api.route("")
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
-class Candidatos(Resource):
+class CandidatoList(Resource):
    def get(self):
       '''
       Retorna os candidatos

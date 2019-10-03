@@ -1,1 +1,1 @@
-CREATE INDEX ON :Municipio(CPFdocandidato);
+CREATE INDEX ON :Municipio(id);
