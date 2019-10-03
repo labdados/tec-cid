@@ -1,18 +1,22 @@
 from py2neo.ogm import GraphObject, Property, RelatedFrom
 
 class Licitacao(GraphObject):
-    cd_ugestora = Property("CodUnidadeGest")
-    nu_licitacao = Property("CodLicitacao")
-    tp_licitacao = Property("CodTipoLicitacao")
-    de_tipolicitacao = Property("TipoLicitacao")
-    tp_objeto = Property("CodObj")
-    dt_homologacao = Property("Data")
-    de_tipoobjeto = Property("NomeObg")
-    de_obs = Property("Obs")
-    vl_licitacao = Property("Valor")
+    cd_ugestora = Property()
+    cd_modalidade = Property()
+    numero_licitacao = Property()
+    modalidade = Property()
+    objeto = Property()
+    valor_estimado = Property()
+    valor_licitado = Property()
+    data_homologacao = Property()
+    ano_homologacao = Property()
+    situacao_fracassada = Property()
+    nome_estagio_processual = Property()
+    nome_setor_atual = Property()
+    url = Property()
     
     propostas = RelatedFrom("Participante", "FEZ_PROPOSTA_EM")
-    unidade_gestora = RelatedFrom("UnidadeGestora", "REALIZOU")
+    unidades_gestoras = RelatedFrom("UnidadeGestora", "REALIZOU")
     
     def __iter__(self):
         return self.__node__

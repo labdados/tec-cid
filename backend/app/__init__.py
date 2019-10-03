@@ -1,6 +1,6 @@
 from .main.controller.licitacao_controller import api as licitacao_namespace
 from .main.controller.participante_controller import api as participante_namespace
-from .main.controller.uni_gestora_controller import api as unidades_namespace
+from .main.controller.unidade_gestora_controller import api as unidades_namespace
 from .main.controller.candidato_controller import api as candidatos_namespace
 from .main.controller.partido_controller import api as partidos_namespace
 from .main.controller.municipio_controller import api as municipios_namespace
@@ -17,7 +17,6 @@ class MyCustomApi(Api):
         custom_apidoc = apidoc.Apidoc('restplus_doc', 'flask_restplus.apidoc',
         template_folder='templates', static_folder='static',
         static_url_path=api_url_prefix)
-
 
         @custom_apidoc.add_app_template_global
         def swagger_static(filename: str) -> str:
