@@ -1,21 +1,22 @@
 #titulo {
     font-weight: 500;
     font-size: 50px;
-    color: #333333;
+    color: #0d4247;
+    margin-top: 10%;
 }
 
 #paragrafo {
-    color: #333333;
+    color: #0d4247;
     font-size: 20px;
     font-weight: 500;
     text-indent: 2em;
 }
 
 .btn-prosseguir {
-    border: #4ed1de 1px solid;
+    border: #23b0be 1px solid;
     width: 180px;
     height: 60px;
-    background-color: #4ed1de;
+    background-color: #23b0be;
     color: white;
 
     font-size: 20px;

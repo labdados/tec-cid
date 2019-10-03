@@ -1,26 +1,77 @@
 <div class="container mt-5">
     <div class="row">
 
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-6">
             <div class="form-group">
-                <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="unidadeGestora" [options]="municipios"
-                    [config]="config" (change)="filtroUnidadeGestora()"></ngx-select-dropdown>
+                <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="cidade" [options]="municipios"
+                    [config]="configCidades" (change)="filtroCidade()"></ngx-select-dropdown>
             </div>
         </div>
 
+        <div class="col-md-6">
+            <div class="form-group">
+                <ngx-select-dropdown [disabled]="show()" [(ngModel)]="unidadeGestora"  tabindex="0" [multiple]="false" [options]="unidadesGestoras"
+                    [config]="configUnidadesGestoras" (change)="getUnidadeGestora()">
+                </ngx-select-dropdown>
+            </div>
+        </div>
 
     </div>
 
-    <!-- TIRAR DA DAQUI PRA MELHOR ORGANIZAÇÃO -->
-    <div *ngIf="exibir" class="row mt-5" style="justify-content: center">
-        <div class="card" style="width: 16rem;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Patos%2CPB_701.JPG" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{unidadeGestora.NomeUnidadeGest}}</h5>
-                <h5>Prefeito: Nome do Prefeito</h5>
-                <a [routerLink]="['/municipio', codUnidadeGestora]" routerLinkActive="router-link-active"  class="btn btn-primary mt-1">VEJA MAIS</a>
+    <div *ngIf="!exibir" class="mt-5">
+        <div class="row animated bounceInUp">
+            <div class="mx-auto">
+                <h1 style="color: #0d4247">Selecione seu município</h1>
             </div>
         </div>
     </div>
+
+    <div *ngIf="exibir">
+        <div class="row mt-5">
+            <div class="mx-auto infos-cidade">
+                <div class="col-md-12">
+                    <img src="../../../assets/images/Mapa PB - PATOS-01.png" class="img-fluid ml-auto" alt="" id="mapa">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>
+                <h1 id="cidade">{{ cidade }}</h1>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3 mr-2">
+                        <img class="img-fluid" id="foto" src="../../../assets/images/user.png" alt="">
+                    </div>
+                    <div class="infos">
+                        <h3>Fulano de tal</h3>
+                        <h5>PSB</h5>
+                        <h5>2016-2020</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+                <div class="row">
+                    <div class=" gasto mx-auto">
+                        <div class="info-gasto">
+                            <h1 id="gasto">R$ 7.345.345,00</h1>
+                            <p align="center">Total gasto de janeiro de 2019 até o presente momento.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <a [routerLink]="['/municipio', codUnidadeGestora]" routerLinkActive="router-link-active"  class="btn btn-detalhes mx-auto">Veja detalhadamente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 </div>
