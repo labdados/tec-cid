@@ -38,4 +38,6 @@ services:
         volumes:
             - /app/node_modules
             - .:/app
+        depends_on:
+            - flask
 
