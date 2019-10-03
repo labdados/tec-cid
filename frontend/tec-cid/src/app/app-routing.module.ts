@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { PesquisaComponent } from './pages/pesquisa/pesquisa.component';
 import { MunicipioComponent } from './pages/municipio/municipio.component';
+import { LicitacaoComponent } from './pages/licitacao/licitacao.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'pesquisa', component:PesquisaComponent},
-  {path: 'municipio/:codUnidadeGest', component:MunicipioComponent}
+  {path: 'municipio/:codUnidadeGest', component:MunicipioComponent},
+  {path: 'municipio/:codUnidadeGest/licitacao/:idLicitacao', component:LicitacaoComponent}
 ];
 
 @NgModule({

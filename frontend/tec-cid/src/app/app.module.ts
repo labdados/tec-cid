@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,10 +11,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PesquisaComponent } from './pages/pesquisa/pesquisa.component';
 import { FiltrosComponent } from './components/filtros/filtros.component';
-import { HttpClientModule } from '@angular/common/http';
+import { MunicipioComponent } from './pages/municipio/municipio.component'
 
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { MunicipioComponent } from './pages/municipio/municipio.component'
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { LicitacaoComponent } from './pages/licitacao/licitacao.component';
+
+registerLocaleData(localePt);
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,8 @@ import { MunicipioComponent } from './pages/municipio/municipio.component'
     HeaderComponent,
     PesquisaComponent,
     FiltrosComponent,
-    MunicipioComponent
+    MunicipioComponent,
+    LicitacaoComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +37,11 @@ import { MunicipioComponent } from './pages/municipio/municipio.component'
     SelectDropDownModule,
     FormsModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

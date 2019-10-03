@@ -1,0 +1,44 @@
+.img-areas {
+    width: 80px;
+}
+
+#cidade {
+    font-size: 40px;
+    color: #0d4247;
+    font-weight: bold;
+}
+
+#area {
+    font-size: 25px;
+    color: #0d4247;
+}
+
+.data {
+    display:flex;
+    align-items: center;
+    color: #0d4247;
+    font-size: 25px;
+}
+
+#valor {
+    font-size: 50px;
+    color: #0d4247;
+}
+
+#info {
+    font-size: 16px;
+    color: #585858;
+    margin-top: -10px;
+}
+
+#vencedor {
+    font-size: 30px;
+    color: #0d4247;
+}
+
+#tabela tbody tr td {
+    text-align: center;     /* alinhamento horizontal */
+    vertical-align: middle;
+    color: #08A5CA
+}
+

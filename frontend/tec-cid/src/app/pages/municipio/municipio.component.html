@@ -1,29 +1,103 @@
 <app-header></app-header>
 
-<div class="col-md-10 offset-md-1 mt-5">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Data</th>
-                <th scope="col">NomeObg</th>
-                <th scope="col">NomeUnidadeGest</th>
-                <th scope="col">Obs</th>
-                <th scope="col">TipoLicitacao</th>
-                <th scope="col">Valor</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="container mb-5">
+    <div class="mt-5">
+        <div class="row">
+            <div>
+                <h1 id="cidade">Nome cidade/unidade gestora</h1>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3 mr-2">
+                        <img class="img-fluid" id="foto" src="../../../assets/images/user.png" alt="">
+                    </div>
+                    <div class="infos">
+                        <h3>Fulano de tal</h3>
+                        <h5>PSB</h5>
+                        <h5>2016-2020</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+                <div class="row">
+                    <div class=" gasto mx-auto">
+                        <div class="info-gasto">
+                            <h1 id="gasto">R$ 7.345.345,00</h1>
+                            <p align="center">Total gasto de janeiro de 2019 até o presente momento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="row">
+                <h3>Filtros: </h3>
+            </div>
+            <div class="row mt-3">
+                <ngx-select-dropdown style="width: 80%" [(ngModel)]="ano" tabindex="0" [multiple]="false"
+                    [options]="anos" [config]="configAno" (change)="setAno()">
+                </ngx-select-dropdown>
+            </div>
+            <div class="row mt-4">
+                <ngx-select-dropdown style="width: 80%" [(ngModel)]="tipoLic" tabindex="0" [multiple]="false"
+                    [options]="tipos" [config]="configLic" (change)="setTipoLicitacao()">
+                </ngx-select-dropdown>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div *ngIf="licitacoes.length == 0">
+                Sem resultados
+            </div>
 
 
-            <tr *ngFor="let i of licitacoes">
-                <td>{{i.Data}}</td>
-                <td>{{i.NomeObg}}</td>
-                <td>{{i.NomeUnidadeGest}}</td>
-                <td>{{i.Obs}}</td>
-                <td>{{i.TipoLicitacao}}</td>
-                <td>{{i.Valor}}</td>
-            </tr>
+            <div class="table-responsive-md">
+                <table *ngIf="licitacoes.length > 0" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">NomeObg</th>
+                            <!-- <th scope="col">NomeUnidadeGest</th> -->
+                            <th scope="col">Obs</th>
+                            <th scope="col">TipoLicitacao</th>
+                            <th scope="col">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-        </tbody>
-    </table>
+
+                        <tr *ngFor="let i of licitacoes" (click)="exibirLicitacao(i.id)">
+                            <td>{{i.Data}}</td>
+                            <td>{{i.NomeObg}}</td>
+                            <!-- <td>{{i.NomeUnidadeGest}}</td> -->
+                            <td>{{i.Obs}}</td>
+                            <td>{{i.TipoLicitacao}}</td>
+                            <td>{{i.Valor}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row linha">
+                <button class="btn-next" [disabled]="next" (click)="proximo()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                &nbsp;
+                <button class="btn-prev" [disabled]="prev" (click)="anterior()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>

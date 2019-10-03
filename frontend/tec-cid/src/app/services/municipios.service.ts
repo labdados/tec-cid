@@ -10,6 +10,9 @@ import { API_URL } from './tc.api';
 export class MunicipiosService {
 
   municipios: UnidadeGestora [];
+  unidadesGestoras: UnidadeGestora [] = [];
+  cidades: any[];
+  unidadeGestora: UnidadeGestora;
 
   constructor(
     private http: HttpClient
@@ -17,14 +20,22 @@ export class MunicipiosService {
 
   getMunicipios(){
     return this.http.get<UnidadeGestora[]>(`${API_URL}/unidades-gestoras`).subscribe(data => {
-      this.municipios = data;
-      console.log(data)
+      this.unidadesGestoras = data;
     })
   }
 
-  getLicitacoesMunicipio(codUni:any){
-    let ano = '';
-    let tipoLic = '';
-    return this.http.get<any>(`${API_URL}/licitacoes?limite=20&pagina=${1}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
+  getCidades(){
+    return this.http.get<any[]>('http://localhost:3000/cidades').subscribe(cidades => {
+      this.cidades = cidades;
+    })
   }
+
+  getLicitacoesMunicipio(codUni:any, ano: any, tipoLic: any, pagina:number){
+    return this.http.get<any>(`${API_URL}/licitacoes?limite=10&pagina=${pagina}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
+  }
+
+  filter(filter: string){
+    this.municipios = this.unidadesGestoras.filter(item => item.NomeUnidadeGest.toLowerCase().indexOf(filter) !== -1);
+  }
+
 }
