@@ -7,14 +7,16 @@ municipios = MunicipioService()
 api = Namespace('Munícipio', 'Operações relacionadas aos municípios')
 
 @api.route("")
-@api.doc(params={'pagina': 'Página que será acessada'})
-@api.doc(params={'limite': 'Quantos resultados serão retornados'})
-class Municipios(Resource):
+@api.doc(params={"pagina": "Página que será acessada",
+                 "limite": "Quantos resultados serão retornados",
+                 "campos": "Dados do município que serão retornados, separados por virgula"})
+class MunicipioList(Resource):
    def get(self):
       '''
       Retorna os municipios
       '''
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
-      result = municipios.get_municipios(pagina, limite)
-      return jsonify({"dados": result})
+      campos = request.args.get("campos", '', str)
+      result = municipios.get_municipios(pagina, limite, campos)
+      return jsonify({"dados":result})
