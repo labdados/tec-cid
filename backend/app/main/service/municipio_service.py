@@ -30,3 +30,15 @@ class MunicipioService:
             result = [n.__node__ for n in resultado]
         
         return result
+    
+    def get_gestoes(self, id_municipio, ano_inicio_mandato):
+        query_ano_inicio, query_ano_fim, query_id_mun = ''
+        
+        if ano_inicio_mandato:
+            query_ano_inicio = "WHERE c.ano_eleicao > {}".format(ano_inicio_mandato)
+        if ano_fim_mandato:
+            query_ano_fim = "AND c.ano_eleicao + 4 <= {}".format(ano_fim_mandato)
+       if id_municipio:
+            query_id_mun = "AND m.id = '{}'".format(id_municipio)
+        
+        query = "MATCH p=(c:Candidato)-[r:GOVERNA]->(m:Municipio) WHERE m.id = {} AND c.ano_eleicao > {} AND c.ano_eleicao + 4 <= {} RETURN m.id AS id_municipio, c.cpf AS cpf_candidato, c.ano_eleicao AS ano_inicio_mandato, c.ano_eleicao + 4 AS ano_fim_mandato"
