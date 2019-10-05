@@ -12,7 +12,7 @@ export class LicitacaoComponent implements OnInit {
 
   codUni:string;
   idLicitacao: string;
-  licitacao: Licitacao
+  licitacao: Licitacao = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,9 +25,15 @@ export class LicitacaoComponent implements OnInit {
       this.idLicitacao = params['idLicitacao'];
 
       this.licitacaoService.getLicitacao(this.idLicitacao).subscribe(res => {
-        this.licitacao = res[0][0];
+        this.licitacao = res.dados[0];
       })
+
+      this.licitacaoService.getPropostas(this.idLicitacao);
     });
+  }
+
+  get propostas() {
+    return this.licitacaoService.propostas
   }
 
 }
