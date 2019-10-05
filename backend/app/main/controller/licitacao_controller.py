@@ -58,7 +58,7 @@ class Licitacao(Resource):
       codUnidadeGestora = data[0]
       codTipoLicitacao = data[1]
       codLicitacao = data[2]
-      licitacao = lic_service.get_licitacao_especifica(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+      licitacao = lic_service.get_licitacao(codUnidadeGestora, codTipoLicitacao, codLicitacao)
       licitacao = json.dumps({"dados": licitacao})
       response = gerando_response(licitacao, 1)
       return response
