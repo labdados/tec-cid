@@ -1,5 +1,5 @@
 from py2neo.ogm import GraphObject, Property, RelatedTo, RelatedFrom
-​
+
 class Municipio(GraphObject):
     id = Property()
     uf = Property()
@@ -14,13 +14,13 @@ class Municipio(GraphObject):
     link_wikipedia = Property()
     esfera = Property()
     cancelled = Property()
-​
+
     prefeitos = RelatedFrom("Candidato", "GOVERNA")
     unidades_gestoras = RelatedFrom("UnidadeGestora", "PERTENCE_A")
-​
+    
     def __iter__(self):
         return self.__node__
-​
+
 class Licitacao(GraphObject):
     cd_ugestora = Property()
     cd_modalidade = Property()
@@ -41,7 +41,7 @@ class Licitacao(GraphObject):
     
     def __iter__(self):
         return self.__node__
-​
+
 class UnidadeGestora(GraphObject):
     cd_ugestora = Property()
     nome = Property()
@@ -50,10 +50,10 @@ class UnidadeGestora(GraphObject):
     nome_tipo_jurisdicionado = Property()
     nome_tipo_administracao_jurisdicionado = Property()
     nome_esfera_jurisdicionado = Property()
-​
+
     realizou = RelatedTo("Licitacao")
     pertence_a = RelatedTo("Municipio")
-​
+
     def __iter__(self):
         return self.__node__
 
