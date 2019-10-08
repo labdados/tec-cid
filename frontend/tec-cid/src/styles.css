@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
     background: black;
 }

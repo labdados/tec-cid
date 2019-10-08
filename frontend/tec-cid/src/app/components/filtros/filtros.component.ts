@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UnidadeGestora } from 'src/app/models/unidade-gestora.model';
 import { MunicipiosService } from 'src/app/services/municipios.service';
+import { Municipio } from 'src/app/models/municipio.model';
+import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
 
 @Component({
   selector: 'app-filtros',
@@ -9,67 +11,58 @@ import { MunicipiosService } from 'src/app/services/municipios.service';
 })
 export class FiltrosComponent implements OnInit {
 
-  unidadeGestora: UnidadeGestora = null;
-  codUnidadeGestora: string;
   exibir:boolean = false;
-  cidade: string;
+  cidade: Municipio;
+  unidadeGestora: UnidadeGestora;
   lista: string[] = [];
 
   public model: any;
 
   configCidades = {
-    displayKey: "Cidades",
+    displayKey: "nome",
     search: true,
     limitTo: 10,
     placeholder: 'Selecione seu município',
     noResultsFound: 'Nenhum município encontrado',
-    searchPlaceholder:'Buscar'
+    searchPlaceholder:'Buscar',
+    searchOnKey: 'nome'
   };
 
   configUnidadesGestoras = {
-    displayKey: "NomeUnidadeGest",
-    // search: true,
+    displayKey: "nome",
     limitTo: 10,
     placeholder: 'Selecione a unidade gestora',
-    // noResultsFound: 'Nenhum município encontrado',
-    // searchPlaceholder:'Buscar'
   };
 
   constructor(
-    private municipiosService: MunicipiosService
+    private municipiosService: MunicipiosService,
+    private unidadeGestoraService: UnidadeGestoraService
   ) { }
 
   ngOnInit() {
-    this.municipiosService.getCidades();
     this.municipiosService.getMunicipios();
   }
 
   get municipios() {
-    return this.municipiosService.cidades
-  }
-
-  get unidadesGestoras() {
     return this.municipiosService.municipios
   }
 
-  filtroUnidadeGestora(){
-    this.codUnidadeGestora = this.unidadeGestora.CodUnidadeGest
-    this.exibir = true;  
+  get municipio() {
+    return this.municipiosService.municipio
   }
 
-  filtroCidade(){
+  get unidadesGestoras() {
+    return this.unidadeGestoraService.unidadesGestoras
+  }
+
+  filtroMunicipio(){
     this.show();
-    this.municipiosService.filter(this.cidade.toLowerCase())
-  }
-
-  getUnidadeGestora() {
-    if (this.unidadeGestora != null || this.unidadeGestora != undefined){
-      this.codUnidadeGestora = this.unidadeGestora.CodUnidadeGest
-    }
+    this.municipiosService.getMunicipio(this.cidade.id);
+    this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome)
   }
 
   show() {
-    if (this.cidade == null || this.cidade == undefined || this.cidade == ''){
+    if (this.municipio == null || this.municipio == undefined || this.municipio == ''){
       this.exibir = false;
       return true;
     } else {
