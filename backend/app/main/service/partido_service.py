@@ -1,4 +1,4 @@
-from ..model.partido import Partido
+from ..model.models import Partido
 from app.main import db
 
 class PartidoService:

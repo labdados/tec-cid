@@ -1,4 +1,4 @@
-from ..model.candidato import Candidato
+from ..model.models import Candidato
 from app.main import db
 
 class CandidatoService:

@@ -1,4 +1,4 @@
-from ..model.municipio import Municipio
+from ..model.models import Municipio
 from app.main import db
 from flask import json, jsonify
 

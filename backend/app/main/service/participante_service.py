@@ -1,4 +1,4 @@
-from ..model.participante import Participante
+from ..model.models import Participante
 from app.main import db
 
 class ParticipanteService:
