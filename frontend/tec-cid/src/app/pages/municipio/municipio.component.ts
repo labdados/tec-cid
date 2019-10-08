@@ -12,7 +12,6 @@ import { Licitacao } from 'src/app/models/licitacao.model';
 })
 export class MunicipioComponent implements OnInit {
 
-  municipio: UnidadeGestora
   licitacoes: Licitacao[] = [];
   codUni: any;
   ano: string = '';
@@ -46,7 +45,7 @@ export class MunicipioComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => this.codUni = params['codUnidadeGest']);
-    console.log(this.codUni);
+  
     this.route.params
       .pipe(switchMap((params: Params) => this.loadMunicipio(+params.codUnidadeGest))).subscribe(res => {
         this.licitacoes = res.dados;
@@ -56,6 +55,10 @@ export class MunicipioComponent implements OnInit {
       });
   }
 
+  get municipio() {
+    return this.municipioService.municipio
+  }
+  
   loadMunicipio(codUnidadeGest: any) {
     return this.municipioService.getLicitacoesMunicipio(codUnidadeGest, this.ano, this.tipoLic, this.page);
   }

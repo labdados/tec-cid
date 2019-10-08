@@ -64,23 +64,21 @@
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
-                            <th scope="col">NomeObg</th>
-                            <!-- <th scope="col">NomeUnidadeGest</th> -->
-                            <th scope="col">Obs</th>
-                            <th scope="col">TipoLicitacao</th>
-                            <th scope="col">Valor</th>
+                            <th scope="col">Número</th>
+                            <th scope="col">Modalidade</th>
+                            <th scope="col">Valor estimado</th>
+                            <th scope="col">Valor licitado</th>
                         </tr>
                     </thead>
                     <tbody>
 
 
-                        <tr *ngFor="let i of licitacoes" (click)="exibirLicitacao(i.id)">
-                            <td>{{i.Data}}</td>
-                            <td>{{i.NomeObg}}</td>
-                            <!-- <td>{{i.NomeUnidadeGest}}</td> -->
-                            <td>{{i.Obs}}</td>
-                            <td>{{i.TipoLicitacao}}</td>
-                            <td>{{i.Valor}}</td>
+                        <tr placement="top" ngbTooltip="Clique para mais detalhes sobre esta licitação" *ngFor="let i of licitacoes" (click)="exibirLicitacao(i.id)">
+                            <td>{{ i.data_homologacao | date: fullDate }}</td>
+                            <td>{{ i.numero_licitacao }}</td>
+                            <td>{{ i.modalidade }}</td>
+                            <td>{{ i.valor_estimado | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+                            <td>{{ i.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
                         </tr>
 
                     </tbody>
