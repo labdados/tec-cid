@@ -1,4 +1,4 @@
-// export const API_URL:string = 'http://labdados.dcx.ufpb.br/tec-cid/api'; //API online
+import { environment } from 'src/environments/environment';
 
-export const API_URL:string = 'http://localhost:5000/tec-cid/api'; //API local
+export const API_URL:string = environment.baseUrl;
 
