@@ -57,7 +57,9 @@ python3 load_data_tse.py <neo4j-user> <neo4j-password>
 
 - npm
 
-### Passo a passo
+### Passo a passo (Para o ambiente de desenvolvimento)
+
+O ambiente de desenvolvimento é aquele em que o programador usa para construir o software. Muitas das vezes é sua máquina local.
 
 1. Clonar este repositório:
 
@@ -70,3 +72,24 @@ git clone https://github.com/labdados/tec-cid.git
 3. Iniciar o servidor angular com o comando `ng serve`
 
 4. Acessar o browser no seguinte endereço `http://localhost:4200`
+
+### Passo a passo (Para o ambiente de produção)
+
+O ambiente de produçã é aquele em que o usuário final do sistema terá acesso. Nesse caso, um sevidor web por exemplo.
+Para simular um ambiente de produção é só seguir os seguintes passos:
+
+1. Clonar este repositório:
+
+```
+git clone https://github.com/labdados/tec-cid.git
+```
+
+2. No diretório `tec-cid/frontend/tec-cid`, rodar o comando `npm install`:
+
+3. Buildar o sistema rodando o seguinte comando `ng build --prod` onde o `--prod` significa que o build será de produção. Isso criará um diretório chamado `/dist`
+
+4. Dentro do diretório `/dist` rode o seguinte comando `npm init` para incialzar um arquivo `package.json`. Acesse o arquivo `package.json`, na parte de `scripts` adicione a seguinte linha `"start": "node index.js"` 
+
+5. Feito isto, é hora de configurar o nosso servidor, para isso usaremos o express que é um framework Node.js. Criaremos dentro do diretório `/dist` um arquivo `index.js`. Utilize o exemplo `index.js.exemple`.
+
+6. Agora só resta levantar o servidor. No diretório `/dist` rode o comando `npm start` e acesse o `http://localhost:3000`
