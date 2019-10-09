@@ -1,0 +1,23 @@
+const express = require('express');
+
+const app = express();
+
+
+app.set('port', 3000);
+
+
+app.use(express.static(__dirname + '/tec-cid'));
+
+
+app.get('*',function (req, res) {
+
+  res.sendFile(__dirname + '/tec-cid/index.html');
+
+});
+
+
+app.listen(app.get('port'), function() {
+
+  console.log('Running on port ', app.get('port'));
+
+});
