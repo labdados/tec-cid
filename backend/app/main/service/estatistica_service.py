@@ -1,99 +1,59 @@
 from ..model.licitacao import Licitacao
 from app.main import db
 
+PARTICIPANTE_GROUP = "participante"
+MUNICIPIO_GROUP = "municipio"
+
 class EstatisticaService:
 
-    def __init__(self):
-    	self.count_lic = 0
-    	self.count_props = 0
-
-    def get_count(self, query):
-        result = db.run(query).data()
-        dic = result[0]
-        count = dic['COUNT(*)']
-        return count
-
-    def get_estatistica_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens,
+    def get_estatistica_licitacoes(self, id_municipio, data_inicio, data_fim, pagina, itens,
                                    agrupar_por, ordenar_por, ordem):
-        skip = itens * (pagina - 1)
         
-        filtros = {}
-        conditions = ["_.valor_licitado IS NOT NULL"]
+        q_match = ("MATCH (p:Participante)-[f:FEZ_PROPOSTA_EM]->(l:Licitacao)<-"
+                   "[REALIZOU]-(u:UnidadeGestora)-[:PERTENCE_A]->(m:Municipio)")
+        
+        conditions = ["l.valor_licitado IS NOT NULL", "f.situacao = 'Vencedora'"]
 
-        if tipo:
-            conditions.append("_.cd_modalidade = '{}'".format(tipo))
-
-        if unidade:
-            conditions.append("_.cd_ugestora = '{}'".format(unidade))
+        if id_municipio:
+            conditions.append("m.id = '{}'".format(id_municipio))
 
         if data_inicio:
-            conditions.append("_.data_homologacao >= date('{}')".format(data_inicio))
+            conditions.append("l.data_homologacao >= date('{}')".format(data_inicio))
 
         if data_fim:
-            conditions.append("_.data_homologacao <= date('{}')".format(data_fim))
+            conditions.append("l.data_homologacao <= date('{}')".format(data_fim))
 
+        group_by_l = [g.strip().lower() for g in agrupar_por.split(',')]
+        return_l = []
+
+        if PARTICIPANTE_GROUP in group_by_l:
+            return_l.append("p.cpf_cnpj AS cpf_cnpj_participante, "
+                            "p.nome AS nome_participante")
+
+        if MUNICIPIO_GROUP in group_by_l:
+            return_l.append("m.id AS id_municipio, "
+                            "m.nome AS nome_municipio")
+
+        return_l.append("COUNT(DISTINCT l) AS n_licitacoes, "
+                        "COUNT(DISTINCT p) AS n_participantes, "
+                        "SUM(l.valor_licitado) AS valor_licitacoes, "
+                        "SUM(f.valor) AS valor_propostas_vencedoras")
+        
         if not ordenar_por:
-            ordenar_por = "_.data_homologacao"
-        else:
-            ordenar_por = "_." + ordenar_por
+            ordenar_por = "valor_licitacoes"
 
         if ordem.upper() in ["DESC", "ASC"]:
             ordenar_por += " {}".format(ordem)
+        else:
+            ordenar_por += " DESC"
 
-        #self.count_lic = len(Licitacao.match(db).where(*conditions))
-        match_query = Licitacao.match(db).where(*conditions)
-        self.count_lic = match_query.__len__()
-        result = match_query.order_by(ordenar_por).skip(skip).limit(itens)
-        nodes = []
-        for lic in result:
-            node = lic.__node__
-            node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.cd_modalidade, lic.numero_licitacao)
-            node["data_homologacao"] = node["data_homologacao"].__str__()
-            nodes.append(node)
+        skip = itens * (pagina - 1)
 
-        return(nodes)
+        query = (q_match + 
+                 " WHERE {}".format(" AND ".join(conditions)) +
+                 " RETURN {}".format(", ".join(return_l)) +
+                 " ORDER BY {}".format(ordenar_por) +
+                 " SKIP {} LIMIT {}".format(skip, itens))
 
-    def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
-        result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,
-                                           cd_modalidade = codTipoLicitacao,
-                                           numero_licitacao = codLicitacao)
-
-        #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_modalidade='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
-        nodes = []
-        for lic in result:
-            node = lic.__node__
-            node["id"] = "{}-{}-{}".format(codUnidadeGestora, codLicitacao, codTipoLicitacao)
-            node["data_homologacao"] = node["data_homologacao"].__str__()
-            nodes.append(node)
-        return nodes
-
-    def get_propostas(self, codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite):
-        skip = limite * (pagina - 1)
-
-        query = "MATCH (p:Participante)-[r:FEZ_PROPOSTA_EM]->(l:Licitacao) \
-                WHERE l.cd_ugestora='{}' and l.cd_modalidade='{}' and l.numero_licitacao='{}'".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
-
-        self.count_props = self.get_count(query + "RETURN COUNT(*)")
-
-        result = db.run(query + " RETURN p.nome as nome_participante, p.cpf_cnpj as cpf_cnpj_participante, \
-                                 l.cd_ugestora as cd_ugestora, l.numero_licitacao as numero_licitacao, \
-                                 l.cd_modalidade as cd_modalidade_licitacao, r.valor as valor_proposta, \
-                                 r.situacao as situacao_proposta \
-                                 SKIP {} LIMIT {}".format(skip, limite)).data()
-        return result
-
-    def get_estatisticas_municipios(self, codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite):
-            skip = limite * (pagina - 1)
-
-            query = "MATCH (p:Participante)-[r:FEZ_PROPOSTA_EM]->(l:Licitacao) \
-                    WHERE l.cd_ugestora='{}' and l.cd_modalidade='{}' and l.numero_licitacao='{}'".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
-
-            self.count_props = self.get_count(query + "RETURN COUNT(*)")
-
-            result = db.run(query + " RETURN p.nome as nome_participante, p.cpf_cnpj as cpf_cnpj_participante, \
-                                    l.cd_ugestora as cd_ugestora, l.numero_licitacao as numero_licitacao, \
-                                    l.cd_modalidade as cd_modalidade_licitacao, r.valor as valor_proposta, \
-                                    r.situacao as situacao_proposta \
-                                    SKIP {} LIMIT {}".format(skip, limite)).data()
-            return result
-        
+        result = db.run(query).data()
+        return(result)
