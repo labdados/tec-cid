@@ -4,14 +4,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="cidade" [options]="municipios"
-                    [config]="configCidades" (change)="filtroCidade()"></ngx-select-dropdown>
+                    [config]="configCidades" (change)="filtroMunicipio()"></ngx-select-dropdown>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="form-group">
                 <ngx-select-dropdown [disabled]="show()" [(ngModel)]="unidadeGestora"  tabindex="0" [multiple]="false" [options]="unidadesGestoras"
-                    [config]="configUnidadesGestoras" (change)="getUnidadeGestora()">
+                    [config]="configUnidadesGestoras">
                 </ngx-select-dropdown>
             </div>
         </div>
@@ -37,7 +37,7 @@
 
         <div class="row">
             <div>
-                <h1 id="cidade">{{ cidade }}</h1>
+                <h1 id="cidade">{{ municipio.nome }}</h1>
             </div>
         </div>
 
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a [routerLink]="['/municipio', codUnidadeGestora]" routerLinkActive="router-link-active"  class="btn btn-detalhes mx-auto">Veja detalhadamente</a>
+                    <a [routerLink]="['/municipio', unidadeGestora.cd_ugestora]" routerLinkActive="router-link-active"  class="btn btn-detalhes mx-auto">Veja detalhadamente</a>
                 </div>
             </div>
         </div>

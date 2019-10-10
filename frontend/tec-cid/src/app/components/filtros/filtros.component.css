@@ -11,8 +11,9 @@
 }
 
 #cidade {
-    font-size: 60px;
-    color: #0d4247
+    font-size: 50px;
+    color: #0d4247;
+    font-weight: bold;
 }
 
 .infos h3 {

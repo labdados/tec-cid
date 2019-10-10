@@ -6,38 +6,41 @@
             <h1 id="cidade">Nome unidade gestora</h1>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="licitacao != null">
         <div class="col-md-6">
-            <div class="row mb-4">
-                <div id="area" class="col-md-10">
-                    <!-- <i class="fas fa-hands-helping fa-3x"></i> -->
-                    <img src="../../../assets/images/icon-confianca-2.png" class="img-fluid img-areas" alt=""> &nbsp;
-                    {{ licitacao.NomeObg }}
+            <div class="row detalhes">
+                <div class="col-md-2" id="icone">
+                    <i style="color: #08A5CA" class="fas fa-hands-helping fa-3x"></i>
+                </div>
+                <div class="col-md-10 objejo">
+                    {{ licitacao.objeto }}
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col-md-2">
-                    <i style="color: #08A5CA" class="far fa-calendar-alt fa-5x"></i>
+            <div class="row detalhes">
+                <div class="col-md-2" id="icone">
+                    <i style="color: #08A5CA" class="far fa-calendar-alt fa-3x"></i>
                 </div>
                 <div class="col-md-10 data">
-                    &nbsp;{{ licitacao.Data }}
+                    &nbsp;{{ licitacao.data_homologacao | date: 'dd/MM/yyyy' }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <i style="color: #08A5CA" class="far fa-file-alt fa-5x"></i>
+            <div class="row detalhes">
+                <div class="col-md-2 icon" id="icone">
+                    <i style="color: #08A5CA" class="far fa-file-alt fa-3x"></i>
                 </div>
                 <div class="col-md-10 data">
-                    &nbsp;{{ licitacao.TipoLicitacao }}
+                    &nbsp;{{ licitacao.modalidade }}
                 </div>
             </div>
         </div>
+
+
         <div class="col-md-6 ">
             <div class="row mb-4">
                 <div class="mx-auto">
                     <div class="info-gasto">
-                        <h1 id="valor">{{ licitacao.Valor | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
-                        <p id="info" align="center">Total gasto nesta licitação</p>
+                        <h1 id="valor">{{ licitacao.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
+                        <p id="info" align="center">Total licitado*</p>
                     </div>
                 </div>
             </div>
@@ -47,15 +50,47 @@
                         <h4 align="center" id="vencedor">Vencedor</h4>
                     </div>
                 </div>
-                <div class="col-md-10 offset-md-1">
-
+                <div class="col-md-11 offset-md-1">
                     <div class="table-responsive-md">
                         <table id="tabela" class="table table-borderless">
-                            <tbody>
+                            <thead>
                                 <tr>
-                                    <td><img src="../../../assets/images/gold_medal_PNG60.png" width="40" alt=""></td>
-                                    <td>MEGAFARMA</td>
-                                    <td> <a href="#"><i class="fas fa-search fa-2x"></i></a></td>
+                                    <th>Participante</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let proposta of propostas | filterProposta">
+                                    <td class="col-md-8">{{ proposta.nome_participante }}</td>
+                                    <td class="col-md-4"> {{ proposta.valor_proposta | currency:'BRL':'symbol':'1.2-2':'pt' }} </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mx-auto">
+                        <h4 align="center" id="outras">Outras propostas</h4>
+                    </div>
+                </div>
+                <div class="col-md-11 offset-md-1">
+                    <div class="table-responsive-md">
+                        <table id="tabela" class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Participante</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let proposta of propostas | filterPropostaPerdedora">
+                                    <td class="col-md-8">{{ proposta.nome_participante }}</td>
+                                    <td class="col-md-4"> {{ proposta.valor_proposta | currency:'BRL':'symbol':'1.2-2':'pt' }} </td>
+
                                 </tr>
                             </tbody>
                         </table>

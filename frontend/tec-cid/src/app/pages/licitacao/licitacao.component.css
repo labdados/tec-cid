@@ -17,7 +17,14 @@
     display:flex;
     align-items: center;
     color: #0d4247;
-    font-size: 25px;
+    font-size: 22px;
+}
+
+.objeto {
+    display:flex;
+    align-items: center;
+    color: #0d4247;
+    font-size: 14px;
 }
 
 #valor {
@@ -37,8 +44,27 @@
 }
 
 #tabela tbody tr td {
-    text-align: center;     /* alinhamento horizontal */
-    vertical-align: middle;
+    /* text-align: center;     alinhamento horizontal */
+    /* vertical-align: middle; */
     color: #08A5CA
+}
+
+.detalhes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.detalhes #icone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#outras {
+    font-size: 20px;
+    color: #0d4247;
 }
 

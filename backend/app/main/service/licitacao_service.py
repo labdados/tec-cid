@@ -1,4 +1,4 @@
-from ..model.licitacao import Licitacao
+from ..model.models import Licitacao
 from app.main import db
 
 class LicitacaoService:
