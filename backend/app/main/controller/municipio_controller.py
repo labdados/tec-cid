@@ -21,19 +21,16 @@ class MunicipioList(Resource):
       result = municipios.get_municipios(pagina, limite, campos)
       return jsonify({"dados":result})
 
-@api.route("/<string:id>/gestoes")
+@api.route("/<string:idMunicipio>/gestoes")
 @api.doc(params={
    "idMunicipio": "Id do município",
-   "anoInicioMandato": "Ano do início do mandato",
-   "anoFimMandato": "Ano do fim do mandato"
+   "ano": "Ano do início do mandato"
 })
 class Gestoes(Resource):
-       def get(self):
-              
+   def get(self, idMunicipio):
+      ano = request.args.get("ano", None, int)
+      result = municipios.get_gestoes(idMunicipio, ano)
+      return jsonify({"dados": result})
+      
 
 
-@api.route("/<string:id>/gestoes/<string:ano>")
-@api.doc(params={
-   "id": "Id do munícipio",
-   "ano": "Ano do mandato"
-})
