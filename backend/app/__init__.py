@@ -4,6 +4,7 @@ from .main.controller.unidade_gestora_controller import api as unidades_namespac
 from .main.controller.candidato_controller import api as candidatos_namespace
 from .main.controller.partido_controller import api as partidos_namespace
 from .main.controller.municipio_controller import api as municipios_namespace
+from .main.controller.estatistica_controller import api as estatistica_namespace
 
 from flask import Flask, Blueprint, url_for
 from flask_restplus import Api, Resource, apidoc
@@ -35,3 +36,4 @@ api.add_namespace(unidades_namespace, path="/unidades-gestoras")
 api.add_namespace(candidatos_namespace, path="/candidatos")
 api.add_namespace(partidos_namespace, path="/partidos")
 api.add_namespace(municipios_namespace, path="/municipios")
+api.add_namespace(estatistica_namespace, path="/estatisticas")
