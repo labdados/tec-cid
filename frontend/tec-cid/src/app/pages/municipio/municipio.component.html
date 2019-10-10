@@ -74,7 +74,7 @@
 
 
                         <tr placement="top" ngbTooltip="Clique para mais detalhes sobre esta licitação" *ngFor="let i of licitacoes" (click)="exibirLicitacao(i.id)">
-                            <td>{{ i.data_homologacao | date: fullDate }}</td>
+                            <td>{{ i.data_homologacao | date: "dd/MM/yyy" }}</td>
                             <td>{{ i.numero_licitacao }}</td>
                             <td>{{ i.modalidade }}</td>
                             <td>{{ i.valor_estimado | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>

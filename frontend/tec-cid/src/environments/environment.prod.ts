@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: 'http://labdados.dcx.ufpb.br/tec-cid/api'
 };
