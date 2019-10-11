@@ -25,7 +25,7 @@ export class MunicipiosService {
     {
       params: 
       {
-        campos: 'id,nome',
+        atributos: 'id,nome',
         pagina: '1',
         limite: '230'
       }
