@@ -30,9 +30,13 @@ services:
             - neo4j
         env_file:
             - .env
+
     web:
+        image: tec-cid_web:${ENV}
         build: 
             context: frontend/tec-cid/
+            args:
+                env: ${ENV}
         ports:
             - "3000:80"
         volumes:
@@ -40,4 +44,3 @@ services:
             - .:/app
         depends_on:
             - flask
-
