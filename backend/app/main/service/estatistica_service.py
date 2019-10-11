@@ -1,4 +1,3 @@
-from ..model.licitacao import Licitacao
 from app.main import db
 
 PARTICIPANTE_GROUP = "participante"
