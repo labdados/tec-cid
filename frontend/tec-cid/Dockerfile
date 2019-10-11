@@ -1,5 +1,5 @@
 FROM node:alpine as builder
-ARG env
+ARG env=prod
 WORKDIR /app
 COPY package.json package-lock.json /app/
 RUN npm install @angular/cli -g
@@ -10,4 +10,3 @@ RUN cd /app && ng build --configuration $env
 
 FROM nginx:alpine
 COPY --from=builder /app/dist/* /usr/share/nginx/html/
-
