@@ -1,10 +1,13 @@
 FROM node:alpine as builder
-WORKDIR '/app'
-COPY package.json .
+ARG env=prod
+WORKDIR /app
+COPY package.json package-lock.json /app/
+RUN npm install @angular/cli -g
+RUN npm install --global gulp-cli
 RUN npm install
-COPY . .
-RUN npm run build
+COPY . /app
+RUN cd /app && ng build --configuration $env
 
-FROM nginx
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/* /usr/share/nginx/html/
-

@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "ng serve & gulp watch",
+    "serve": "ng serve --sourcemap=false --verbose",
+    "build:prod": "ng build --configuration=prod",
+    "build:dev": "ng build --configuration=dev"
   },
   "private": true,
   "dependencies": {
