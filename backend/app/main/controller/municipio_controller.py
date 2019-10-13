@@ -28,10 +28,10 @@ class MunicipioList(Resource):
 
 @api.route("/<string:idMunicipio>/gestoes")
 @api.doc(params={
-   "idMunicipio": "Id do município",
-   "ano": "Ano do início do mandato"
+   "idMunicipio": "Identificador do município. Pode ser obtido do endpoint '/municipios'",
+   "ano": "Filtra a gestão que estava governando o município naquele ano específico"
 })
-class Gestoes(Resource):
+class GestaoList(Resource):
    def get(self, idMunicipio):
       ano = request.args.get("ano", None, int)
       result = municipios.get_gestoes(idMunicipio, ano)
