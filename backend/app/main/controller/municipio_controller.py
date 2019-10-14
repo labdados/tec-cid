@@ -1,6 +1,7 @@
 from ..service.municipio_service import MunicipioService
 from flask_restplus import Resource, Namespace
 from flask import request, jsonify
+from datetime import datetime
 
 municipios = MunicipioService()
 
@@ -26,15 +27,16 @@ class MunicipioList(Resource):
       result = municipios.get_municipios(pagina, limite, atributos)
       return jsonify({"dados":result})
 
-@api.route("/<string:idMunicipio>/gestoes")
+@api.route("/<string:id>/gestoes")
 @api.doc(params={
-   "idMunicipio": "Identificador do município. Pode ser obtido do endpoint '/municipios'",
+   "id": "Identificador do município. Pode ser obtido do endpoint '/municipios'",
    "ano": "Filtra a gestão que estava governando o município naquele ano específico"
 })
 class GestaoList(Resource):
-   def get(self, idMunicipio):
-      ano = request.args.get("ano", None, int)
-      result = municipios.get_gestoes(idMunicipio, ano)
+   def get(self, id):
+      ano_atual = int(datetime.now().year) # ano default é o atual
+      ano = request.args.get("ano", ano_atual, int)
+      result = municipios.get_gestoes(id, ano)
       return jsonify({"dados": result})
       
 
