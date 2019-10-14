@@ -21,10 +21,22 @@ class MunicipioService:
             node = {k: node[k] for k in atr_l if k in node} if atr_l else node
             if node:
                 nodes.append(node)
-
+        
         return nodes
     
+    def get_gestoes(self, id_municipio, ano):
+        query = "MATCH p=(c:Candidato)-[r:GOVERNA]->(m:Municipio) \
+            WHERE m.id = '{id}' AND {ano} >= c.ano_eleicao + 1 AND \
+            {ano} <= c.ano_eleicao + 4 \
+            RETURN c.cpf AS id_candidato, \
+            c.ano_eleicao + 1 AS ano_inicio_mandato, \
+            c.ano_eleicao + 4 AS ano_fim_mandato".format(id = id_municipio, ano = ano)
+        result = db.run(query).data()
+        
+        return result
+
     def get_municipio(self, id):
         result = Municipio.match(db).where(id = id)
         nodes = [n.__node__ for n in result]
         return nodes
+
