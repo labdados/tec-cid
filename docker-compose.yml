@@ -32,7 +32,7 @@ services:
             - .env
 
     web:
-        image: tec-cid_web:${ENV}
+        image: tec-cid_web:${NG_ENV}
         build: 
             context: frontend/tec-cid/
             args:
