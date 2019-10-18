@@ -1,6 +1,6 @@
 FROM node:alpine as builder
 ARG env=prod
-ARG BASE_HREF=/
+ARG base_href=/
 WORKDIR /app
 COPY package.json package-lock.json /app/
 RUN npm install @angular/cli -g
