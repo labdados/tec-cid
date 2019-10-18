@@ -36,7 +36,8 @@ services:
         build: 
             context: frontend/tec-cid/
             args:
-                env: ${ENV}
+                env: ${NG_ENV}
+                base_href: ${NG_BASE_HREF}
         ports:
             - "3000:80"
         volumes:
