@@ -1,8 +1,10 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///candidatos.csv" AS line
 
-MERGE (cand:Candidato { cpf: line.NR_CPF_CANDIDATO, cd_eleicao: line.CD_ELEICAO })
+MERGE (cand:Candidato { id: line.SQ_CANDIDATO })
 ON CREATE SET 
+        cand.cpf = line.NR_CPF_CANDIDATO,
+        cand.cd_eleicao = line.CD_ELEICAO,
         cand.ano_eleicao = toInteger(line.ANO_ELEICAO),
         cand.uf = line.SG_UF,
         cand.municipio = line.NM_UE,
