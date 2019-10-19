@@ -1,11 +1,10 @@
 .navbar-brand {
-    color: white;
+    color: #073b4cff;
     font-size: 30px;
     font-weight: 600;
 }
 
 .navbar-links {
-    color: white;
     font-size: 20px;
     font-weight: 500;
     margin: 10px;
