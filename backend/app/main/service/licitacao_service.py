@@ -13,12 +13,15 @@ class LicitacaoService:
         count = dic['COUNT(*)']
         return count
 
-    def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem):
+    def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem, nome_municipio):
         skip = itens * (pagina - 1)
         
         filtros = {}
         conditions = ["_.valor_licitado IS NOT NULL"]
 
+        if nome_municipio:
+            return self.get_licitacoes_por_municipio(nome_municipio)
+        
         if tipo:
             conditions.append("_.cd_modalidade = '{}'".format(tipo))
 
@@ -51,6 +54,12 @@ class LicitacaoService:
             nodes.append(node)
 
         return(nodes)
+    
+    def get_licitacoes_por_municipio(self, nome_municipio):
+        query = "MATCH p=(u:UnidadeGestora)-[r:REALIZOU]->(l:Licitacao) \
+        WHERE u.municipio = '{nomeMunicipio}' RETURN l".format(nomeMunicipio = nome_municipio)
+        result = db.run(query).data()
+        return result
 
     def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,

@@ -22,7 +22,8 @@ def gerando_response(results, x_total_count):
    "limite": "Quantos resultados serão retornados",
    "pagina": "Página que será acessada",
    "ordenarPor": "Nome do campo pelo qual a lista deve ser ordenada.",
-   "ordem": "O sentido da ordenação: `ASC` para A a Z ou 0 a 9, e `DESC` para Z a A ou 9 a 0."
+   "ordem": "O sentido da ordenação: `ASC` para A a Z ou 0 a 9, e `DESC` para Z a A ou 9 a 0.",
+   "nomeMunicipio": "Nome do município a quem pertence as licitações"
 })
 class LicitacaoList(Resource):
    def get(self):
@@ -37,8 +38,9 @@ class LicitacaoList(Resource):
       limite = request.args.get("limite", 20, int)
       ordenar_por = request.args.get("ordenarPor", "Data", str)
       ordem = request.args.get("ordem", '', str)
+      nome_municipio = request.args.get("nomeMunicipio", '', str)
       licitacoes = lic_service.get_licitacoes(cod_uni, tipo_lic, data_inicio, data_fim,
-                                      pagina, limite, ordenar_por, ordem)
+                                      pagina, limite, ordenar_por, ordem, nome_municipio)
       
       licitacoes =  json.dumps({"dados": licitacoes})
       total = lic_service.count_lic
