@@ -8,3 +8,8 @@ class CandidatoService:
         result = Candidato.match(db).order_by("_.nome").skip(skip).limit(limite)
         nodes = [n.__node__ for n in result]
         return nodes
+    
+    def get_candidato_por_id(self, id):
+        result = Candidato.match(db).where(id = id)
+        nodes = [n.__node__ for n in result]
+        return nodes
