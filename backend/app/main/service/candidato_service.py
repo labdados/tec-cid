@@ -9,7 +9,7 @@ class CandidatoService:
         nodes = [n.__node__ for n in result]
         return nodes
     
-    def get_candidato_por_id(self, id):
+    def get_candidato(self, id):
         result = Candidato.match(db).where(id = id)
         nodes = [n.__node__ for n in result]
         return nodes
