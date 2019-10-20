@@ -28,7 +28,7 @@ class MunicipioService:
         query = "MATCH p=(c:Candidato)-[r:GOVERNA]->(m:Municipio) \
             WHERE m.id = '{id}' AND {ano} >= c.ano_eleicao + 1 AND \
             {ano} <= c.ano_eleicao + 4 \
-            RETURN c.cpf AS id_candidato, \
+            RETURN c.id AS id_candidato, \
             c.ano_eleicao + 1 AS ano_inicio_mandato, \
             c.ano_eleicao + 4 AS ano_fim_mandato".format(id = id_municipio, ano = ano)
         result = db.run(query).data()
