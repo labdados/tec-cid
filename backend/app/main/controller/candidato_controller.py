@@ -26,7 +26,7 @@ class Candidato(Resource):
          '''
          Retorna um candidato específico 
          '''
-         candidato = candidato_service.get_candidato_por_id(id)
+         candidato = candidato_service.get_candidato(id)
          return jsonify({"dados": candidato})
 
 @api.route("<string:id>/doacoes")
