@@ -66,7 +66,7 @@ class LicitacaoService:
         
         query = "MATCH p=(u:UnidadeGestora)-[r:REALIZOU]->(licitacao:Licitacao) \
         WHERE u.municipio = '{nomeMunicipio}' RETURN licitacao SKIP {skip} LIMIT {limit}".format(nomeMunicipio = nome_municipio, skip = skip, limit = itens)
-        result = db.run(query).data()
+        result = [lic["licitacao"] for lic in db.run(query).data()]
         return result
 
     def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
