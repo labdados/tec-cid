@@ -37,6 +37,6 @@ class MunicipioService:
 
     def get_municipio(self, id):
         result = Municipio.match(db).where(id = id)
-        nodes = [n.__node__ for n in result]
-        return nodes
+        node = [n.__node__ for n in result]
+        return node        
 
