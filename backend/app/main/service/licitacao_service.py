@@ -1,5 +1,6 @@
 from ..model.models import Licitacao
 from app.main import db
+from .municipio_service import MunicipioService
 
 class LicitacaoService:
 
@@ -13,14 +14,14 @@ class LicitacaoService:
         count = dic['COUNT(*)']
         return count
 
-    def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem, nome_municipio):
+    def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem, id_municipio):
         skip = itens * (pagina - 1)
         
         filtros = {}
         conditions = ["_.valor_licitado IS NOT NULL"]
 
-        if nome_municipio:
-            return self.get_licitacoes_por_municipio(nome_municipio)
+        if id_municipio:
+            return self.get_licitacoes_por_municipio(id_municipio, pagina, itens)
         
         if tipo:
             conditions.append("_.cd_modalidade = '{}'".format(tipo))
@@ -55,9 +56,16 @@ class LicitacaoService:
 
         return(nodes)
     
-    def get_licitacoes_por_municipio(self, nome_municipio):
-        query = "MATCH p=(u:UnidadeGestora)-[r:REALIZOU]->(l:Licitacao) \
-        WHERE u.municipio = '{nomeMunicipio}' RETURN l".format(nomeMunicipio = nome_municipio)
+    def get_licitacoes_por_municipio(self, id_municipio, pagina, itens):
+        skip = itens * (pagina - 1)
+        
+        municipio_service = MunicipioService()
+        municipio = municipio_service.get_municipio(id_municipio)
+        nome_municipio = municipio[0]['nome']
+        
+        
+        query = "MATCH p=(u:UnidadeGestora)-[r:REALIZOU]->(licitacao:Licitacao) \
+        WHERE u.municipio = '{nomeMunicipio}' RETURN licitacao SKIP {skip} LIMIT {limit}".format(nomeMunicipio = nome_municipio, skip = skip, limit = itens)
         result = db.run(query).data()
         return result
 
