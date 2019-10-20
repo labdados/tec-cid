@@ -21,7 +21,6 @@ export class UnidadeGestoraService {
       }
     }).subscribe(res => {
       this.unidadesGestoras = res.dados;
-      console.log(this.unidadesGestoras)
     })
   }
 
