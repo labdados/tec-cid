@@ -6,13 +6,14 @@
             <h1 id="cidade">Nome unidade gestora</h1>
         </div>
     </div>
-    <div class="row" *ngIf="licitacao != null">
-        <div class="col-md-6">
-            <div class="row detalhes">
-                <div class="col-md-2" id="icone">
+
+     <div class="row" *ngIf="licitacao != null">
+       <!-- <div class="col-md-6 col-sm-12" id="info-licitacao">
+            <div class="row detalhes" style="border: blue 1px solid;">
+                <div class="col-sm-2" style="border: red 1px solid;">
                     <i style="color: #08A5CA" class="fas fa-hands-helping fa-3x"></i>
                 </div>
-                <div class="col-md-10 objejo">
+                <div class="col-md-10 col-sm-10  " style="border: greenyellow 1px solid;">
                     {{ licitacao.objeto }}
                 </div>
             </div>
@@ -32,10 +33,39 @@
                     &nbsp;{{ licitacao.modalidade }}
                 </div>
             </div>
+        </div> -->
+
+        <div class="col-md-6 col-sm-12">
+            <div class="row detalhes">
+                <div class="col-2">
+                    <i style="color: #08A5CA" class="fas fa-hands-helping fa-3x"></i>
+                </div>
+                <div class="col-10 objeto">
+                    {{ licitacao.objeto }}
+                </div>
+            </div>
+
+            <div class="row detalhes">
+                <div class="col-2">
+                    <i style="color: #08A5CA" class="far fa-calendar-alt fa-3x"></i>
+                </div>
+                <div class="col-10 data">
+                    {{ licitacao.data_homologacao | date: 'dd/MM/yyyy' }}
+                </div>
+            </div>
+
+            <div class="row detalhes">
+                <div class="col-2">
+                    <i style="color: #08A5CA" class="far fa-file-alt fa-3x"></i>
+                </div>
+                <div class="col-10 data">
+                    {{ licitacao.modalidade }}
+                </div>
+            </div>
         </div>
 
 
-        <div class="col-md-6 ">
+        <div class="col-md-6 col-sm-12" id="lado-2">
             <div class="row mb-4">
                 <div class="mx-auto">
                     <div class="info-gasto">
