@@ -41,7 +41,7 @@ class GestaoList(Resource):
       
 
 @api.route("/<string:id>")
-@api.doc(params={'id': 'ID do municipio'})
+@api.doc(params={'id': 'ID do município'})
 class Municipio(Resource):
    def get(self, id):
       '''
