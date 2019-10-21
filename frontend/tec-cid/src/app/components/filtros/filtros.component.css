@@ -68,6 +68,11 @@
     margin-top: 10px;
 }
 
+.btn-detalhes:disabled {
+    background-color: #041416;
+    color: white;
+}
+
 #row-info-prefeito .col-md-3 {
     margin-right: 2%;
 }
@@ -116,5 +121,4 @@
         text-align: center;
         font-size: 26px;
     }
-    
 }
