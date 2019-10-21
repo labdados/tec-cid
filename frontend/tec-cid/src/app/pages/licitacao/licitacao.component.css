@@ -68,3 +68,9 @@
     color: #0d4247;
 }
 
+@media screen and (max-width: 768px) {
+    .col-md-12 #cidade {
+        font-size: 12px;
+    }
+}
+
