@@ -1,4 +1,4 @@
-#cidade {
+#cidade h1 {
     font-size: 40px;
     color: #0d4247;
     font-weight: bold;
@@ -73,4 +73,52 @@
 
 .table tbody tr:hover {
     cursor: pointer;
+}
+
+#info-prefeito .col-md-3 {
+    margin-right: 2%;
+}
+
+.row ngx-select-dropdown {
+    width: 80%;
+}
+
+@media screen and (max-width: 768px) {
+    #cidade h1 {
+        font-size: 26px;
+    }
+
+    #info-prefeito {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #info-prefeito .col-md-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0%;
+    }
+
+    #info-prefeito .col-md-3 img {
+        width: 100px;
+    }
+
+    .row .gasto  {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+    }
+
+    .info-gasto h1 {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .row ngx-select-dropdown {
+        width: 100%;
+    }
 }
