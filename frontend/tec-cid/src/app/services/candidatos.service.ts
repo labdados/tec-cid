@@ -8,7 +8,7 @@ import { Candidato } from '../models/candidato.model';
 })
 export class CandidatosService {
 
-  candidato: Candidato;
+  candidato: Candidato = new Candidato(0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '')
 
   constructor(
     private http: HttpClient
