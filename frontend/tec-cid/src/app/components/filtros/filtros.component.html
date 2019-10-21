@@ -10,9 +10,11 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <ngx-select-dropdown [disabled]="show()" [(ngModel)]="unidadeGestora"  tabindex="0" [multiple]="false" [options]="unidadesGestoras"
-                    [config]="configUnidadesGestoras">
+                <ngx-select-dropdown ngbTooltip="Selecione a unidade gestora." placement="bottom" triggers="manual"
+                    #t="ngbTooltip" [disabled]="show()" [(ngModel)]="unidadeGestora" tabindex="0" [multiple]="false"
+                    [options]="unidadesGestoras" [config]="configUnidadesGestoras">
                 </ngx-select-dropdown>
+
             </div>
         </div>
 
@@ -48,9 +50,9 @@
                         <img class="img-fluid" id="foto" src="assets/images/user.png" alt="">
                     </div>
                     <div class="infos">
-                        <h3>Fulano de tal</h3>
-                        <h5>PSB</h5>
-                        <h5>2016-2020</h5>
+                        <h3>{{ candidato.nome_urna }}</h3>
+                        <h5>{{ candidato.sigla_partido }}</h5>
+                        <h5>{{ gestao.ano_inicio_mandato }}-{{ gestao.ano_fim_mandato }}</h5>
                     </div>
                 </div>
             </div>
@@ -59,13 +61,13 @@
                 <div class="row">
                     <div class=" gasto mx-auto">
                         <div class="info-gasto">
-                            <h1 id="gasto">R$ 7.345.345,00</h1>
-                            <p align="center">Total gasto de janeiro de 2019 até o presente momento.</p>
+                            <h1 id="gasto">{{ valorLicitacoes | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
+                            <p align="center">Total gasto do inicío do mandato até o presente momento.</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <a [routerLink]="['/municipio', unidadeGestora.cd_ugestora]" routerLinkActive="router-link-active"  class="btn btn-detalhes mx-auto">Veja detalhadamente</a>
+                    <button (click)="exibirMunicipio(t)" class="btn btn-detalhes mx-auto">Veja detalhadamente</button>
                 </div>
             </div>
         </div>
