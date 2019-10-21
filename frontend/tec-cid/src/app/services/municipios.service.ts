@@ -56,4 +56,12 @@ export class MunicipiosService {
     })
   }
 
+  getGestao(id: string, ano:number) {
+    return this.http.get<any>(`${API_URL}/municipios/${id}/gestoes`, {
+      params: {
+        ano: `${ano}`
+      }
+    })
+  }
+
 }

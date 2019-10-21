@@ -67,3 +67,8 @@
     padding-right: 15px;
     margin-top: 10px;
 }
+
+.btn-detalhes:disabled {
+    background-color: #041416;
+    color: white;
+}

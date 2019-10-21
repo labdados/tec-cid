@@ -3,6 +3,11 @@ import { UnidadeGestora } from 'src/app/models/unidade-gestora.model';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Municipio } from 'src/app/models/municipio.model';
 import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
+import { EstatisticasService } from 'src/app/services/estatisticas.service';
+import { Router } from '@angular/router';
+import { Gestao } from 'src/app/models/gestao.model';
+import { CandidatosService } from 'src/app/services/candidatos.service';
+import { Candidato } from 'src/app/models/candidato.model';
 
 @Component({
   selector: 'app-filtros',
@@ -12,9 +17,12 @@ import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service'
 export class FiltrosComponent implements OnInit {
 
   exibir:boolean = false;
+  mostrar:boolean = false;
   cidade: Municipio;
-  unidadeGestora: UnidadeGestora;
+  unidadeGestora: any;
   lista: string[] = [];
+  valorLicitacoes: any;
+  gestao: Gestao;
 
   public model: any;
 
@@ -32,11 +40,14 @@ export class FiltrosComponent implements OnInit {
     displayKey: "nome",
     limitTo: 10,
     placeholder: 'Selecione a unidade gestora',
-  };
+  }
 
   constructor(
     private municipiosService: MunicipiosService,
-    private unidadeGestoraService: UnidadeGestoraService
+    private unidadeGestoraService: UnidadeGestoraService,
+    private estatisticasService: EstatisticasService,
+    private candidatosService: CandidatosService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -55,19 +66,51 @@ export class FiltrosComponent implements OnInit {
     return this.unidadeGestoraService.unidadesGestoras
   }
 
+  get candidato() {
+    return this.candidatosService.candidato
+  }
+
   filtroMunicipio(){
-    this.show();
     this.municipiosService.getMunicipio(this.cidade.id);
-    this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome)
+    this.getValorLicitacoes(this.cidade.id);
+    this.getGestao();
+    this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
+    this.show();
   }
 
   show() {
-    if (this.municipio == null || this.municipio == undefined || this.municipio == ''){
+    if (this.municipio === undefined || this.gestao === undefined || this.candidato === undefined){
       this.exibir = false;
-      return true;
     } else {
       this.exibir = true;
-      return false;
+    }
+  }
+
+  getValorLicitacoes(id: string) {
+    this.estatisticasService.getEstatisticaMunicipio(id).subscribe(res => {
+      this.valorLicitacoes = res.dados[0].valor_licitacoes
+    })
+  }
+
+  getGestao() {
+    let ano = new Date().getFullYear();
+    this.municipiosService.getGestao(this.cidade.id, ano).subscribe(res => {
+      this.gestao = res.dados[0];
+      
+      this.candidatosService.getCandidato(this.gestao.id_candidato);
+    })
+    console.log(this.gestao)
+  }
+
+  exibirMunicipio(t: any) {
+    console.log(this.unidadeGestora.length)
+    if (this.unidadeGestora.length === 0) {
+      t.open();
+      setTimeout(function () {
+        t.close();
+      }, 5000)
+    } else {
+      this.router.navigate(['/municipio', this.unidadeGestora.cd_ugestora])
     }
   }
 
