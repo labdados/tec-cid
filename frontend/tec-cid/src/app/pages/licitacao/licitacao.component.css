@@ -70,7 +70,33 @@
 
 @media screen and (max-width: 768px) {
     .col-md-12 #cidade {
+        font-size: 26px;
+    }
+
+    .row #info-licitacao .detalhes {
+        padding: 5px 0;
+        margin-bottom: 5px;
+    }
+
+    .objeto {
+        display:flex;
+        align-items: center;
+        color: #0d4247;
         font-size: 12px;
+    }
+
+    i {
+        font-size: 38px;
+    }
+
+    .info-gasto #valor {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #lado-2 {
+        margin-top: 15%;
     }
 }
 
