@@ -17,7 +17,7 @@ import { MunicipioComponent } from './pages/municipio/municipio.component'
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { LicitacaoComponent } from './pages/licitacao/licitacao.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { FilterPropostaPipe } from './pipes/filter-proposta.pipe';
 import { FilterPropostaPerdedoraPipe } from './pipes/filter-proposta-perdedora.pipe';
 
@@ -44,7 +44,8 @@ registerLocaleData(localePt);
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    NgbToastModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'}
