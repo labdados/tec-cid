@@ -4,6 +4,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Licitacao } from 'src/app/models/licitacao.model';
+import { CandidatosService } from 'src/app/services/candidatos.service';
+import { Gestao } from 'src/app/models/gestao.model';
+import { EstatisticasService } from 'src/app/services/estatisticas.service';
 
 @Component({
   selector: 'app-municipio',
@@ -13,10 +16,12 @@ import { Licitacao } from 'src/app/models/licitacao.model';
 export class MunicipioComponent implements OnInit {
 
   licitacoes: Licitacao[] = [];
-  codUni: any;
+  idMunicipio: any;
   ano: string = '';
   tipoLic: any = '';
   codTipoLic: string = '';
+  gestao: Gestao = new Gestao(0, 0, '');
+  valor_total_licitacoes: any = '';
 
   page: number = 1;
   prev: boolean = true;
@@ -40,15 +45,26 @@ export class MunicipioComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private municipioService: MunicipiosService,
+    private candidatosService: CandidatosService,
+    private estatisticasService: EstatisticasService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => this.codUni = params['codUnidadeGest']);
+    this.route.params.subscribe((params: Params) => this.idMunicipio = params['idMunicipio']);
+
+    this.municipioService.getMunicipio(this.idMunicipio);
+
+    this.getGestao();
+
+    this.estatisticasService.getEstatisticaMunicipio(this.idMunicipio).subscribe(res => {
+      this.valor_total_licitacoes = res.dados[0].valor_licitacoes
+    })
   
     this.route.params
-      .pipe(switchMap((params: Params) => this.loadMunicipio(+params.codUnidadeGest))).subscribe(res => {
+      .pipe(switchMap((params: Params) => this.loadMunicipio(+params.idMunicipio))).subscribe(res => {
         this.licitacoes = res.dados;
+        console.log(this.licitacoes)
         if (this.licitacoes.length < 10) {
           this.next = true;
         }
@@ -58,9 +74,13 @@ export class MunicipioComponent implements OnInit {
   get municipio() {
     return this.municipioService.municipio
   }
+
+  get prefeito() {
+    return this.candidatosService.candidato
+  }
   
-  loadMunicipio(codUnidadeGest: any) {
-    return this.municipioService.getLicitacoesMunicipio(codUnidadeGest, this.ano, this.tipoLic, this.page);
+  loadMunicipio(idMunicipio: any) {
+    return this.municipioService.getLicitacoesMunicipio(idMunicipio, this.ano, this.tipoLic, this.page);
   }
 
   setAno() {
@@ -103,7 +123,7 @@ export class MunicipioComponent implements OnInit {
     }
     this.page = 1;
     this.prev = true;
-    this.municipioService.getLicitacoesMunicipio(this.codUni, this.ano, this.codTipoLic, this.page).subscribe(res => {
+    this.municipioService.getLicitacoesMunicipio(this.idMunicipio, this.ano, this.codTipoLic, this.page).subscribe(res => {
       this.verificacao(res.dados);
       this.licitacoes = res.dados;
     });
@@ -114,13 +134,13 @@ export class MunicipioComponent implements OnInit {
     this.next = false;
     this.page--;
     if (this.page != 1) {
-      this.municipioService.getLicitacoesMunicipio(this.codUni, this.ano, this.codTipoLic, this.page).subscribe(res => {
+      this.municipioService.getLicitacoesMunicipio(this.idMunicipio, this.ano, this.codTipoLic, this.page).subscribe(res => {
         this.licitacoes = res.dados;
       });
     } else {
       this.page = 1
       this.prev = true;
-      this.municipioService.getLicitacoesMunicipio(this.codUni, this.ano, this.codTipoLic, this.page).subscribe(res => {
+      this.municipioService.getLicitacoesMunicipio(this.idMunicipio, this.ano, this.codTipoLic, this.page).subscribe(res => {
         this.licitacoes = res.dados;
       });
     }
@@ -130,7 +150,7 @@ export class MunicipioComponent implements OnInit {
     this.page++
     this.prev = false;
 
-    this.municipioService.getLicitacoesMunicipio(this.codUni, this.ano, this.codTipoLic, this.page).subscribe(res => {
+    this.municipioService.getLicitacoesMunicipio(this.idMunicipio, this.ano, this.codTipoLic, this.page).subscribe(res => {
       this.verificacao(res.dados)     
           
       this.licitacoes = res.dados;
@@ -147,7 +167,15 @@ export class MunicipioComponent implements OnInit {
   }
 
   exibirLicitacao(idLicitacao:any) {
-    this.router.navigate([`/municipio/${this.codUni}/licitacao/${idLicitacao}`])
+    this.router.navigate([`/municipio/${this.idMunicipio}/licitacao/${idLicitacao}`])
+  }
+
+  getGestao() {
+    let ano = new Date().getFullYear();
+    this.municipioService.getGestao(this.idMunicipio, ano).subscribe(res => {
+      this.gestao = res.dados[0];
+      this.candidatosService.getCandidato(this.gestao.id_candidato);
+    })
   }
 
 }

@@ -102,16 +102,8 @@ export class FiltrosComponent implements OnInit {
     console.log(this.gestao)
   }
 
-  exibirMunicipio(t: any) {
-    console.log(this.unidadeGestora.length)
-    if (this.unidadeGestora.length === 0) {
-      t.open();
-      setTimeout(function () {
-        t.close();
-      }, 5000)
-    } else {
-      this.router.navigate(['/municipio', this.unidadeGestora.cd_ugestora])
-    }
+  exibirMunicipio() {
+    this.router.navigate(['/municipio', this.cidade.id])
   }
 
 }

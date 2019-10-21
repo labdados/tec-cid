@@ -14,7 +14,7 @@ export class MunicipiosService {
   // municipios: UnidadeGestora [];
   // unidadesGestoras: UnidadeGestora [] = [];
   municipios: Municipio[];
-  municipio: Municipio;
+  municipio: Municipio = new Municipio('', '', '', '', '', '', '', '', '', '', '', '', '')
 
   constructor(
     private http: HttpClient
@@ -34,16 +34,18 @@ export class MunicipiosService {
     })
   }
 
-  getLicitacoesMunicipio(codUni:any, ano: any, tipoLic: any, pagina:number){
+  getLicitacoesMunicipio(idMunicipio:any, ano: any, tipoLic: any, pagina:number){
     return this.http.get<any>(`${API_URL}/licitacoes`, 
     {
       params: {
+        tipoLic: `${tipoLic}`,
+        dataInicio: '2017-01-01',
+        dataFim: '2020-12-31',
         limite: "10",
         pagina: `${pagina}`,
-        codUni: `${codUni}`,
-        tipoLic: `${tipoLic}`,
         ordenarPor: 'data_homologacao',
-        ordem: 'DESC'
+        ordem: 'DESC',
+        idMunicipio: `${idMunicipio}`
       }
     })    
 
