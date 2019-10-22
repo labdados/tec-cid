@@ -53,8 +53,7 @@ class LicitacaoService:
             node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.cd_modalidade, lic.numero_licitacao)
             node["data_homologacao"] = node["data_homologacao"].__str__()
             nodes.append(node)
-
-        return(nodes)
+        return nodes
     
     def get_licitacoes_por_municipio(self, id_municipio, pagina, itens):
         skip = itens * (pagina - 1)
@@ -67,8 +66,12 @@ class LicitacaoService:
         query = "MATCH p=(u:UnidadeGestora)-[r:REALIZOU]->(licitacao:Licitacao) \
         WHERE u.municipio = '{nomeMunicipio}' RETURN licitacao SKIP {skip} LIMIT {limit}".format(nomeMunicipio = nome_municipio, skip = skip, limit = itens)
         result = [lic["licitacao"] for lic in db.run(query).data()]
+        for i in range(len(result)):
+            id = "{cd_ugestora}-{cd_modalidade}-{num_licitacao}".format(cd_ugestora = result[i]['cd_ugestora'], cd_modalidade = result[i]['cd_modalidade'], num_licitacao = result[i]['numero_licitacao'])
+            result[i]['id'] = id
+         
         return result
-
+    
     def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,
                                            cd_modalidade = codTipoLicitacao,
