@@ -26,5 +26,15 @@ class Candidato(Resource):
          '''
          Retorna um candidato específico 
          '''
-         candidato = candidato_service.get_candidato_por_id(id)
+         candidato = candidato_service.get_candidato(id)
          return jsonify({"dados": candidato})
+
+@api.route("/<string:id>/doacoes")
+@api.doc(params={"id": "ID do candidato"})
+class DoacoesList(Resource):
+   def get(self, id):
+      '''
+      Retorna as doações que determinado candidato recebeu 
+      '''
+      doacoes = candidato_service.get_doacoes(id)
+      return jsonify({"dados": doacoes})
