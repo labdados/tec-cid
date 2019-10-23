@@ -29,7 +29,7 @@ class Candidato(Resource):
          candidato = candidato_service.get_candidato(id)
          return jsonify({"dados": candidato})
 
-@api.route("<string:id>/doacoes")
+@api.route("/<string:id>/doacoes")
 @api.doc(params={"id": "ID do candidato"})
 class DoacoesList(Resource):
    def get(self, id):
