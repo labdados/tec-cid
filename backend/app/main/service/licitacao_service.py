@@ -15,63 +15,54 @@ class LicitacaoService:
         return count
 
     def get_licitacoes(self, unidade, tipo, data_inicio, data_fim, pagina, itens, ordenar_por, ordem, id_municipio):
-        skip = itens * (pagina - 1)
-        
-        filtros = {}
-        conditions = ["_.valor_licitado IS NOT NULL"]
+        q_match = ("MATCH (lic:Licitacao)<-[REALIZOU]-(ug:UnidadeGestora)-[:PERTENCE_A]->(mun:Municipio)")
+        return_l = ["lic", "ug.nome AS nome_ug"]
+        conditions = ["lic.valor_licitado IS NOT NULL"]
 
         if id_municipio:
-            return self.get_licitacoes_por_municipio(id_municipio, pagina, itens)
+            conditions.append("mun.id = '{}'".format(id_municipio))
         
         if tipo:
-            conditions.append("_.cd_modalidade = '{}'".format(tipo))
+            conditions.append("lic.cd_modalidade = '{}'".format(tipo))
 
         if unidade:
-            conditions.append("_.cd_ugestora = '{}'".format(unidade))
+            conditions.append("lic.cd_ugestora = '{}'".format(unidade))
 
         if data_inicio:
-            conditions.append("_.data_homologacao >= date('{}')".format(data_inicio))
+            conditions.append("lic.data_homologacao >= date('{}')".format(data_inicio))
 
         if data_fim:
-            conditions.append("_.data_homologacao <= date('{}')".format(data_fim))
+            conditions.append("lic.data_homologacao <= date('{}')".format(data_fim))
 
         if not ordenar_por:
-            ordenar_por = "_.data_homologacao"
+            ordenar_por = "lic.data_homologacao"
         else:
-            ordenar_por = "_." + ordenar_por
+            ordenar_por = "lic." + ordenar_por
 
         if ordem.upper() in ["DESC", "ASC"]:
             ordenar_por += " {}".format(ordem)
 
-        #self.count_lic = len(Licitacao.match(db).where(*conditions))
-        match_query = Licitacao.match(db).where(*conditions)
-        self.count_lic = match_query.__len__()
-        result = match_query.order_by(ordenar_por).skip(skip).limit(itens)
+        skip = itens * (pagina - 1)
+
+        query = (q_match + 
+                 " WHERE {}".format(" AND ".join(conditions)))
+
+        count_query = query + " RETURN COUNT(lic) AS count_lic"
+        self.count_lic = db.run(count_query).evaluate()
+
+        query += (" RETURN {}".format(", ".join(return_l)) +
+                  " ORDER BY {}".format(ordenar_por) +
+                  " SKIP {} LIMIT {}".format(skip, itens))
+
+        results = db.run(query).data()
         nodes = []
-        for lic in result:
-            node = lic.__node__
-            node["id"] = "{}-{}-{}".format(lic.cd_ugestora, lic.cd_modalidade, lic.numero_licitacao)
-            node["data_homologacao"] = node["data_homologacao"].__str__()
+        for res in results:
+            node = {**res["lic"], 'nome_unidade_gestora': res["nome_ug"]}
+            node["id"] = "{}-{}-{}".format(node["cd_ugestora"], node["cd_modalidade"],
+                                           node["numero_licitacao"])
             nodes.append(node)
         return nodes
-    
-    def get_licitacoes_por_municipio(self, id_municipio, pagina, itens):
-        skip = itens * (pagina - 1)
-        
-        municipio_service = MunicipioService()
-        municipio = municipio_service.get_municipio(id_municipio)
-        nome_municipio = municipio[0]['nome']
-        
-        
-        query = "MATCH p=(u:UnidadeGestora)-[r:REALIZOU]->(licitacao:Licitacao) \
-        WHERE u.municipio = '{nomeMunicipio}' RETURN licitacao SKIP {skip} LIMIT {limit}".format(nomeMunicipio = nome_municipio, skip = skip, limit = itens)
-        result = [lic["licitacao"] for lic in db.run(query).data()]
-        for i in range(len(result)):
-            id = "{cd_ugestora}-{cd_modalidade}-{num_licitacao}".format(cd_ugestora = result[i]['cd_ugestora'], cd_modalidade = result[i]['cd_modalidade'], num_licitacao = result[i]['numero_licitacao'])
-            result[i]['id'] = id
-         
-        return result
-    
+
     def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,
                                            cd_modalidade = codTipoLicitacao,
