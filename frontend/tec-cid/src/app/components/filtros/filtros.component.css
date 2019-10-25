@@ -72,3 +72,53 @@
     background-color: #041416;
     color: white;
 }
+
+#row-info-prefeito .col-md-3 {
+    margin-right: 2%;
+}
+
+@media screen and (max-width: 768px) {
+    #selecionar {
+        font-size: 26px;
+    }
+
+    #row-cidade {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5%;
+    }
+
+    #row-cidade div h1 {
+        font-size: 26px;
+    }
+    
+    #row-info-prefeito {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #row-info-prefeito .col-md-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0%;
+    }
+
+    #row-info-prefeito .col-md-3 img {
+        width: 100px;
+    }
+
+    .row .gasto  {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+    }
+
+    .info-gasto h1 {
+        text-align: center;
+        font-size: 26px;
+    }
+}
