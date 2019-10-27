@@ -81,8 +81,10 @@ export class FiltrosComponent implements OnInit {
   show() {
     if (this.municipio === undefined || this.gestao === undefined || this.candidato === undefined){
       this.exibir = false;
+      return true;
     } else {
       this.exibir = true;
+      return false;
     }
   }
 

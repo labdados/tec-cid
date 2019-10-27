@@ -34,14 +34,13 @@ export class MunicipiosService {
     })
   }
 
-  getLicitacoesMunicipio(idMunicipio:any, ano: any, tipoLic: any, pagina:number){
+  getLicitacoesMunicipio(idMunicipio:any, pagina:number){
     return this.http.get<any>(`${API_URL}/licitacoes`, 
     {
       params: {
-        tipoLic: `${tipoLic}`,
         dataInicio: '2017-01-01',
         dataFim: '2020-12-31',
-        limite: "10",
+        limite: "9999",
         pagina: `${pagina}`,
         ordenarPor: 'data_homologacao',
         ordem: 'DESC',

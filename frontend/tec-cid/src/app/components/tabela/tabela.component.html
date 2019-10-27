@@ -1,0 +1,41 @@
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+</mat-form-field>
+
+<div class="mat-elevation-z8" id="table">
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="data_homologacao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+            <td mat-cell *matCellDef="let row"> {{row.data_homologacao | date: "dd/MM/yyy"}} </td>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="cd_ugestora">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidade Gestora </th>
+            <td mat-cell *matCellDef="let row"> {{row.cd_ugestora}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="modalidade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Modalidade </th>
+            <td mat-cell *matCellDef="let row"> {{row.modalidade}} </td>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="valor_licitado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Licitado </th>
+            <td mat-cell *matCellDef="let row"> {{row.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt'}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="exibirLicitacao(row.id)"
+            matTooltip="Clique para mais informações sobre esta licitação" [matTooltipPosition]="'above'">
+        </tr>
+    </table>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
+</div>

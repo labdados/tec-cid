@@ -36,63 +36,8 @@
     </div>
 
     <div class="row mt-5">
-        <div class="col-md-3">
-            <div class="row">
-                <h3>Filtros: </h3>
-            </div>
-            <div class="row mt-3">
-                <ngx-select-dropdown style="width: 80%" [(ngModel)]="ano" tabindex="0" [multiple]="false"
-                    [options]="anos" [config]="configAno" (change)="setAno()">
-                </ngx-select-dropdown>
-            </div>
-            <div class="row mt-4">
-                <ngx-select-dropdown style="width: 80%" [(ngModel)]="tipoLic" tabindex="0" [multiple]="false"
-                    [options]="tipos" [config]="configLic" (change)="setTipoLicitacao()">
-                </ngx-select-dropdown>
-            </div>
-        </div>
-
-        <div class="col-md-9">
-
-            <div *ngIf="licitacoes.length == 0">
-                Sem resultados
-            </div>
-
-
-            <div class="table-responsive-md">
-                <table *ngIf="licitacoes.length > 0" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Data</th>
-                            <th scope="col">Número</th>
-                            <th scope="col">Modalidade</th>
-                            <th scope="col">Valor estimado</th>
-                            <th scope="col">Valor licitado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-                        <tr placement="top" ngbTooltip="Clique para mais detalhes sobre esta licitação" *ngFor="let i of licitacoes" (click)="exibirLicitacao(i.id)">
-                            <td>{{ i.data_homologacao | date: "dd/MM/yyy" }}</td>
-                            <td>{{ i.numero_licitacao }}</td>
-                            <td>{{ i.modalidade }}</td>
-                            <td>{{ i.valor_estimado | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
-                            <td>{{ i.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="row linha">
-                <button class="btn-next" [disabled]="next" (click)="proximo()">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                &nbsp;
-                <button class="btn-prev" [disabled]="prev" (click)="anterior()">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-            </div>
+        <div class="col-md-12">
+            <app-tabela></app-tabela>
         </div>
     </div>
 
