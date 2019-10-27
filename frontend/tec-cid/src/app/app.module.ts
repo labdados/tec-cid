@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { PesquisaComponent } from './pages/pesquisa/pesquisa.component';
 import { FiltrosComponent } from './components/filtros/filtros.component';
 import { MunicipioComponent } from './pages/municipio/municipio.component'
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -31,6 +32,7 @@ registerLocaleData(localePt);
     HeaderComponent,
     PesquisaComponent,
     FiltrosComponent,
+    BarChartComponent,
     MunicipioComponent,
     LicitacaoComponent,
     FilterPropostaPipe,
