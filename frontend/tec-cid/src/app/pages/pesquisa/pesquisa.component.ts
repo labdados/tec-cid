@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { DataModel } from 'src/app/models/data.model';
+import { EstatisticasService } from 'src/app/services/estatisticas.service';
 
 @Component({
   selector: 'app-pesquisa',
@@ -7,7 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PesquisaComponent implements OnInit {
 
-  constructor() { }
+  data: Observable<any>;
+
+  constructor(private http: HttpClient, private estatisticasService: EstatisticasService) {
+    this.estatisticasService.getRankingMunicipios().subscribe(res => {
+      this.data = res.dados;
+    })
+  }
 
   ngOnInit() {
   }
