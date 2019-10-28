@@ -8,6 +8,7 @@ export class Licitacao {
         public modalidade: string,
         public nome_estagio_processual: string,
         public nome_setor_atual: string,
+        public nome_unidade_gestora: string,
         public numero_licitacao: string,
         public objeto: string,
         public situacao_fracassada: string,

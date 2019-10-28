@@ -2,7 +2,5 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
-body {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    background: black;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}

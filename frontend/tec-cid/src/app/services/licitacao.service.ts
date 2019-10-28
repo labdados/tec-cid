@@ -16,7 +16,7 @@ export class LicitacaoService {
   ) { }
 
   getLicitacoesMunicipio(codUni?:any, ano?: any, tipoLic?: any){
-    return this.http.get<any>(`${API_URL}/licitacoes?limite=20&pagina=${1}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
+    return this.http.get<any>(`${API_URL}/licitacoes?limite=40&pagina=${1}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
   }
 
   getLicitacao(idLicitacao:any) {
