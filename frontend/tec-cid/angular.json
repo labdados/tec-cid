@@ -34,7 +34,7 @@
             ]
           },
           "configurations": {
-            "prod": {
+            "production": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -81,6 +81,9 @@
           "configurations": {
             "production": {
               "browserTarget": "tec-cid:build:production"
+            },
+            "dev": {
+              "browserTarget": "tec-cid:build:dev"
             }
           }
         },
