@@ -26,12 +26,11 @@ services:
             - 5000:5000
         volumes:
             - ./backend/:/teccid-api
-        depends_on:
-            - neo4j
         env_file:
             - .env
 
     web:
+        restart: always
         image: tec-cid_web:${NG_ENV}
         build: 
             context: frontend/tec-cid/
@@ -43,5 +42,3 @@ services:
         volumes:
             - /app/node_modules
             - .:/app
-        depends_on:
-            - flask
