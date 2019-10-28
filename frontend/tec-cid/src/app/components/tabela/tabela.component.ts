@@ -14,7 +14,7 @@ import { Params, ActivatedRoute, Router } from '@angular/router';
 })
 export class TabelaComponent implements OnInit {
 
-  displayedColumns: string[] = ['data_homologacao', 'cd_ugestora', 'modalidade', 'valor_licitado'];
+  displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'modalidade', 'valor_licitado'];
   dataSource: MatTableDataSource<Licitacao>;
 
   resultsLength: number;
