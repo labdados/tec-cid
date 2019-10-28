@@ -32,6 +32,7 @@ services:
             - .env
 
     web:
+        restart: always
         image: tec-cid_web:${NG_ENV}
         build: 
             context: frontend/tec-cid/
