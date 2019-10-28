@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UnidadeGestora } from 'src/app/models/unidade-gestora.model';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Municipio } from 'src/app/models/municipio.model';
 import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
@@ -7,7 +6,6 @@ import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import { Router } from '@angular/router';
 import { Gestao } from 'src/app/models/gestao.model';
 import { CandidatosService } from 'src/app/services/candidatos.service';
-import { Candidato } from 'src/app/models/candidato.model';
 
 @Component({
   selector: 'app-filtros',
@@ -16,15 +14,11 @@ import { Candidato } from 'src/app/models/candidato.model';
 })
 export class FiltrosComponent implements OnInit {
 
-  exibir:boolean = false;
-  mostrar:boolean = false;
+  exibir: boolean = false;
   cidade: Municipio;
-  unidadeGestora: any;
-  lista: string[] = [];
   valorLicitacoes: any;
   gestao: Gestao;
-
-  public model: any;
+  isLoadingResults: boolean = false;
 
   configCidades = {
     displayKey: "nome",
@@ -32,15 +26,9 @@ export class FiltrosComponent implements OnInit {
     limitTo: 10,
     placeholder: 'Selecione seu município',
     noResultsFound: 'Nenhum município encontrado',
-    searchPlaceholder:'Buscar',
+    searchPlaceholder: 'Buscar',
     searchOnKey: 'nome'
   };
-
-  configUnidadesGestoras = {
-    displayKey: "nome",
-    limitTo: 10,
-    placeholder: 'Selecione a unidade gestora',
-  }
 
   constructor(
     private municipiosService: MunicipiosService,
@@ -70,16 +58,20 @@ export class FiltrosComponent implements OnInit {
     return this.candidatosService.candidato
   }
 
-  filtroMunicipio(){
+  filtroMunicipio() {
+    this.isLoadingResults = true;
     this.municipiosService.getMunicipio(this.cidade.id);
     this.getValorLicitacoes(this.cidade.id);
     this.getGestao();
     this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
-    this.show();
+    setTimeout(() => {
+      this.isLoadingResults = false;
+      this.show();
+    }, 2000)
   }
 
   show() {
-    if (this.municipio === undefined || this.gestao === undefined || this.candidato === undefined){
+    if (this.municipio === undefined || this.gestao === undefined || this.candidato === undefined) {
       this.exibir = false;
     } else {
       this.exibir = true;
@@ -96,22 +88,14 @@ export class FiltrosComponent implements OnInit {
     let ano = new Date().getFullYear();
     this.municipiosService.getGestao(this.cidade.id, ano).subscribe(res => {
       this.gestao = res.dados[0];
-      
+
       this.candidatosService.getCandidato(this.gestao.id_candidato);
     })
     console.log(this.gestao)
   }
 
-  exibirMunicipio(t: any) {
-    console.log(this.unidadeGestora.length)
-    if (this.unidadeGestora.length === 0) {
-      t.open();
-      setTimeout(function () {
-        t.close();
-      }, 5000)
-    } else {
-      this.router.navigate(['/municipio', this.unidadeGestora.cd_ugestora])
-    }
+  exibirMunicipio() {
+    this.router.navigate(['/municipio', this.cidade.id])
   }
 
 }

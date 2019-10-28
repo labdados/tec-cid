@@ -9,8 +9,8 @@ import { LicitacaoComponent } from './pages/licitacao/licitacao.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'pesquisa', component:PesquisaComponent},
-  {path: 'municipio/:codUnidadeGest', component:MunicipioComponent},
-  {path: 'municipio/:codUnidadeGest/licitacao/:idLicitacao', component:LicitacaoComponent}
+  {path: 'municipio/:idMunicipio', component:MunicipioComponent},
+  {path: 'municipio/:idMunicipio/licitacao/:idLicitacao', component:LicitacaoComponent}
 ];
 
 @NgModule({
