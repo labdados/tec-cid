@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
 
         <div class="col-md-6 offset-md-3 col-12 col-sm-12">
@@ -11,7 +11,7 @@
     </div>
 
     <div *ngIf="!exibir" class="mt-5">
-        <div class="row animated bounceInUp">
+        <div class="row animated bounceInUp"> 
             <div class="mx-auto">
                 <h1 *ngIf="!isLoadingResults" style="color: #0d4247">Selecione seu município</h1>
                 <div class="example-loading-shade" *ngIf="isLoadingResults">
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="row-cidade">
             <div>
                 <h1 id="cidade">{{ municipio.nome }}</h1>
             </div>
@@ -38,8 +38,8 @@
 
         <div class="row mt-3">
             <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-3 mr-2">
+                <div class="row" id="row-info-prefeito">
+                    <div class="col-md-3" >
                         <img class="img-fluid" id="foto" src="assets/images/user.png" alt="">
                     </div>
                     <div class="infos">
@@ -65,5 +65,5 @@
             </div>
         </div>
     </div>
-
 </div>
+
