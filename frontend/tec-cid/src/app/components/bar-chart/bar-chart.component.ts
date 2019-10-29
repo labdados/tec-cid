@@ -20,7 +20,7 @@ export class BarChartComponent implements OnChanges {
   @Input()
   data: any[];
 
-  margin = {top: 0, right: 0, bottom: 90, left: 138};
+  margin = {top: 30, right: 0, bottom: 90, left: 192};
 
   constructor(
     private estatisticasService: EstatisticasService
@@ -64,15 +64,16 @@ export class BarChartComponent implements OnChanges {
 
     let x = d3.scaleLinear()
       .domain([0, d3.max(data, d => Number(d.valor_licitacoes))])
-      .range([this.margin.left, contentWidth - this.margin.right])
+      .range([this.margin.left, contentWidth + this.margin.right])
 
     let y = d3.scaleBand()
       .domain(data.map(d => d.nome_municipio))
-      .range([this.margin.top, contentHeight - this.margin.bottom])
+      .range([this.margin.top, contentHeight + this.margin.bottom])
       .padding(0.1)
 
     let xAxis = g => g
       .attr("transform", `translate(0,${this.margin.top})`)
+      .style("font", "14px sans-serif")
       .call(d3.axisTop(x).ticks(contentWidth / 180))
       .call(g => g.select(".domain").remove())
 
@@ -83,31 +84,32 @@ export class BarChartComponent implements OnChanges {
     let format = x.tickFormat(20)
 
     svg.append("g")
-    .attr("fill", "steelblue")
+      .attr("fill", "steelblue")
     .selectAll("rect")
     .data(data)
     .join("rect")
-    .attr("x", x(0))
-    .attr("y", d => y(d.nome_municipio))
-    .attr("width", d => x(Number(d.valor_licitacoes)) - x(0))
-    .attr("height", y.bandwidth());
+      .attr("x", x(0))
+      .attr("y", d => y(d.nome_municipio))
+      .attr("width", d => x(Number(d.valor_licitacoes)) - x(0))
+      .attr("height", y.bandwidth());
 
     svg.append("g")
         .attr("fill", "#151C48")
-        .style("font", "12px sans-serif")
+        .style("font", "18px sans-serif")
       .selectAll("text")
       .data(data)
       .join("text")
         .attr("x", d => x(Number(d.valor_licitacoes)) - 4)
         .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
         .attr("dy", "0.35em")
-        .attr("dx", "7px")
+        .attr("dx", "10px")
         .text(d => format(Number(d.valor_licitacoes)));
 
     svg.append("g")
         .call(xAxis);
 
     svg.append("g")
+        .style("font", "20px sans-serif")
         .call(yAxis);
 
   }
