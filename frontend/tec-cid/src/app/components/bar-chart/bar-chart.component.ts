@@ -62,42 +62,53 @@ export class BarChartComponent implements OnChanges {
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
     const contentHeight = element.offsetHeight + this.margin.top + this.margin.bottom;
 
-    const x = d3
-      .scaleLinear()
-      .rangeRound([contentHeight, 0])
-      .domain([0, d3.max(data, d => Number(d.valor_licitacoes))]);
+    let x = d3.scaleLinear()
+      .domain([0, d3.max(data, d => Number(d.valor_licitacoes))])
+      .range([this.margin.left, contentWidth - this.margin.right])
 
-    const y = d3
-    .scaleBand()
-    .range([0, contentHeight])
-    .padding(0.22)
-    .domain(data.map(d => d.nome_municipio));
+    let y = d3.scaleBand()
+      .domain(data.map(d => d.nome_municipio))
+      .range([this.margin.top, contentHeight - this.margin.bottom])
+      .padding(0.1)
 
-    const g = svg.append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    let xAxis = g => g
+      .attr("transform", `translate(0,${this.margin.top})`)
+      .call(d3.axisTop(x).ticks(contentWidth / 180))
+      .call(g => g.select(".domain").remove())
 
-    g.append('g')
-      .style("font", "12px sans-serif")
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + contentHeight + ')')
-      .call(d3.axisBottom(x));
+    let yAxis = g => g
+      .attr("transform", `translate(${this.margin.left},0)`)
+      .call(d3.axisLeft(y).tickSizeOuter(0))
 
-    g.append('g')
-        .style("font", "14px sans-serif")
-      .attr('class', 'axis axis--y')
-      .call(d3.axisLeft(y).ticks(10))
-      .append('text')
-      .attr('y', 6)
-        .attr('dy', '4.91em')
-        .attr('text-anchor', 'end');
+    let format = x.tickFormat(20)
 
-    g.selectAll('.bar')
+    svg.append("g")
+    .attr("fill", "steelblue")
+    .selectAll("rect")
+    .data(data)
+    .join("rect")
+    .attr("x", x(0))
+    .attr("y", d => y(d.nome_municipio))
+    .attr("width", d => x(Number(d.valor_licitacoes)) - x(0))
+    .attr("height", y.bandwidth());
+
+    svg.append("g")
+        .attr("fill", "#151C48")
+        .style("font", "12px sans-serif")
+      .selectAll("text")
       .data(data)
-      .enter().append('rect')
-        .attr('class', 'bar')
-        .attr('y', d => y(d.nome_municipio))
-        .attr('x', d => x(d.valor_licitacoes))
-        .attr('height', y.bandwidth())
-        .attr('width', d => contentWidth - x(d.valor_licitacoes));
+      .join("text")
+        .attr("x", d => x(Number(d.valor_licitacoes)) - 4)
+        .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
+        .attr("dy", "0.35em")
+        .attr("dx", "7px")
+        .text(d => format(Number(d.valor_licitacoes)));
+
+    svg.append("g")
+        .call(xAxis);
+
+    svg.append("g")
+        .call(yAxis);
+
   }
 }
