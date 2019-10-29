@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DataModel } from 'src/app/models/data.model';
+//import { DataModel } from 'src/app/models/data.model';
 import { EstatisticasService } from 'src/app/services/estatisticas.service';
 
 @Component({
