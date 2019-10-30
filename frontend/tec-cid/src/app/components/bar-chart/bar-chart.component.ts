@@ -57,10 +57,10 @@ export class BarChartComponent implements OnChanges {
 
     const svg = d3.select(element).append('svg')
         .attr('width', element.offsetWidth)
-        .attr('height', element.offsetHeight);
+        .attr('height', element.offsetHeight * (data.length / 3));
 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
-    const contentHeight = element.offsetHeight + this.margin.top + this.margin.bottom;
+    const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
 
     let x = d3.scaleLinear()
       .domain([0, d3.max(data, d => Number(d.valor_licitacoes))])
@@ -73,7 +73,7 @@ export class BarChartComponent implements OnChanges {
 
     let xAxis = g => g
       .attr("transform", `translate(0,${this.margin.top})`)
-      .style("font", "14px sans-serif")
+      .style("font", "16px sans-serif")
       .call(d3.axisTop(x).ticks(contentWidth / 180))
       .call(g => g.select(".domain").remove())
 
