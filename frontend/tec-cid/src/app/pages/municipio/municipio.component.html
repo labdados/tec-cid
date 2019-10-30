@@ -1,20 +1,21 @@
 <app-header></app-header>
 
 <div class="container mb-5">
-    <div class="mt-5">
-        <div class="row">
-            <div>
-                <h1 id="cidade">{{ municipio.nome }}</h1>
-            </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h1 id="cidade">{{ municipio.nome }}</h1>
         </div>
+    </div>
 
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <div class="row" id="info-prefeito">
-                    <div class="col-md-3">
-                        <img class="img-fluid" id="foto" src="assets/images/user.png" alt="">
+    <div class="mt-3 col-md-12">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="row mat-elevation-z4 my-card">
+                    <div class="col-4" id="foto">
+                        <img class="img-fluid" src="assets/images/user.png" alt="Foto do prefeito da cidade">
                     </div>
                     <div class="infos">
+                        <h5>Prefeito(a)</h5>
                         <h3>{{ prefeito.nome_urna }}</h3>
                         <h5>{{ prefeito.sigla_partido }}</h5>
                         <h5>{{ gestao.ano_inicio_mandato }}-{{ gestao.ano_fim_mandato }}</h5>
@@ -22,18 +23,19 @@
                 </div>
             </div>
 
-            <div class="col-md-6 ">
-                <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 offset-md-2 mb-3">
+                <div class="row mat-elevation-z4 my-card">
                     <div class=" gasto mx-auto">
                         <div class="info-gasto">
                             <h1 id="gasto">{{ valor_total_licitacoes | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
-                            <p align="center">Total gasto de janeiro de 2019 até o presente momento.</p>
+                            <p align="center">Total gasto do inicío do mandato até o presente momento.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="row mt-5">
         <div class="col-md-12">
