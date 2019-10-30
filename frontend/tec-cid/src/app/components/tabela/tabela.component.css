@@ -1,0 +1,90 @@
+table {
+    width: 100%;
+}
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-form-field-underline {
+    background-color: green;
+}
+  
+td, th {
+    width: 25%;
+}
+
+tr {
+    cursor: pointer;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+  
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+  
+.example-element-row td {
+    border-bottom-width: 0;
+}
+  
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.example-element-detail .element-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    padding: 16px;
+}
+
+.example-element-detail .element-button button {
+    color: white;
+    background-color: #0d4247;
+}
+  
+.example-element-description {
+    padding: 16px;
+}
+
+/* input color class */
+  
+/* Change label color on focused */
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #0d4247 !important;
+}
+  
+/* underline border color on focused */
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+    background-color: #0d4247 !important;
+}
+
+.mat-column-acao {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 5% !important;
+    width: 5% !important;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+h3 {
+    color: #0d4247;
+}
+
+

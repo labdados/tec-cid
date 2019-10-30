@@ -1,79 +1,72 @@
 <div class="container mt-5 mb-5">
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-6 offset-md-3 col-12 col-sm-12">
             <div class="form-group">
                 <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="cidade" [options]="municipios"
                     [config]="configCidades" (change)="filtroMunicipio()"></ngx-select-dropdown>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                <ngx-select-dropdown ngbTooltip="Selecione a unidade gestora." placement="bottom" triggers="manual"
-                    #t="ngbTooltip" [disabled]="show()" [(ngModel)]="unidadeGestora" tabindex="0" [multiple]="false"
-                    [options]="unidadesGestoras" [config]="configUnidadesGestoras">
-                </ngx-select-dropdown>
-
-            </div>
-        </div>
-
     </div>
 
     <div *ngIf="!exibir" class="mt-5">
-        <div class="row animated bounceInUp"> 
+        <div class="row animated bounceInUp">
             <div class="mx-auto">
-                <h1 id="selecionar" style="color: #0d4247">Selecione seu município</h1>
+                <h1 *ngIf="!isLoadingResults" style="color: #0d4247">Selecione seu município</h1>
+                <div class="example-loading-shade" *ngIf="isLoadingResults">
+                    <mat-spinner></mat-spinner>
+                </div>
             </div>
         </div>
     </div>
 
     <div *ngIf="exibir">
-        <div class="row mt-5">
+        <!-- <div class="row mt-5">
             <div class="mx-auto infos-cidade">
                 <div class="col-md-12">
                     <img src="assets/images/Mapa PB - PATOS-01.png" class="img-fluid ml-auto" alt="" id="mapa">
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="row" id="row-cidade">
-            <div>
+        <div class="row mt-5" id="row-cidade">
+            <div class="col-md-12">
                 <h1 id="cidade">{{ municipio.nome }}</h1>
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <div class="row" id="row-info-prefeito">
-                    <div class="col-md-3" >
-                        <img class="img-fluid" id="foto" src="assets/images/user.png" alt="">
-                    </div>
-                    <div class="infos">
-                        <h3>{{ candidato.nome_urna }}</h3>
-                        <h5>{{ candidato.sigla_partido }}</h5>
-                        <h5>{{ gestao.ano_inicio_mandato }}-{{ gestao.ano_fim_mandato }}</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 ">
-                <div class="row">
-                    <div class=" gasto mx-auto">
-                        <div class="info-gasto">
-                            <h1 id="gasto">{{ valorLicitacoes | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
-                            <p align="center">Total gasto do inicío do mandato até o presente momento.</p>
+        <div class="col-md-12 mt-3" >
+            <div class="row">
+                <div class="col-md-6 mb-3" >
+                    <div class="row mat-elevation-z4 my-card">
+                        <div class="col-4" id="foto">
+                            <img class="img-fluid" src="assets/images/user.png" alt="Foto do prefeito da cidade">
+                        </div>
+                        <div class="infos">
+                            <h5>Prefeito(a)</h5>
+                            <h3>{{ candidato.nome_urna }}</h3>
+                            <h5>{{ candidato.sigla_partido }}</h5>
+                            <h5>{{ gestao.ano_inicio_mandato }}-{{ gestao.ano_fim_mandato }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <button (click)="exibirMunicipio(t)" class="btn btn-detalhes mx-auto">Veja detalhadamente</button>
+
+                <div class="col-md-6 mb-3" id="card-gasto">
+                    <div class="row mat-elevation-z4 my-card">
+                        <div class=" gasto mx-auto">
+                            <div class="info-gasto">
+                                <h1 id="gasto">{{ valorLicitacoes | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
+                                <p align="center">Total gasto do inicío do mandato até o presente momento.</p>
+                            </div>
+                            <div class="btn-detalhes">
+                                <button (click)="exibirMunicipio()" mat-raised-button>Veja detalhadamente</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
-
-
-
-
 </div>
