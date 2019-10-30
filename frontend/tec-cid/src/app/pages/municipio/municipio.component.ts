@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
 import { UnidadeGestora } from 'src/app/models/unidade-gestora.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { EstatisticasService } from 'src/app/services/estatisticas.service';
   templateUrl: './municipio.component.html',
   styleUrls: ['./municipio.component.css']
 })
-export class MunicipioComponent implements OnInit {
+export class MunicipioComponent implements OnInit, AfterViewInit {
 
   idMunicipio: any;
   tipoLic: any = '';
@@ -26,6 +26,7 @@ export class MunicipioComponent implements OnInit {
     private municipioService: MunicipiosService,
     private candidatosService: CandidatosService,
     private estatisticasService: EstatisticasService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -38,7 +39,11 @@ export class MunicipioComponent implements OnInit {
     this.estatisticasService.getEstatisticaMunicipio(this.idMunicipio).subscribe(res => {
       this.valor_total_licitacoes = res.dados[0].valor_licitacoes
     })
-  
+
+  }
+
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
   }
 
   get municipio() {

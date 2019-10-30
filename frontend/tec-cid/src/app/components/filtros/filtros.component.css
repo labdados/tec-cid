@@ -58,23 +58,36 @@
 }
 
 .btn-detalhes {
-    background-color: #0d4247;
-    color: white;
-    border-radius: 8px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.btn-detalhes:disabled {
-    background-color: #041416;
+.btn-detalhes button {
+    background-color: #0d4247;
     color: white;
 }
 
 #row-info-prefeito .col-md-3 {
     margin-right: 2%;
+}
+
+.my-card {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 16px;
+    background-color: white;
+}
+
+.my-card #foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-right: 2%;
+    height: 100%;
+    background-size: cover;    
 }
 
 @media screen and (max-width: 768px) {

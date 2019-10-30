@@ -5,17 +5,26 @@ import { MatSort } from '@angular/material/sort';
 import { Licitacao } from 'src/app/models/licitacao.model';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Params, ActivatedRoute, Router } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 
 @Component({
   selector: 'app-tabela',
   templateUrl: './tabela.component.html',
-  styleUrls: ['./tabela.component.css']
+  styleUrls: ['./tabela.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class TabelaComponent implements OnInit {
 
-  displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'modalidade', 'valor_licitado'];
+  displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'valor_licitado', 'acao'];
   dataSource: MatTableDataSource<Licitacao>;
+  expandedElement: Licitacao | null;
 
   resultsLength: number;
 
