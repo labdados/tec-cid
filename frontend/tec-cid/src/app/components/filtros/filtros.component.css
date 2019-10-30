@@ -156,6 +156,11 @@
         width: 120%;
     }
 
+    .infos h3 {
+        font-size: 18px;
+        color: #0d4247
+    }
+
 }
 
 @media screen and (max-width: 988px) and (min-width: 768px) {
@@ -179,5 +184,19 @@
     .gasto {
         display: flex;
         flex-direction: column;
+    }
+
+    .infos h3 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 1133px) and (min-width: 988px) {
+    .infos h3 {
+        font-size: 18px;
+    }
+
+    #gasto {
+        font-size: 28px;
     }
 }
