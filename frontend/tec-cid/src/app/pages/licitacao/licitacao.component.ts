@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Licitacao } from 'src/app/models/licitacao.model';
 import { LicitacaoService } from 'src/app/services/licitacao.service';
@@ -9,7 +9,7 @@ import { MunicipiosService } from 'src/app/services/municipios.service';
   templateUrl: './licitacao.component.html',
   styleUrls: ['./licitacao.component.css']
 })
-export class LicitacaoComponent implements OnInit {
+export class LicitacaoComponent implements OnInit, AfterViewInit {
 
   idMunicipio:string;
   idLicitacao: string;
@@ -18,7 +18,8 @@ export class LicitacaoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private licitacaoService: LicitacaoService,
-    private municipioService: MunicipiosService
+    private municipioService: MunicipiosService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
@@ -30,10 +31,15 @@ export class LicitacaoComponent implements OnInit {
 
       this.licitacaoService.getLicitacao(this.idLicitacao).subscribe(res => {
         this.licitacao = res.dados[0];
+        console.log(this.licitacao)
       })
 
       this.licitacaoService.getPropostas(this.idLicitacao);
     });
+  }
+
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
   }
 
   get propostas() {
