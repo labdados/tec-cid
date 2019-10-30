@@ -1,5 +1,5 @@
-#cidade h1 {
-    font-size: 40px;
+#cidade {
+    font-size: 50px;
     color: #0d4247;
     font-weight: bold;
 }
@@ -9,11 +9,10 @@
     flex-direction: column;
     justify-content: flex-end;
     align-content: flex-end;
-    padding-bottom: 10px;
 }
 
 .infos h3 {
-    font-size: 30px;
+    font-size: 28px;
     color: #0d4247
 }
 
@@ -29,7 +28,7 @@
 
 .gasto h1 {
     align-self: center;
-    font-size: 50px;
+    font-size: 42px;
     color: #0d4247;
 }
 
@@ -39,48 +38,29 @@
     margin-top: -10px;
 }
 
-.btn-next {
-    background: none;
-    border: none;
-    color: #23b0be;
-    font-size: 30px;
-    margin-right: 10px;
+.my-card {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+    padding: 16px;
+    background-color: white;
 }
 
-.btn-next:disabled {
-    color: #0d4247;
+#card-gasto {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
-.btn-prev {
-    background: none;
-    border: none;
-    color: #23b0be;
-    font-size: 30px
-}
-
-.btn-prev:disabled {
-    color: #0d4247;
-}
-
-.linha {
-    flex-direction: row-reverse
-}
-
-.table  {
-    font-size: 16px;
-    color: #0d4247
-}
-
-.table tbody tr:hover {
-    cursor: pointer;
-}
-
-#info-prefeito .col-md-3 {
+.my-card #foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     margin-right: 2%;
-}
-
-.row ngx-select-dropdown {
-    width: 80%;
+    height: 100%;
+    background-size: cover;    
 }
 
 @media screen and (max-width: 768px) {
@@ -88,20 +68,20 @@
         font-size: 26px;
     }
 
-    #info-prefeito {
+    .my-card {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    #info-prefeito .col-md-3 {
+    .my-card #foto {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-right: 0%;
+        margin-right: 5%;
     }
 
-    #info-prefeito .col-md-3 img {
+    .my-card #foto img {
         width: 100px;
     }
 
@@ -115,10 +95,68 @@
     .info-gasto h1 {
         text-align: center;
         font-size: 28px;
-        font-weight: bold;
     }
 
-    .row ngx-select-dropdown {
-        width: 100%;
+    .my-card {
+        width: auto;
     }
+
+    #card-gasto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #card-gasto .my-card {
+        width: 120%;
+    }
+}
+
+@media screen and (max-width: 988px) and (min-width: 768px) {
+
+    .info-gasto h1 {
+        text-align: center;
+        font-size: 26px;
+    }
+
+    .my-card {
+        width: auto;
+        min-width: 100%;
+    }
+
+    #card-gasto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gasto {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .infos h5 {
+        font-size: 12px;
+    }
+
+    .infos h3 {
+        font-size: 20px;
+    }
+}
+
+@media screen and  (min-width: 988px) and (max-width: 1144px) {
+
+    .infos h5 {
+        font-size: 12px;
+    }
+
+    .infos h3 {
+        font-size: 24px;
+    }
+
+    .info-gasto h1 {
+        text-align: center;
+        font-size: 24px;
+    }
+
 }
