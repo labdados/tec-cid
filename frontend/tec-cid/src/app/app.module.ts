@@ -22,7 +22,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { LicitacaoComponent } from './pages/licitacao/licitacao.component';
 import { NgbTooltipModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatTableModule, MatFormFieldModule, MatPaginatorModule, MatSortModule, MatPaginatorIntl, MatInputModule, MatTooltipModule, MatProgressSpinnerModule} from '@angular/material';
+import {MatTableModule, MatFormFieldModule, MatPaginatorModule, MatSortModule, MatPaginatorIntl, MatInputModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule, MatButtonModule, MatCardModule, MatAutocompleteModule} from '@angular/material';
 import { getPortuguesePaginatorIntl } from './components/tabela/ptbr-pagination';
 
 
@@ -60,7 +60,11 @@ registerLocaleData(localePt);
     MatSortModule,
     MatInputModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatAutocompleteModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'},

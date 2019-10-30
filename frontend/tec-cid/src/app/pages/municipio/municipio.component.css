@@ -1,5 +1,5 @@
-#cidade h1 {
-    font-size: 40px;
+#cidade {
+    font-size: 50px;
     color: #0d4247;
     font-weight: bold;
 }
@@ -9,7 +9,6 @@
     flex-direction: column;
     justify-content: flex-end;
     align-content: flex-end;
-    padding-bottom: 10px;
 }
 
 .infos h3 {
@@ -39,48 +38,22 @@
     margin-top: -10px;
 }
 
-.btn-next {
-    background: none;
-    border: none;
-    color: #23b0be;
-    font-size: 30px;
-    margin-right: 10px;
+.my-card {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 16px;
+    background-color: white;
 }
 
-.btn-next:disabled {
-    color: #0d4247;
-}
-
-.btn-prev {
-    background: none;
-    border: none;
-    color: #23b0be;
-    font-size: 30px
-}
-
-.btn-prev:disabled {
-    color: #0d4247;
-}
-
-.linha {
-    flex-direction: row-reverse
-}
-
-.table  {
-    font-size: 16px;
-    color: #0d4247
-}
-
-.table tbody tr:hover {
-    cursor: pointer;
-}
-
-#info-prefeito .col-md-3 {
+.my-card #foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     margin-right: 2%;
-}
-
-.row ngx-select-dropdown {
-    width: 80%;
+    height: 100%;
+    background-size: cover;    
 }
 
 @media screen and (max-width: 768px) {
@@ -88,20 +61,20 @@
         font-size: 26px;
     }
 
-    #info-prefeito {
+    .my-card {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    #info-prefeito .col-md-3 {
+    .my-card #foto {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-right: 0%;
+        margin-right: 5%;
     }
 
-    #info-prefeito .col-md-3 img {
+    .my-card #foto img {
         width: 100px;
     }
 

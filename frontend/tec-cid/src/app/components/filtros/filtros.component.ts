@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Municipio } from 'src/app/models/municipio.model';
 import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
@@ -12,7 +12,7 @@ import { CandidatosService } from 'src/app/services/candidatos.service';
   templateUrl: './filtros.component.html',
   styleUrls: ['./filtros.component.css']
 })
-export class FiltrosComponent implements OnInit {
+export class FiltrosComponent implements OnInit, AfterViewInit {
 
   exibir: boolean = false;
   cidade: Municipio;
@@ -35,11 +35,16 @@ export class FiltrosComponent implements OnInit {
     private unidadeGestoraService: UnidadeGestoraService,
     private estatisticasService: EstatisticasService,
     private candidatosService: CandidatosService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
     this.municipiosService.getMunicipios();
+  }
+
+  ngAfterViewInit() {
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
   }
 
   get municipios() {
@@ -58,6 +63,10 @@ export class FiltrosComponent implements OnInit {
     return this.candidatosService.candidato
   }
 
+  displayFn(municipio?: Municipio): string | undefined {
+    return municipio ? municipio.nome : undefined;
+  }
+
   filtroMunicipio() {
     this.isLoadingResults = true;
     this.municipiosService.getMunicipio(this.cidade.id);
@@ -67,7 +76,7 @@ export class FiltrosComponent implements OnInit {
     setTimeout(() => {
       this.isLoadingResults = false;
       this.show();
-    }, 2000)
+    }, 2000);
   }
 
   show() {
