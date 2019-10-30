@@ -17,7 +17,7 @@
 }
 
 .infos h3 {
-    font-size: 30px;
+    font-size: 28px;
     color: #0d4247
 }
 
@@ -47,7 +47,7 @@
 
 .gasto h1 {
     align-self: center;
-    font-size: 50px;
+    font-size: 42px;
     color: #0d4247;
 }
 
@@ -75,9 +75,16 @@
 .my-card {
     display: flex;
     align-items: center;
+    width: 90%;
     height: 100%;
     padding: 16px;
     background-color: white;
+}
+
+#card-gasto {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .my-card #foto {
@@ -123,15 +130,54 @@
         width: 100px;
     }
 
-    .row .gasto  {
+    /* .row .gasto  {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 10%;
+    } */
+
+    .info-gasto h1 {
+        text-align: center;
+        font-size: 28px;
     }
+
+    .my-card {
+        width: auto;
+    }
+
+    #card-gasto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #card-gasto .my-card {
+        width: 120%;
+    }
+
+}
+
+@media screen and (max-width: 988px) and (min-width: 768px) {
 
     .info-gasto h1 {
         text-align: center;
         font-size: 26px;
+    }
+
+    .my-card {
+        width: auto;
+        min-width: 100%;
+    }
+
+    #card-gasto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gasto {
+        display: flex;
+        flex-direction: column;
     }
 }
