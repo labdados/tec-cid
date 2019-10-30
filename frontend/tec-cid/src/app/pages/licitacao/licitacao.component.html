@@ -2,131 +2,135 @@
 
 <div class="container mt-5 mb-5">
     <div class="row mb-4">
-        <div class="col-md-12">
-            <h1 id="cidade">{{ municipio.nome }}</h1>
+        <div class="col-md-12" id="titulo">
+            <h1>{{ municipio.nome }}</h1>
             <h6>{{ licitacao.nome_unidade_gestora }}</h6>
         </div>
     </div>
 
-     <div class="row" *ngIf="licitacao != null">
-       <!-- <div class="col-md-6 col-sm-12" id="info-licitacao">
-            <div class="row detalhes" style="border: blue 1px solid;">
-                <div class="col-sm-2" style="border: red 1px solid;">
-                    <i style="color: #08A5CA" class="fas fa-hands-helping fa-3x"></i>
+    <div class="col-md-12" *ngIf="licitacao != null">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 my-card mat-elevation-z4 mx-auto">
+                <div class="row detalhes">
+                    <div class="col-1" id="icones">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="col-10 descricao">
+                        <h4>Valor licitado:</h4>
+                        <div id="outros">{{ licitacao.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt' }}</div>
+                    </div>
                 </div>
-                <div class="col-md-10 col-sm-10  " style="border: greenyellow 1px solid;">
-                    {{ licitacao.objeto }}
-                </div>
-            </div>
-            <div class="row detalhes">
-                <div class="col-md-2" id="icone">
-                    <i style="color: #08A5CA" class="far fa-calendar-alt fa-3x"></i>
-                </div>
-                <div class="col-md-10 data">
-                    &nbsp;{{ licitacao.data_homologacao | date: 'dd/MM/yyyy' }}
-                </div>
-            </div>
-            <div class="row detalhes">
-                <div class="col-md-2 icon" id="icone">
-                    <i style="color: #08A5CA" class="far fa-file-alt fa-3x"></i>
-                </div>
-                <div class="col-md-10 data">
-                    &nbsp;{{ licitacao.modalidade }}
-                </div>
-            </div>
-        </div> -->
 
-        <div class="col-md-6 col-sm-12">
-            <div class="row detalhes">
-                <div class="col-2">
-                    <i style="color: #08A5CA" class="fas fa-hands-helping fa-3x"></i>
+                <div class="row detalhes">
+                    <div class="col-1" id="icones">
+                        <i class="fas fa-hands-helping fa-x"></i>
+                    </div>
+                    <div class="col-10 descricao">
+                        <h4>Objeto:</h4>
+                        <div id="objeto">{{ licitacao.objeto }}</div>
+                    </div>
                 </div>
-                <div class="col-10 objeto">
-                    {{ licitacao.objeto }}
-                </div>
-            </div>
 
-            <div class="row detalhes">
-                <div class="col-2">
-                    <i style="color: #08A5CA" class="far fa-calendar-alt fa-3x"></i>
+                <div class="row detalhes">
+                    <div class="col-1" id="icones">
+                        <i class="far fa-calendar-alt fa-3x"></i>
+                    </div>
+                    <div class="col-10 descricao">
+                        <h4>Data:</h4>
+                        <div id="outros">{{ licitacao.data_homologacao | date: 'dd/MM/yyyy' }}</div>
+                    </div>
                 </div>
-                <div class="col-10 data">
-                    {{ licitacao.data_homologacao | date: 'dd/MM/yyyy' }}
-                </div>
-            </div>
 
-            <div class="row detalhes">
-                <div class="col-2">
-                    <i style="color: #08A5CA" class="far fa-file-alt fa-3x"></i>
-                </div>
-                <div class="col-10 data">
-                    {{ licitacao.modalidade }}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-sm-12" id="lado-2">
-            <div class="row mb-4">
-                <div class="mx-auto">
-                    <div class="info-gasto">
-                        <h1 id="valor">{{ licitacao.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
-                        <p id="info" align="center">Total licitado*</p>
+                <div class="row detalhes">
+                    <div class="col-1" id="icones">
+                        <i class="far fa-file-alt fa-3x"></i>
+                    </div>
+                    <div class="col-10 descricao">
+                        <h4>Modalidade: </h4>
+                        <div id="outros">{{ licitacao.modalidade }}</div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mx-auto">
-                        <h4 align="center" id="vencedor">Vencedor</h4>
+
+            <div class="col-md-6 col-sm-12" id="lado-2">
+                <!-- <div class="row mb-4">
+                    <div class="mx-auto my-card mat-elevation-z4" id="gasto">
+                        <div class="info-gasto">
+                            <h4>Total licitado: </h4>
+                            <h1>{{ licitacao.valor_licitado | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
+                        </div>
                     </div>
+                </div> -->
+                <div class="row mb-4">
+                    <div class="mx-auto my-card mat-elevation-z4">
+                        <div class="col-md-12">
+                            <div class="mx-auto">
+                                <h4 align="center" id="vencedor">{{ vencedores ? 'Vencedores' : 'Vencedor' }}</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mx-auto">
+                            <div class="table-responsive-md">
+                                <table id="tabela" class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>Participante</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let proposta of propostas | filterProposta">
+                                            <td class="col-md-8">{{ proposta.nome_participante }}</td>
+                                            <td class="col-md-4">
+                                                {{ proposta.valor_proposta | currency:'BRL':'symbol':'1.2-2':'pt' }}
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
-                <div class="col-md-11 offset-md-1">
-                    <div class="table-responsive-md">
-                        <table id="tabela" class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Participante</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let proposta of propostas | filterProposta">
-                                    <td class="col-md-8">{{ proposta.nome_participante }}</td>
-                                    <td class="col-md-4"> {{ proposta.valor_proposta | currency:'BRL':'symbol':'1.2-2':'pt' }} </td>
 
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="mx-auto my-card mat-elevation-z4">
+                        <div class="col-md-12">
+                            <div class="mx-auto">
+                                <h4 align="center" id="outras">{{ perdedores ? 'Outras propostas' : 'Outra Proposta' }}
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div *ngIf="exibirPerdedor" class="mx-auto">
+                            Não houve proposta perdedora nesta licitação
+                        </div>
+
+                        <div *ngIf="!exibirPerdedor" class="col-md-12 mx-auto">
+                            <div class="table-responsive-md">
+                                <table id="tabela" class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>Participante</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let proposta of propostas | filterPropostaPerdedora">
+                                            <td class="col-md-8">{{ proposta.nome_participante }}</td>
+                                            <td class="col-md-4">
+                                                {{ proposta.valor_proposta | currency:'BRL':'symbol':'1.2-2':'pt' }}
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mx-auto">
-                        <h4 align="center" id="outras">Outras propostas</h4>
-                    </div>
-                </div>
-                <div class="col-md-11 offset-md-1">
-                    <div class="table-responsive-md">
-                        <table id="tabela" class="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Participante</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let proposta of propostas | filterPropostaPerdedora">
-                                    <td class="col-md-8">{{ proposta.nome_participante }}</td>
-                                    <td class="col-md-4"> {{ proposta.valor_proposta | currency:'BRL':'symbol':'1.2-2':'pt' }} </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
                 </div>
             </div>
         </div>

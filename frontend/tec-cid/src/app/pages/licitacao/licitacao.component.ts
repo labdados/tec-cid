@@ -13,7 +13,7 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
 
   idMunicipio:string;
   idLicitacao: string;
-  licitacao: Licitacao = null;
+  licitacao: Licitacao = new Licitacao('', '', '', '', '', '', '', '', '', '', '', '', '','', '');
 
   constructor(
     private route: ActivatedRoute,
@@ -31,11 +31,11 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
 
       this.licitacaoService.getLicitacao(this.idLicitacao).subscribe(res => {
         this.licitacao = res.dados[0];
-        console.log(this.licitacao)
       })
 
       this.licitacaoService.getPropostas(this.idLicitacao);
     });
+
   }
 
   ngAfterViewInit() {
@@ -49,5 +49,19 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
   get municipio() {
     return this.municipioService.municipio
   }
+
+  get vencedores() {
+    return this.licitacaoService.vencedores
+  }
+
+  get perdedores() {
+    return this.licitacaoService.perdedores
+  }
+
+  get exibirPerdedor() {
+    return this.licitacaoService.exibirPerdedores
+  }
+
+  
 
 }
