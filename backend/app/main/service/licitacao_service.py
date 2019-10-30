@@ -1,4 +1,5 @@
 from ..model.models import Licitacao
+from ..model.models import UnidadeGestora
 from app.main import db
 from .municipio_service import MunicipioService
 
@@ -54,6 +55,8 @@ class LicitacaoService:
                   " ORDER BY {}".format(ordenar_por) +
                   " SKIP {} LIMIT {}".format(skip, itens))
 
+        print(query)
+        
         results = db.run(query).data()
         nodes = []
         for res in results:
@@ -67,6 +70,12 @@ class LicitacaoService:
         result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,
                                            cd_modalidade = codTipoLicitacao,
                                            numero_licitacao = codLicitacao)
+        
+        unidade_gestora = UnidadeGestora.match(db).where(cd_ugestora = codUnidadeGestora)
+        nome_unidade_gest = ''
+        for uni in unidade_gestora:
+            node = uni.__node__
+            nome_unidade_gest = node['nome']
 
         #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_modalidade='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
         nodes = []
@@ -74,6 +83,7 @@ class LicitacaoService:
             node = lic.__node__
             node["id"] = "{}-{}-{}".format(codUnidadeGestora, codLicitacao, codTipoLicitacao)
             node["data_homologacao"] = node["data_homologacao"].__str__()
+            node["nome_unidade_gestora"] = nome_unidade_gest
             nodes.append(node)
         return nodes
 
