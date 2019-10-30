@@ -27,8 +27,6 @@ export class BarChartComponent implements OnChanges {
   ) {}
 
   ngOnChanges(): void {
-    if (!this.data) { console.log("4", this.data); return; }
-    console.log("3", this.data);
     this.createChart();
   }
 
@@ -52,8 +50,6 @@ export class BarChartComponent implements OnChanges {
     const element = this.chartContainer.nativeElement;
     //this.getRankingMunicipios();
     const data = this.data;
-    console.log("2", data);
-    
 
     const svg = d3.select(element).append('svg')
         .attr('width', element.offsetWidth)
@@ -73,7 +69,7 @@ export class BarChartComponent implements OnChanges {
 
     let xAxis = g => g
       .attr("transform", `translate(0,${this.margin.top})`)
-      .style("font", "16px sans-serif")
+      .style("font", "14px sans-serif")
       .call(d3.axisTop(x).ticks(contentWidth / 180))
       .call(g => g.select(".domain").remove())
 
@@ -95,21 +91,21 @@ export class BarChartComponent implements OnChanges {
 
     svg.append("g")
         .attr("fill", "#151C48")
-        .style("font", "18px sans-serif")
+        .style("font", "16px sans-serif")
       .selectAll("text")
       .data(data)
       .join("text")
-        .attr("x", d => x(Number(d.valor_licitacoes)) - 4)
+        .attr("x", d => x(Number(d.valor_licitacoes)))
         .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
-        .attr("dy", "0.35em")
+        .attr("dy", "0.25em")
         .attr("dx", "10px")
         .text(d => format(Number(d.valor_licitacoes)));
 
-    svg.append("g")
-        .call(xAxis);
+    //svg.append("g")
+     //   .call(xAxis);
 
     svg.append("g")
-        .style("font", "20px sans-serif")
+        .style("font", "16px sans-serif")
         .call(yAxis);
 
   }
