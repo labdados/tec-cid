@@ -1,41 +1,66 @@
-.img-areas {
-    width: 80px;
-}
-
-#cidade {
+#titulo h1 {
     font-size: 40px;
     color: #0d4247;
     font-weight: bold;
 }
 
-#area {
-    font-size: 25px;
-    color: #0d4247;
+#titulo h6 {
+    font-size: 18px;
+    color: #585858;
 }
 
-.data {
+.descricao {
     display:flex;
-    align-items: center;
-    color: #0d4247;
-    font-size: 22px;
+    flex-direction: column;
 }
 
-.objeto {
-    display:flex;
-    align-items: center;
+.descricao h4 {
     color: #0d4247;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.detalhes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.detalhes #icones {
+    margin-right: 3%;
+}
+
+.detalhes div i {
+    color: #0d4247;
+    font-size: 30px;
+}
+
+.descricao #objeto {
+    color: #585858;
     font-size: 14px;
 }
 
-#valor {
-    font-size: 50px;
-    color: #0d4247;
+.descricao #outros {
+    color: #585858;
+    font-size: 18px;
 }
 
-#info {
-    font-size: 16px;
-    color: #585858;
-    margin-top: -10px;
+.info-gasto {
+    padding: 0;
+}
+
+.info-gasto h1 {
+    color: #0d4247;
+    font-size: 42px;
+}
+
+.info-gasto h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0d4247;
 }
 
 #vencedor {
@@ -46,26 +71,26 @@
 #tabela tbody tr td {
     /* text-align: center;     alinhamento horizontal */
     /* vertical-align: middle; */
-    color: #08A5CA
-}
-
-.detalhes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    margin-bottom: 20px;
-}
-
-.detalhes #icone {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #585858
 }
 
 #outras {
     font-size: 20px;
     color: #0d4247;
+}
+
+.my-card {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
+    padding: 16px;
+    background-color: white;
+}
+
+#gasto {
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -85,10 +110,6 @@
         font-size: 12px;
     }
 
-    i {
-        font-size: 38px;
-    }
-
     .info-gasto #valor {
         text-align: center;
         font-size: 28px;
@@ -97,6 +118,10 @@
 
     #lado-2 {
         margin-top: 15%;
+    }
+
+    .detalhes #icones {
+        margin-right: 5%;
     }
 }
 
