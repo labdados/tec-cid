@@ -10,6 +10,9 @@ import { Proposta } from '../models/proposta.model';
 export class LicitacaoService {
 
   propostas: Proposta[] = []
+  vencedores: boolean;
+  perdedores: boolean;
+  exibirPerdedores: boolean;
 
   constructor(
     private http: HttpClient
@@ -26,6 +29,33 @@ export class LicitacaoService {
   getPropostas(idLicitacao:string) {
     return this.http.get<any>(`${API_URL}/licitacoes/${idLicitacao}/propostas`).subscribe(res => {
       this.propostas = res.dados;
+      this.verificacao();
     })
+  }
+
+  verificacao() {
+    let venc = 0;
+    let perd = 0;
+    this.propostas.forEach(e => {
+      if (e.situacao_proposta == 'Vencedora') {
+        venc++;
+      } else if (e.situacao_proposta == 'Perdedora') {
+        perd++;
+      }
+    });
+
+    if(venc > 1) {
+      this.vencedores = true;
+    } else {
+      this.vencedores = false;
+    }
+
+    if (perd > 1) {
+      this.perdedores = true;
+    } else if (perd == 0) {
+      this.perdedores = false;
+      this.exibirPerdedores = true;
+    }
+
   }
 }
