@@ -2,3 +2,23 @@
     font-weight: 500;
     color: #0d4247;
 }
+
+.my-card {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 700px;
+    height: 95%;
+    padding: 15px;
+    background-color: white;
+    margin: auto;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .my-card {
+        max-width: 95%;
+    }
+}
+

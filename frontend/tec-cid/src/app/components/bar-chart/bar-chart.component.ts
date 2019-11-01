@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
 import * as d3 from 'd3';
-//import { DataModel } from 'src/app/models/data.model';
-import { EstatisticasService } from 'src/app/services/estatisticas.service';
+import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-bar-chart',
@@ -20,11 +19,7 @@ export class BarChartComponent implements OnChanges {
   @Input()
   data: any[];
 
-  margin = {top: 30, right: 0, bottom: 90, left: 192};
-
-  constructor(
-    private estatisticasService: EstatisticasService
-  ) {}
+  margin = {top: 20, right: 31, bottom: 20, left: 125};
 
   ngOnChanges(): void {
     this.createChart();
@@ -34,79 +29,61 @@ export class BarChartComponent implements OnChanges {
     this.createChart();
   }
 
-  getRankingMunicipios() {
-    this.rankingMunicipios = this.estatisticasService.getRankingMunicipios();
-    // this.estatisticasService.getRankingMunicipios().subscribe(res => {
-    //   this.rankingMunicipios = res.dados;
-    //   console.log("1", this.rankingMunicipios);
-    //   this.nomesMunicipios = res.dados.nome_municipio;
-    //   this.valoresLicitacoes = res.dados.valor_licitacao;
-    // })
-  }
-
   private createChart(): void {
     d3.select('svg').remove();
 
     const element = this.chartContainer.nativeElement;
-    //this.getRankingMunicipios();
     const data = this.data;
+
+    let realFormatter = (value) => {
+      return formatCurrency(value, "pt-BR", "", "BRL", "1.0-0")
+    }
+
+    let height = data.length * 25 + this.margin.top + this.margin.bottom
 
     const svg = d3.select(element).append('svg')
         .attr('width', element.offsetWidth)
-        .attr('height', element.offsetHeight * (data.length / 3));
+        .attr('height', height);
 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
     const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
 
     let x = d3.scaleLinear()
-      .domain([0, d3.max(data, d => Number(d.valor_licitacoes))])
-      .range([this.margin.left, contentWidth + this.margin.right])
+      .domain([0, d3.max(data, d => d.valor_licitacoes)])
+      .range([this.margin.left, this.margin.left + contentWidth])
 
     let y = d3.scaleBand()
       .domain(data.map(d => d.nome_municipio))
-      .range([this.margin.top, contentHeight + this.margin.bottom])
+      .range([this.margin.top, this.margin.top + contentHeight])
       .padding(0.1)
 
     let xAxis = g => g
-      .attr("transform", `translate(0,${this.margin.top})`)
-      .style("font", "14px sans-serif")
-      .call(d3.axisTop(x).ticks(contentWidth / 180))
-      .call(g => g.select(".domain").remove())
+      .attr("transform", `translate(0, ${contentHeight + this.margin.top})`)
+      .style("font", "12px sans-serif")
+      .call(d3.axisBottom(x).ticks(contentWidth / 180)
+        .tickFormat(function(d) { return realFormatter(d);})
+      )
 
     let yAxis = g => g
-      .attr("transform", `translate(${this.margin.left},0)`)
+      .attr("transform", `translate(${this.margin.left}, 0)`)
       .call(d3.axisLeft(y).tickSizeOuter(0))
-
-    let format = x.tickFormat(20)
 
     svg.append("g")
       .attr("fill", "steelblue")
-    .selectAll("rect")
-    .data(data)
-    .join("rect")
+      .selectAll("rect")
+      .data(data)
+      .join("rect")
+      .attr("class", "bar")
       .attr("x", x(0))
       .attr("y", d => y(d.nome_municipio))
-      .attr("width", d => x(Number(d.valor_licitacoes)) - x(0))
+      .attr("width", d => x(d.valor_licitacoes) - x(0))
       .attr("height", y.bandwidth());
 
     svg.append("g")
-        .attr("fill", "#151C48")
-        .style("font", "16px sans-serif")
-      .selectAll("text")
-      .data(data)
-      .join("text")
-        .attr("x", d => x(Number(d.valor_licitacoes)))
-        .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
-        .attr("dy", "0.25em")
-        .attr("dx", "10px")
-        .text(d => format(Number(d.valor_licitacoes)));
-
-    //svg.append("g")
-     //   .call(xAxis);
+      .call(xAxis);
 
     svg.append("g")
-        .style("font", "16px sans-serif")
+        //.style("font", "10px sans-serif")
         .call(yAxis);
-
   }
 }
