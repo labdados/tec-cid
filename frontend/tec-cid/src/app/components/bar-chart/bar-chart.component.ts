@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, ViewChild, ViewEncapsulation, HostListener } from '@angular/core';
 import * as d3 from 'd3';
+import d3Tip from 'd3-tip';
 import { formatCurrency } from '@angular/common';
 
 @Component({
@@ -19,12 +20,16 @@ export class BarChartComponent implements OnChanges {
   @Input()
   data: any[];
 
-  margin = {top: 20, right: 31, bottom: 20, left: 125};
+  margin = {top: 20, right: 31, bottom: 20, left: 120};
 
+  constructor() { }
+  
   ngOnChanges(): void {
+    if (!this.data) { return; }
+
     this.createChart();
   }
-
+  
   onResize() {
     this.createChart();
   }
@@ -68,6 +73,18 @@ export class BarChartComponent implements OnChanges {
       .attr("transform", `translate(${this.margin.left}, 0)`)
       .call(d3.axisLeft(y).tickSizeOuter(0))
 
+    const tip = d3Tip()
+
+    tip
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        return "<div><span>" + d.nome_municipio + "</span></div>" +
+               "<div><span style='color:white'>" + "R$"+ realFormatter(d.valor_licitacoes) + "</span></div>";
+      });
+
+    svg.call(tip);
+
     svg.append("g")
       .attr("fill", "steelblue")
       .selectAll("rect")
@@ -77,13 +94,18 @@ export class BarChartComponent implements OnChanges {
       .attr("x", x(0))
       .attr("y", d => y(d.nome_municipio))
       .attr("width", d => x(d.valor_licitacoes) - x(0))
-      .attr("height", y.bandwidth());
+      .attr("height", y.bandwidth())
+      .on('mouseover', (d, i, n) => tip.show(d, n[i]))
+      .on("mouseout", d => tip.hide(d));
 
     svg.append("g")
       .call(xAxis);
 
     svg.append("g")
-        //.style("font", "10px sans-serif")
-        .call(yAxis);
+      //.style("font", "10px sans-serif")
+      .call(yAxis);
+    
+    
+    
   }
 }
