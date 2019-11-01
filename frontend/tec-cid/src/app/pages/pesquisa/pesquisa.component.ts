@@ -14,7 +14,7 @@ export class PesquisaComponent implements OnInit {
   data: Observable<any>;
 
   constructor(private http: HttpClient, private estatisticasService: EstatisticasService) {
-    this.estatisticasService.getRankingMunicipios().subscribe(res => {
+    this.estatisticasService.getRankingMunicipios(10).subscribe(res => {
       this.data = res.dados;
     })
   }
