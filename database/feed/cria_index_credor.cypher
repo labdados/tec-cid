@@ -1,0 +1,1 @@
+CREATE INDEX ON :Credor(cd_credor, no_credor);
