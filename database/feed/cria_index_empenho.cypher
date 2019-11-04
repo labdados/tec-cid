@@ -1,0 +1,1 @@
+CREATE INDEX ON :Empenho(cd_ugestora, nu_licitacao, nu_empenho);
