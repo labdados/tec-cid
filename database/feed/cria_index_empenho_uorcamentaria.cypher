@@ -1,0 +1,1 @@
+CREATE INDEX ON :Empenho(de_UOrcamentaria)
