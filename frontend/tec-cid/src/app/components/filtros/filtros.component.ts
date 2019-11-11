@@ -24,7 +24,7 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     displayKey: "nome",
     search: true,
     limitTo: 10,
-    placeholder: 'Selecione seu município',
+    placeholder: 'Selecione um município',
     noResultsFound: 'Nenhum município encontrado',
     searchPlaceholder: 'Buscar',
     searchOnKey: 'nome'

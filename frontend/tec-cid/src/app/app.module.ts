@@ -13,7 +13,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PesquisaComponent } from './pages/pesquisa/pesquisa.component';
 import { FiltrosComponent } from './components/filtros/filtros.component';
-import { MunicipioComponent } from './pages/municipio/municipio.component';
+import { MunicipioComponent } from './pages/municipio/municipio.component'
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { FilterPropostaPipe } from './pipes/filter-proposta.pipe';
 import { FilterPropostaPerdedoraPipe } from './pipes/filter-proposta-perdedora.pipe';
 import { TabelaComponent } from './components/tabela/tabela.component';
@@ -37,6 +38,7 @@ registerLocaleData(localePt);
     HeaderComponent,
     PesquisaComponent,
     FiltrosComponent,
+    BarChartComponent,
     MunicipioComponent,
     LicitacaoComponent,
     FilterPropostaPipe,
