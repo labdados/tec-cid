@@ -21,4 +21,15 @@ export class EstatisticasService {
       }
     })
   }
+
+  getRankingMunicipios(topN) {
+    return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
+      params: {
+        dataInicio: '2017-01-01',
+        dataFim: '2020-12-31',
+        agruparPor: 'municipio',
+        limite: topN
+      }
+    })
+  }
 }
