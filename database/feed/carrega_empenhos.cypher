@@ -28,21 +28,17 @@ ON CREATE SET
 		year: toInteger(split(line.dt_empenho, "/")[2]),
 		month: toInteger(split(line.dt_empenho, "/")[1]),
 		day: toInteger(split(line.dt_empenho, "/")[0])
-	})
-
-
-MERGE (lic:Licitacao {
-	numero_licitacao: line.nu_Licitacao
-	cd_modalidade: toString(line.cd_modalidade_licitacao)
-})
-ON CREATE SET
-	lic.modalidade = line.de_tipolicitacao
+	}),
+	emp.valor = toFloat(line.vl_Empenho)
 
 MERGE (cred:Credor {
 	cpf_cnpj: line.cd_credor,
 	nome: line.no_Credor
 })
 
-MERGE (lic)-[:GEROU]->(emp)-[transac:EMPENHADO_PARA]->(cred)
-ON CREATE SET
-	transac.valor = toFloat(line.vl_Empenho)
+MATCH (lic:Licitacao)
+WHERE lic.numero_licitacao = line.nu_Licitacao AND
+	  lic.cd_modalidade = toString(line.cd_modalidade_licitacao) AND
+	  lic.cd_ugestora = line.cd_ugestora
+
+MERGE (lic)-[:GEROU]->(emp)-[:EMPENHADO_PARA]->(cred)
