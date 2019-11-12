@@ -1,1 +1,1 @@
-CREATE INDEX ON :Empenho(cd_ugestora, dt_Ano, nu_Empenho);
+CREATE INDEX ON :Empenho(cd_ugestora, numero_empenho, unidade_orcamentaria, ano);
