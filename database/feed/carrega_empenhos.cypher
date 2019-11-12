@@ -1,4 +1,4 @@
-USING PERIODIC COMMIT 50000
+USING PERIODIC COMMIT 5000
 LOAD CSV WITH HEADERS FROM "file:///empenhos.csv" AS line
 
 MERGE (emp:Empenho {
@@ -36,6 +36,7 @@ MERGE (cred:Credor {
 	nome: line.no_Credor
 })
 
+WITH line, emp, cred
 MATCH (lic:Licitacao)
 WHERE lic.numero_licitacao = line.nu_Licitacao AND
 	  lic.cd_modalidade = toString(line.cd_modalidade_licitacao) AND

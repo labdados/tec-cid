@@ -1,4 +1,4 @@
-USING PERIODIC COMMIT 20000
+USING PERIODIC COMMIT 5000
 LOAD CSV WITH HEADERS FROM "file:///licitacoes_propostas.csv" AS line
 
 MERGE (ug:UnidadeGestora { cd_ugestora: line.cd_ugestora })
