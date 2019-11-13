@@ -1,1 +1,1 @@
-CREATE INDEX ON :Empenho(cd_ugestora, numero_empenho, unidade_orcamentaria, ano);
+CREATE CONSTRAINT ON (emp:Empenho) ASSERT emp.id_empenho IS UNIQUE;

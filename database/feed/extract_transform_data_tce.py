@@ -5,7 +5,6 @@ import os
 import sys
 import time
 
-
 LICITACOES_INPUT_GZ = '../../dados/TCE-PB-Portal-Gestor-Licitacoes_Propostas.txt.gz'
 LICITACOES_OUTPUT_CSV = '../../dados/licitacoes_propostas.csv'
 
@@ -20,8 +19,10 @@ LIQUIDACOES_OUTPUT_CSV = '../../dados/liquidacoes.csv'
 
 NUM_LICITACAO_IDX = 1
 MODALIDADE_LICITACAO_IDX = 2
-
 MODALIDADE_EMPENHO_IDX = 15
+
+ANO_EMPENHO_COL = 2
+ANO_EMPENHO_MIN = 2014
 
 CD_MODALIDADES = {
     "Pregão (Eletrônico e Presencial)": 0,
@@ -103,6 +104,9 @@ def transform_empenhos(line):
     fields = [x if x != 'NULL' else '' for x in fields]
     return fields if (len(fields) == 26) else None
 
+def filter_empenhos(line, line_no):
+    return line if line_no == 1 or (line and int(line[ANO_EMPENHO_COL]) >= ANO_EMPENHO_MIN) else ''
+
 def extract_pagamentos(input_gz):
     with io.TextIOWrapper(gzip.GzipFile(input_gz)) as text_file:
         for line in text_file:
@@ -157,8 +161,8 @@ if __name__ == '__main__':
         row_num = 0
         for line in extract_empenhos(input_file):
             row_num += 1
-            fields = transform_empenhos(line)
-            if (fields != None):
+            fields = filter_empenhos(transform_empenhos(line), row_num)
+            if fields:
                 fields = add_codigo_modalidade(
                     fields, row_num, MODALIDADE_EMPENHO_IDX)
                 writer.writerow(fields)
