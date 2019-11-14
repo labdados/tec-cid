@@ -2,11 +2,14 @@ USING PERIODIC COMMIT 10000
 LOAD CSV WITH HEADERS FROM "file:///empenhos.csv" AS line
 
 MATCH (emp:Empenho {
-	id_empenho: (line.cd_ugestora + SUBSTRING('00', SIZE(line.cd_modalidade_licitacao)) +
-				 line.cd_modalidade_licitacao + line.nu_Licitacao + line.nu_Empenho)
+	id_empenho: (line.cd_ugestora + line.dt_Ano + line.nu_Empenho)
 })
-MATCH (p:Participante)
-WHERE (size(p.cpf_cnpj) <= 11 AND p.cpf_cnpj = ('***' + substring(line.cpf_cnpj, 3, 6) + '**')) OR
-      (size(p.cpf_cnpj) > 11 AND p.cpf_cnpj = line.cpf_cnpj)
-
+WITH emp, line.no_Credor AS line_no_Credor,
+	 CASE WHEN line.cpf_cnpj STARTS WITH '000' THEN ('***' + substring(line.cpf_cnpj, 6, 6) + '**')
+										 ELSE line.cpf_cnpj AS line_cpf_cnpj
+WHERE line_cpf_cnpj <> NULL
+MERGE (p:Participante { cpf_cnpj: line_cpf_cnpj })
+ON CREATE SET p.nome = toUpper(line_no_Credor),
+ p.credor = TRUE
+ON UPDATE SET p.credor = TRUE
 MERGE (emp)-[:EMPENHADO_PARA]->(p);
