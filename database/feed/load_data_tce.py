@@ -4,8 +4,8 @@ from etl_utils import query_from_file
 from py2neo import Graph
 
 if __name__ == '__main__':
-    user = 'neo4j'
-    password = 'password'
+    user = sys.argv[1] if len(sys.argv) > 1 else config('NEO4J_USER', default='neo4j')
+    password = sys.argv[2] if len(sys.argv) > 2 else config('NEO4J_PASSWORD', default='password')
     
     neo4j = Graph("localhost", user=user, password=password)
     cypher_files = [
