@@ -18,52 +18,37 @@ LIQUIDACOES_INPUT_GZ = '../../dados/TCE-PB-SAGRES-Liquidacoes_Esfera_Municipal.t
 LIQUIDACOES_OUTPUT_CSV = '../../dados/liquidacoes.csv'
 
 NUM_LICITACAO_IDX = 1
-MODALIDADE_LICITACAO_IDX = 2
-MODALIDADE_EMPENHO_IDX = 15
+TIPO_LICITACAO_IDX = 2
+TIPO_LICITACAO_EMPENHOS_IDX = 15
 
 ANO_EMPENHO_COL = 2
 ANO_EMPENHO_MIN = 2014
 
-CD_MODALIDADES = {
+PROXIMO_CD_TIPO_LICITACAO = 16
+
+CD_TIPOS_LICITACOES = {
     "Pregão (Eletrônico e Presencial)": 0,
     "Concorrência": 1,
+    "Tomada de Preços": 2,
     "Tomada de Preço": 2,
     "Convite": 3,
     "Concurso": 4,
     "Leilão": 5,
+    "Dispensa por Valor": 6,
     "Dispensada (Art. 17 - Lei 8.666/93)": 6,
+    "Dispensa por outros motivos": 7,
     "Dispensa (Art. 24 - Lei 8.666/93)": 7,
+    "Inexigível": 8,
     "Inexigibilidade": 8,
     "Sem Licitação": 9,
     "Pregão Eletrônico": 10,
     "Pregão Presencial": 11,
+    "Adesão a Registro de Preço": 12,
     "Adesão a Ata de Registro de Preços": 12,
     "Chamada Pública": 13,
     "RDC - Regime Diferenciado de Contratações Públicas": 14,
     "Licitação da Lei Nº 13.303/2016": 15,
-    "Licitação da Lei Nº 13.303/2016 (Art. 29 ou 30)": 16,
-    "Dispensa por Valor": 17,
-    "Inexigível": 18,
-    "Tomada de Preços": 19,
-    "Dispensa por outros motivos": 20,
-    "Adesão a Registro de Preço": 21
-}
-
-AUX_MODALIDADES = {
-  "Inexigível": {
-    "nome": "Inexigibilidade",
-    "codigo": 8
-  },
-
-  "Tomada de Preços": {
-    "nome": "Tomada de Preço",
-    "codigo": 2
-  },
-
-  "Adesão a Registro de Preço": {
-    "nome": "Adesão a Ata de Registro de Preços",
-    "codigo": 12
-  }
+    "Licitação da Lei Nº 13.303/2016 (Art. 29 ou 30)": 15
 }
 
 def extract_licitacao(input_gz):
@@ -78,18 +63,18 @@ def transform_licitacao(line):
     assert len(fields) == 23
     return fields
 
-def add_codigo_modalidade(fields, row_num, modalidade_idx):
+def add_tipo_licitacao(fields, row_num, tipo_licitacao_idx):
     text = ''
-    modalidade = fields[modalidade_idx]
-    if (modalidade in CD_MODALIDADES):
-        text = CD_MODALIDADES[modalidade]
-
-    elif (modalidade in AUX_MODALIDADES):
-        text = AUX_MODALIDADES[modalidade]["codigo"]
-
+    tipo_licitacao = fields[tipo_licitacao_idx]
+    if (tipo_licitacao in CD_TIPOS_LICITACOES):
+        text = CD_TIPOS_LICITACOES[tipo_licitacao]
+    elif row_num == 1:
+        text = "cd_tipo_licitacao"
     else:
-        assert(row_num == 1)
-        text = "cd_modalidade_licitacao"
+        print("Adicionando novo tipo de licitacao: {} ({})".format(tipo_licitacao,
+                                                                   PROXIMO_CD_TIPO_LICITACAO))
+        CD_TIPOS_LICITACOES[tipo_licitacao] = PROXIMO_CD_TIPO_LICITACAO
+        PROXIMO_CD_TIPO_LICITACAO += 1
 
     fields.append(text)
     return fields
@@ -142,8 +127,8 @@ if __name__ == '__main__':
         for line in extract_licitacao(input_file):
             row_num += 1
             fields = transform_licitacao(line)
-            fields = add_codigo_modalidade(
-                fields, row_num, MODALIDADE_LICITACAO_IDX)
+            fields = add_tipo_licitacao(
+                fields, row_num, TIPO_LICITACAO_IDX)
             writer.writerow(fields)
 
     final_time = time.time()
@@ -163,8 +148,8 @@ if __name__ == '__main__':
             row_num += 1
             fields = filter_empenhos(transform_empenhos(line), row_num)
             if fields:
-                fields = add_codigo_modalidade(
-                    fields, row_num, MODALIDADE_EMPENHO_IDX)
+                fields = add_tipo_licitacao(
+                    fields, row_num, TIPO_LICITACAO_EMPENHOS_IDX)
                 writer.writerow(fields)
 
     final_time = time.time()
