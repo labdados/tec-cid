@@ -32,4 +32,15 @@ export class EstatisticasService {
       }
     })
   }
+
+  getRankingEmpresas(topN) {
+    return this.http.get<any>(`${API_URL}/estatisticas/participantes`, {
+      params: {
+        dataInicio: '2017-01-01',
+        dataFim: '2020-12-31',
+        agruparPor: 'participante',
+        limite: topN
+      }
+    })
+  }
 }

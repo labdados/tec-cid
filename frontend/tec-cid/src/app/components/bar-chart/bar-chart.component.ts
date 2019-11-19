@@ -47,8 +47,7 @@ export class BarChartComponent implements OnChanges {
     let height = data.length * 25 + this.margin.top + this.margin.bottom
 
     const svg = d3.select(element).append('svg')
-        .attr('width', element.offsetWidth)
-        .attr('height', height);
+        .attr("viewBox", `0 0 670 290`);
 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
     const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
@@ -66,7 +65,8 @@ export class BarChartComponent implements OnChanges {
       .attr("transform", `translate(0, ${contentHeight + this.margin.top})`)
       .style("font", "12px sans-serif")
       .call(d3.axisBottom(x).ticks(contentWidth / 180)
-        .tickFormat(function(d) { return realFormatter(d);})
+        .tickFormat(function(d) { return realFormatter(d);}
+        ).tickSizeOuter(0)
       )
 
     let yAxis = g => g
@@ -93,7 +93,6 @@ export class BarChartComponent implements OnChanges {
       .attr("class", "bar")
       .attr("x", x(0))
       .attr("y", d => y(d.nome_municipio))
-      .attr("width", d => x(d.valor_licitacoes) - x(0))
       .attr("height", y.bandwidth())
       .on('mouseover', (d, i, n) => tip.show(d, n[i]))
       .on("mouseout", d => tip.hide(d));
@@ -104,8 +103,42 @@ export class BarChartComponent implements OnChanges {
     svg.append("g")
       //.style("font", "10px sans-serif")
       .call(yAxis);
-    
-    
-    
+
+    svg.selectAll("rect")
+      .data(data)
+      .transition()
+      .duration(2000)
+      .attr("x", d => x(0))
+      .attr("width", d => x(d.valor_licitacoes) - x(0));    
+
+    let format = x.tickFormat(20)
+
+    svg.append("g")
+        .attr("fill", "#151C48")
+        .style("font", "12px sans-serif")
+      .selectAll("text")
+      .data(data)
+      .join("text")
+        .attr("x", d => x(Number(d.valor_licitacoes)) - 4)
+        .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
+        .attr("dy", "0.35em")
+        .attr("dx", "10px")
+        .text(d => format(Number(d.valor_licitacoes)));
+
+    /*svg.append("g")
+      .transition()
+      .duration(900)
+      .on("start", function repeat() {
+        d3.active(this)
+            .tween("text", function() {
+              var that = d3.select(this),
+                  i = d3.interpolateNumber(that.text().replace(/,/g, ""), data);
+              return function(t) { that.text(format(i(t))); };
+            })
+          .transition()
+            .delay(1500)
+            .on("start", repeat);
+      });*/
   }
+
 }
