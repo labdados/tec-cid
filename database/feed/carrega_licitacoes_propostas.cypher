@@ -11,12 +11,12 @@ ON CREATE SET
         ug.nome_esfera_jurisdicionado = line.nome_esfera_jurisdicionado
 
 MERGE (lic:Licitacao {
-        id_licitacao: (line.cd_ugestora + SUBSTRING('00', SIZE(line.cd_modalidade_licitacao)) +
-		        line.cd_modalidade_licitacao + line.numero_licitacao)
+        id_licitacao: (line.cd_ugestora + SUBSTRING('00', SIZE(line.cd_tipo_licitacao)) +
+		        line.cd_tipo_licitacao + line.numero_licitacao)
 })
 ON CREATE SET
         lic.cd_ugestora = line.cd_ugestora,
-        lic.cd_modalidade = line.cd_modalidade_licitacao,
+        lic.cd_tipo_licitacao = line.cd_tipo_licitacao,
         lic.numero_licitacao = line.numero_licitacao,
         lic.modalidade = line.nome_modalidade_licitacao,
         lic.objeto = line.objeto_licitacao,
