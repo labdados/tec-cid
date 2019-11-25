@@ -15,14 +15,17 @@ if __name__ == '__main__':
         'cria_index_licitacao.cypher',
         'cria_index_participante.cypher',
         'cria_index_empenho.cypher',
-        #'cria_index_empenho_uorcamentaria.cypher',
-        #'cria_index_credor.cypher',
+        'cria_index_valor_pagamento.cypher',
+        'cria_index_id_empenho_pagamento.cypher',
+        ##'cria_index_empenho_uorcamentaria.cypher',
+        ##'cria_index_credor.cypher',
         'carrega_licitacoes_propostas.cypher',
         'carrega_municipios.cypher',
         'carrega_nodes_empenhos.cypher',
         'cria_rel_gerou_empenho.cypher',
-        'cria_rel_empenhado_para.cypher'
-        #'carrega_pagamentos.cypher'
+        'cria_rel_empenhado_para.cypher',
+        'carrega_nodes_pagamentos.cypher',
+        'cria_rel_gerou_pagamento.cypher'
     ]
     
     for cypher_file in cypher_files:
