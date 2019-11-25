@@ -23,6 +23,7 @@ TIPO_LICITACAO_EMPENHOS_IDX = 15
 
 ANO_EMPENHO_COL = 2
 ANO_EMPENHO_MIN = 2014
+ANO_PAGAMENTO_COL = 2
 
 CD_TIPOS_LICITACOES = get_dictionary(CSV_TIPOS_LICITACOES)
 
@@ -85,6 +86,9 @@ def transform_pagamentos(line):
     fields = [x if x != 'NULL' else '' for x in fields]
     assert len(fields) == 15
     return fields
+
+def filter_pagamentos(line, line_no):
+    return line if line_no == 1 or (line and int(line[ANO_PAGAMENTO_COL]) >= ANO_EMPENHO_MIN) else ''
 
 def extract_liquidacoes(input_gz):
     with io.TextIOWrapper(gzip.GzipFile(input_gz)) as text_file:
@@ -150,9 +154,12 @@ if __name__ == '__main__':
     print('Writing in ' + PAGAMENTOS_OUTPUT_CSV)
     with open(output_file, 'w') as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
+        row_num = 0
         for line in extract_pagamentos(input_file):
-            fields = transform_pagamentos(line)
-            writer.writerow(fields)
+            row_num += 1
+            fields = filter_pagamentos(transform_pagamentos(line), row_num)
+            if fields:
+                writer.writerow(fields)
 
     final_time = time.time()
     total = final_time - initial_time
