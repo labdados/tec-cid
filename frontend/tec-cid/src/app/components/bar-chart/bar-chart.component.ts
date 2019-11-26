@@ -47,7 +47,9 @@ export class BarChartComponent implements OnChanges {
     let height = data.length * 25 + this.margin.top + this.margin.bottom
 
     const svg = d3.select(element).append('svg')
-        .attr("viewBox", `0 0 670 290`);
+        .attr("viewBox", `0 0 740 ${height}`)
+        .attr('preserveAspectRatio', 'xMinYMid meet')
+        .call(responsivefy);
 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
     const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
@@ -119,11 +121,13 @@ export class BarChartComponent implements OnChanges {
       .selectAll("text")
       .data(data)
       .join("text")
-        .attr("x", d => x(Number(d.valor_licitacoes)) - 4)
+        .attr("x", d => x(Number(d.valor_licitacoes)))
         .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
         .attr("dy", "0.35em")
         .attr("dx", "10px")
         .text(d => format(Number(d.valor_licitacoes)));
+
+    //svg.append('g').attr('transform', `translate(${element.offsetWidth - this.margin.left}, ${element.offsetHeight - this.margin.top})`)
 
     /*svg.append("g")
       .transition()
@@ -139,6 +143,13 @@ export class BarChartComponent implements OnChanges {
             .delay(1500)
             .on("start", repeat);
       });*/
+
+      function responsivefy(svg) {
+        const container = d3.select(svg.node().parentNode),
+            width = parseInt(svg.style('width'), 10),
+            height = parseInt(svg.style('height'), 10),
+            aspect = width / height;
+      }
   }
 
 }
