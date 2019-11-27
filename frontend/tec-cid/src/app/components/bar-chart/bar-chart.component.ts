@@ -35,16 +35,16 @@ export class BarChartComponent implements OnChanges {
   }
 
   private createChart(): void {
-    d3.select('svg').remove();
-
     const element = this.chartContainer.nativeElement;
     const data = this.data;
-
+    
     let realFormatter = (value) => {
       return formatCurrency(value, "pt-BR", "", "BRL", "1.0-0")
     }
-
+    
     let height = data.length * 25 + this.margin.top + this.margin.bottom
+    
+    d3.select(element).select('svg').remove();
 
     const svg = d3.select(element).append('svg')
         .attr("viewBox", `0 0 740 ${height}`)
