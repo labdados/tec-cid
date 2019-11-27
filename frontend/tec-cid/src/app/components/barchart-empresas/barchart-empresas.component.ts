@@ -10,7 +10,7 @@ import { formatCurrency } from '@angular/common';
   styleUrls: ['./barchart-empresas.component.css']
 })
 export class BarchartEmpresasComponent implements OnChanges {
-  @ViewChild('chart', {static: false}) 
+  @ViewChild('chartEmpresas', {static: false}) 
   private chartContainer: ElementRef;
   
   rankingEmpresas: any;
@@ -35,17 +35,18 @@ export class BarchartEmpresasComponent implements OnChanges {
   }
 
   private createChartEmpresas(): void {
-    d3.select('svg').remove();
-
     const element = this.chartContainer.nativeElement;
     const dataEmpresas = this.dataEmpresas;
-
+    
+    
     let realFormatter = (value) => {
       return formatCurrency(value, "pt-BR", "", "BRL", "1.0-0")
     }
-
+    
     let height = dataEmpresas.length * 25 + this.margin.top + this.margin.bottom
-
+    
+    d3.select(element).select('svg').remove();
+    
     const svg = d3.select(element).append('svg')
         .attr("viewBox", `0 0 670 290`);
 
