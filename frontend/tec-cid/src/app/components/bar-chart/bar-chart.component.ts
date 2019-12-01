@@ -103,7 +103,6 @@ export class BarChartComponent implements OnChanges {
       .call(xAxis);
 
     svg.append("g")
-      //.style("font", "10px sans-serif")
       .call(yAxis);
 
     svg.selectAll("rect")
@@ -112,37 +111,6 @@ export class BarChartComponent implements OnChanges {
       .duration(2000)
       .attr("x", d => x(0))
       .attr("width", d => x(d.valor_licitacoes) - x(0));    
-
-    let format = x.tickFormat(20)
-
-    svg.append("g")
-        .attr("fill", "#151C48")
-        .style("font", "12px sans-serif")
-      .selectAll("text")
-      .data(data)
-      .join("text")
-        .attr("x", d => x(Number(d.valor_licitacoes)))
-        .attr("y", d => y(d.nome_municipio) + y.bandwidth() / 2)
-        .attr("dy", "0.35em")
-        .attr("dx", "10px")
-        .text(d => format(Number(d.valor_licitacoes)));
-
-    //svg.append('g').attr('transform', `translate(${element.offsetWidth - this.margin.left}, ${element.offsetHeight - this.margin.top})`)
-
-    /*svg.append("g")
-      .transition()
-      .duration(900)
-      .on("start", function repeat() {
-        d3.active(this)
-            .tween("text", function() {
-              var that = d3.select(this),
-                  i = d3.interpolateNumber(that.text().replace(/,/g, ""), data);
-              return function(t) { that.text(format(i(t))); };
-            })
-          .transition()
-            .delay(1500)
-            .on("start", repeat);
-      });*/
 
       function responsivefy(svg) {
         const container = d3.select(svg.node().parentNode),
