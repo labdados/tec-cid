@@ -74,6 +74,15 @@ export class BarchartEmpresasComponent implements OnChanges {
       .attr("transform", `translate(${this.margin.left}, 0)`)
       .call(d3.axisLeft(y).tickSizeOuter(0))
 
+    let aa = g => g
+      .data(dataEmpresas)
+      .text(function (d) {
+        if(d.nome_participante.length > 5)
+            return d.nome_participante.substring(0,5)+'...';
+        else
+            return d.nome_participante;                       
+    });
+
     const tip = d3Tip()
 
     tip
@@ -102,8 +111,15 @@ export class BarchartEmpresasComponent implements OnChanges {
       .call(xAxis);
 
     svg.append("g")
-      //.style("font", "10px sans-serif")
-      .call(yAxis);
+      .call(yAxis)
+      .selectAll("text")
+      .data(dataEmpresas)
+      .text(function (d) {
+        if(d => d.nome_participante.length > 15)
+            return d.nome_participante.substring(0,15)+'...';
+        else
+            return d.nome_participante;                       
+    });
 
     svg.selectAll("rect")
       .data(dataEmpresas)
@@ -112,34 +128,6 @@ export class BarchartEmpresasComponent implements OnChanges {
       .attr("x", d => x(0))
       .attr("width", d => x(d.valor_licitacoes) - x(0));    
 
-    let format = x.tickFormat(20)
-
-    svg.append("g")
-        .attr("fill", "#151C48")
-        .style("font", "12px sans-serif")
-      .selectAll("text")
-      .data(dataEmpresas)
-      .join("text")
-        .attr("x", d => x(Number(d.valor_licitacoes)) - 4)
-        .attr("y", d => y(d.nome_participante) + y.bandwidth() / 2)
-        .attr("dy", "0.35em")
-        .attr("dx", "10px")
-        .text(d => format(Number(d.valor_licitacoes)));
-
-    /*svg.append("g")
-      .transition()
-      .duration(900)
-      .on("start", function repeat() {
-        d3.active(this)
-            .tween("text", function() {
-              var that = d3.select(this),
-                  i = d3.interpolateNumber(that.text().replace(/,/g, ""), data);
-              return function(t) { that.text(format(i(t))); };
-            })
-          .transition()
-            .delay(1500)
-            .on("start", repeat);
-      });*/
   }
 
 }
