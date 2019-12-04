@@ -15,6 +15,8 @@ ON CREATE SET
         cand.coligacao = line.DS_COMPOSICAO_COLIGACAO,
         cand.cargo = line.DS_CARGO,
         cand.situacao = line.DS_SIT_TOT_TURNO,
+        cand.data_nascimento = line.DT_NASCIMENTO,
+        cand.titulo_eleitoral = line.NR_TITULO_ELEITORAL_CANDIDATO,
         cand.genero = line.DS_GENERO,
         cand.grau_instrucao = line.DS_GRAU_INSTRUCAO,
         cand.raca = line.DS_COR_RACA,
