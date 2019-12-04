@@ -71,6 +71,8 @@ class Candidato(GraphObject):
     coligacao = Property()
     cargo = Property()
     situacao = Property()
+    data_nascimento = Property()
+    titulo_eleitoral = Property()
     genero = Property()
     grau_instrucao = Property()
     raca = Property()
