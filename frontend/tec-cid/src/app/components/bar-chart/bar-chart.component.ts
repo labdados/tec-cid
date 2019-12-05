@@ -42,14 +42,11 @@ export class BarChartComponent implements OnChanges {
       return formatCurrency(value, "pt-BR", "", "BRL", "1.0-0")
     }
     
-    let height = data.length * 25 + this.margin.top + this.margin.bottom
-    
     d3.select(element).select('svg').remove();
 
     const svg = d3.select(element).append('svg')
-        .attr("viewBox", `0 0 740 ${height}`)
-        .attr('preserveAspectRatio', 'xMinYMid meet')
-        .call(responsivefy);
+        .attr("viewBox", `0 0 740 290`)
+        .attr("preserveAspectRatio", "xMinYMin meet");
 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
     const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
@@ -112,12 +109,6 @@ export class BarChartComponent implements OnChanges {
       .attr("x", d => x(0))
       .attr("width", d => x(d.valor_licitacoes) - x(0));    
 
-      function responsivefy(svg) {
-        const container = d3.select(svg.node().parentNode),
-            width = parseInt(svg.style('width'), 10),
-            height = parseInt(svg.style('height'), 10),
-            aspect = width / height;
-      }
   }
 
 }
