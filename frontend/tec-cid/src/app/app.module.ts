@@ -6,6 +6,8 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import {APP_BASE_HREF} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CountoModule }  from 'angular2-counto';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -68,7 +70,9 @@ registerLocaleData(localePt);
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    CountoModule,
+    NgxSpinnerModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'},

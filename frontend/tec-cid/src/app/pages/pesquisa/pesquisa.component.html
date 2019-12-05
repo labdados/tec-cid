@@ -3,6 +3,21 @@
 <app-filtros></app-filtros>
 
 <div class="container">
+    <div counto [step]="200" [countTo]="16538765876587587640" [countFrom]="0" [duration]="3" (countoChange)="counto = $event" (countoEnd)="onCountoEnd()">{{counto | currency:'R$':'symbol':'1.2-2'}}</div>    
+</div>
+
+<div class="container" id="teste">
+    <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#fff"
+        type="ball-atom"
+    >
+        <p style="font-size: 20px; color: red">Loading...</p>
+    </ngx-spinner>
+</div>
+
+<div class="container">
     <div class="row justify-content-md-center my-10">
         <div class="my-card mat-elevation-z2 col">
             <h5>Ranking de gastos por município (R$)</h5>
@@ -17,6 +32,4 @@
     </div>
 </div>
 
-<div class="container">
-    
-</div>
+

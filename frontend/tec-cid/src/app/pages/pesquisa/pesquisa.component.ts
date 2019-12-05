@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 //import { DataModel } from 'src/app/models/data.model';
 import { EstatisticasService } from 'src/app/services/estatisticas.service';
+import { NgxSpinnerService } from "ngx-spinner";
+
 
 @Component({
   selector: 'app-pesquisa',
@@ -26,4 +28,18 @@ export class PesquisaComponent implements OnInit {
   ngOnInit() {
   }
 
+}
+
+class SpinnerComponent implements OnInit {
+  constructor(private spinner: NgxSpinnerService) {}
+ 
+  ngOnInit() {
+    /** spinner starts on init */
+    this.spinner.show();
+ 
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 5000);
+  }
 }
