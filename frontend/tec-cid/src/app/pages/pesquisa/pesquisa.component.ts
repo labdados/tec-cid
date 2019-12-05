@@ -12,10 +12,14 @@ import { EstatisticasService } from 'src/app/services/estatisticas.service';
 export class PesquisaComponent implements OnInit {
 
   data: Observable<any>;
+  dataEmpresas: Observable<any>;
 
   constructor(private http: HttpClient, private estatisticasService: EstatisticasService) {
     this.estatisticasService.getRankingMunicipios(10).subscribe(res => {
       this.data = res.dados;
+    })
+    this.estatisticasService.getRankingEmpresas(10).subscribe(res => {
+      this.dataEmpresas = res.dados;
     })
   }
 
