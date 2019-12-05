@@ -3,6 +3,7 @@ import gzip
 import io
 import os
 import sys
+import hashlib
 import time
 from dict_tipo_licitacao import get_dictionary, update_csv, get_max_codigo_licitacao
 
@@ -24,6 +25,11 @@ TIPO_LICITACAO_EMPENHOS_IDX = 15
 ANO_EMPENHO_COL = 2
 ANO_EMPENHO_MIN = 2014
 
+CD_UGESTORA_IDX = 0
+DT_ANO_IDX = 2
+DESC_UORCAMENTARIA_IDX = 3
+NUMERO_EMPENHO_IDX = 17
+
 CD_TIPOS_LICITACOES = get_dictionary(CSV_TIPOS_LICITACOES)
 
 # Retorna o maior código do dicionário e incrementa uma unidade = próximo código
@@ -41,6 +47,14 @@ def transform_licitacao(line):
     fields = [x if x != 'NULL' else '' for x in fields]
     fields[NUM_LICITACAO_IDX] = fields[NUM_LICITACAO_IDX].replace('/', '')
     assert len(fields) == 23
+    return fields
+
+
+def add_id_hash(fields, row_num, id_hash):
+    if (row_num == 1):
+        fields.append("id_empenho")
+        return fields
+    fields.append(id_hash)
     return fields
 
 def add_tipo_licitacao(fields, row_num, tipo_licitacao_idx):
@@ -66,6 +80,10 @@ def extract_empenhos(input_gz):
     with io.TextIOWrapper(gzip.GzipFile(input_gz)) as text_file:
         for line in text_file:
             yield line
+
+def get_id_hash(id):
+    result = hashlib.md5(id.encode())
+    return result.hexdigest()
 
 def transform_empenhos(line):
     fields = line.rstrip().replace('\r', '').replace('\\', '').split('|')
@@ -133,6 +151,8 @@ if __name__ == '__main__':
             if fields:
                 fields = add_tipo_licitacao(
                     fields, row_num, TIPO_LICITACAO_EMPENHOS_IDX)
+                id_empenho = fields[CD_UGESTORA_IDX] + fields[DT_ANO_IDX] + fields[DESC_UORCAMENTARIA_IDX] + fields[NUMERO_EMPENHO_IDX]
+                fields = add_id_hash(fields, row_num, get_id_hash(id_empenho))
                 writer.writerow(fields)
 
     # Atualiza o arquivo tipo_licitacao.csv, caso tenha novos tipos
