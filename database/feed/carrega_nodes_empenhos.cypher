@@ -2,7 +2,7 @@ USING PERIODIC COMMIT 10000
 LOAD CSV WITH HEADERS FROM "file:///empenhos.csv" AS line
 
 MERGE (emp:Empenho {
-	id_empenho: (line.cd_ugestora + line.dt_Ano + line.nu_Empenho)
+	id_empenho: line.id_empenho
 })
 ON CREATE SET
 	emp.numero_empenho = line.nu_Empenho,
