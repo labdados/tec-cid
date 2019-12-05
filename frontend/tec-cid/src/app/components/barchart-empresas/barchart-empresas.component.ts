@@ -42,13 +42,12 @@ export class BarchartEmpresasComponent implements OnChanges {
     let realFormatter = (value) => {
       return formatCurrency(value, "pt-BR", "", "BRL", "1.0-0")
     }
-    
-    let height = dataEmpresas.length * 25 + this.margin.top + this.margin.bottom
-    
+      
     d3.select(element).select('svg').remove();
     
     const svg = d3.select(element).append('svg')
-        .attr("viewBox", `0 0 670 290`);
+    .attr("viewBox", `0 0 740 290`)
+    .attr("preserveAspectRatio", "xMinYMin meet");
 
     const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
     const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
@@ -74,11 +73,11 @@ export class BarchartEmpresasComponent implements OnChanges {
       .attr("transform", `translate(${this.margin.left}, 0)`)
       .call(d3.axisLeft(y).tickSizeOuter(0))
 
-    let aa = g => g
+    let truncate = g => g
       .data(dataEmpresas)
       .text(function (d) {
-        if(d.nome_participante.length > 5)
-            return d.nome_participante.substring(0,5)+'...';
+        if(d.nome_participante.length > 15)
+            return d.nome_participante.substring(0,15)+'...';
         else
             return d.nome_participante;                       
     });
@@ -113,13 +112,7 @@ export class BarchartEmpresasComponent implements OnChanges {
     svg.append("g")
       .call(yAxis)
       .selectAll("text")
-      .data(dataEmpresas)
-      .text(function (d) {
-        if(d => d.nome_participante.length > 15)
-            return d.nome_participante.substring(0,15)+'...';
-        else
-            return d.nome_participante;                       
-    });
+      .call(truncate);
 
     svg.selectAll("rect")
       .data(dataEmpresas)
