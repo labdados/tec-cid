@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Municipio } from 'src/app/models/municipio.model';
-import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
 import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import { Router } from '@angular/router';
 import { Gestao } from 'src/app/models/gestao.model';
 import { CandidatosService } from 'src/app/services/candidatos.service';
+import {UnidadeGestoraService} from "../../services/unidade-gestora.service";
 
 @Component({
   selector: 'app-filtros',
@@ -48,19 +48,19 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   }
 
   get municipios() {
-    return this.municipiosService.municipios
+    return this.municipiosService.municipios;
   }
 
   get municipio() {
-    return this.municipiosService.municipio
+    return this.municipiosService.municipio;
   }
 
   get unidadesGestoras() {
-    return this.unidadeGestoraService.unidadesGestoras
+    return this.unidadeGestoraService.unidadesGestoras;
   }
 
   get candidato() {
-    return this.candidatosService.candidato
+    return this.candidatosService.candidato;
   }
 
   displayFn(municipio?: Municipio): string | undefined {

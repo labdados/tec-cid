@@ -18,7 +18,7 @@ export class MunicipioComponent implements OnInit, AfterViewInit {
   idMunicipio: any;
   tipoLic: any = '';
   codTipoLic: string = '';
-  gestao: Gestao = new Gestao(0, 0, '');
+  gestao: Gestao;
   valor_total_licitacoes: any = '';
 
   constructor(

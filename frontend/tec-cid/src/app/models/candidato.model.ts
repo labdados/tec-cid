@@ -1,21 +1,20 @@
-export class Candidato {
-    constructor(
-        public ano_eleicao: number,
-        public cargo: string,
-        public cd_eleicao: string,
-        public coligacao: string,
-        public cpf: string,
-        public genero: string,
-        public grau_instrucao: string,
-        public id: string,
-        public municipio: string,
-        public nome: string,
-        public nome_urna: string,
-        public numero: string,
-        public ocupacao: string,
-        public raca: string,
-        public sigla_partido: string,
-        public situacao: string,
-        public uf: string,        
-    ) {}
+export interface Candidato {
+  ano_eleicao: number;
+  cargo: string;
+  cd_eleicao: string;
+  coligacao: string;
+  cpf: string;
+  genero: string;
+  grau_instrucao: string;
+  id: string;
+  municipio: string;
+  nome: string;
+  nome_urna: string;
+  numero: string;
+  ocupacao: string;
+  raca: string;
+  sigla_partido: string;
+  situacao: string;
+  uf: string;
+
 }

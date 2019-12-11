@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { API_URL } from './tc.api';
+import {SERVER_URL} from '../shared/url/url.domain';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class EstatisticasService {
   ) { }
 
   getEstatisticaMunicipio(id: string) {
-    return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
+    return this.http.get<any>(`${SERVER_URL}/estatisticas/licitacoes`, {
       params: {
         idMunicipio: `${id}`,
         dataInicio: '2017-01-01',
@@ -23,7 +23,7 @@ export class EstatisticasService {
   }
 
   getRankingMunicipios(topN) {
-    return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
+    return this.http.get<any>(`${SERVER_URL}/estatisticas/licitacoes`, {
       params: {
         dataInicio: '2017-01-01',
         dataFim: '2020-12-31',
@@ -34,7 +34,7 @@ export class EstatisticasService {
   }
 
   getRankingEmpresas(topN) {
-    return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
+    return this.http.get<any>(`${SERVER_URL}/estatisticas/licitacoes`, {
       params: {
         dataInicio: '2017-01-01',
         dataFim: '2020-12-31',

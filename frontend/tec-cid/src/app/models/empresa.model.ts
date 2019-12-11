@@ -1,10 +1,8 @@
-export class Empresa {
-    constructor (
-        public cpf_cnpj_participante?: string,
-        public n_licitacoes?: string,
-        public n_participantes?: string,
-        public nome_participante?: string,
-        public valor_licitacoes?: string,
-        public valor_propostas_vencedoras?: string,         
-    ) {}
+export interface Empresa {
+  cpf_cnpj_participante?: string;
+  n_licitacoes?: string;
+  n_participantes?: string;
+  nome_participante?: string;
+  valor_licitacoes?: string;
+  valor_propostas_vencedoras?: string;
 }

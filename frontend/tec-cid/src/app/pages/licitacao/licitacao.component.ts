@@ -13,7 +13,7 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
 
   idMunicipio:string;
   idLicitacao: string;
-  licitacao: Licitacao = new Licitacao('', '', '', '', '', '', '', '', '', '', '', '', '','', '');
+  licitacao: Licitacao;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +62,6 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
     return this.licitacaoService.exibirPerdedores
   }
 
-  
+
 
 }

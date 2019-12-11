@@ -1,19 +1,17 @@
-export class Licitacao {
-    constructor(
-        public ano_homologacao: string,
-        public cd_modalidade: string,
-        public cd_ugestora: string,
-        public data_homologacao: string,        
-        public id: string,
-        public modalidade: string,
-        public nome_estagio_processual: string,
-        public nome_setor_atual: string,
-        public nome_unidade_gestora: string,
-        public numero_licitacao: string,
-        public objeto: string,
-        public situacao_fracassada: string,
-        public url: string,
-        public valor_estimado: string,
-        public valor_licitado: string,
-    ) {}
+export interface Licitacao {
+         ano_homologacao: string;
+         cd_modalidade: string;
+         cd_ugestora: string;
+         data_homologacao: string;
+         id: string;
+         modalidade: string;
+         nome_estagio_processual: string;
+         nome_setor_atual: string;
+         nome_unidade_gestora: string;
+         numero_licitacao: string;
+         objeto: string;
+         situacao_fracassada: string;
+         url: string;
+         valor_estimado: string;
+         valor_licitado: string;
 }
