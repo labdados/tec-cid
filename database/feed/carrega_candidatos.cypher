@@ -5,9 +5,11 @@ MERGE (cand:Candidato { id: line.SQ_CANDIDATO })
 ON CREATE SET 
         cand.cpf = line.NR_CPF_CANDIDATO,
         cand.cd_eleicao = line.CD_ELEICAO,
+        cand.tipo_eleicao = line.CD_TIPO_ELEICAO,
         cand.ano_eleicao = toInteger(line.ANO_ELEICAO),
         cand.uf = line.SG_UF,
         cand.municipio = line.NM_UE,
+        cand.unidade_estadual = line.SG_UE,
         cand.nome = line.NM_CANDIDATO,
         cand.nome_urna = line.NM_URNA_CANDIDATO,
         cand.numero = line.NR_CANDIDATO,
