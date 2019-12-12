@@ -22,6 +22,17 @@ export class EstatisticasService {
     })
   }
 
+  getLicitacaoMunicipio(id: string) {
+    return this.http.get<any>(`${API_URL}/estatisticas/licitacoes/${id}`, {
+      params: {
+        idMunicipio: `${id}`,
+        dataInicio: '2017-01-01',
+        dataFim: '2020-12-31',
+        agruparPor: 'municipio'
+      }
+    })
+  }
+
   getRankingMunicipios(topN) {
     return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
       params: {

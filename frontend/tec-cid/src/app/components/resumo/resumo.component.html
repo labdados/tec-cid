@@ -1,0 +1,12 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-12 col-sm-12" counto [step]="200" [countTo]="16538765876587587640" [countFrom]="0" [duration]="4" (countoChange)="counto = $event" (countoEnd)="onCountoEnd()" style="text-align: center;">{{counto | currency:'R$':'symbol':'1.2-2'}}</div>    
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-12 col-sm-12" counto [step]="200" [countTo]="dataEstatisticaMunicipio" [countFrom]="0" [duration]="4" (countoChange)="counto = $event" (countoEnd)="onCountoEnd()" style="text-align: center;">{{counto | currency:'R$':'symbol':'1.2-2'}}</div>    
+        </div>
+</div>
+

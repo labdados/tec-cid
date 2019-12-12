@@ -2,9 +2,7 @@
 
 <app-filtros></app-filtros>
 
-<div class="container">
-    <div counto [step]="200" [countTo]="16538765876587587640" [countFrom]="0" [duration]="3" (countoChange)="counto = $event" (countoEnd)="onCountoEnd()">{{counto | currency:'R$':'symbol':'1.2-2'}}</div>    
-</div>
+<app-resumo></app-resumo>
 
 <div class="container" id="teste">
     <ngx-spinner
