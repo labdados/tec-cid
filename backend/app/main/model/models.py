@@ -61,9 +61,11 @@ class UnidadeGestora(GraphObject):
 class Candidato(GraphObject):
     cpf = Property()
     cd_eleicao = Property()
+    tipo_eleicao = Property()
     ano_eleicao = Property()
     uf = Property()
     municipio = Property()
+    unidade_estadual = Property()
     nome = Property()
     nome_urna = Property()
     numero = Property()
