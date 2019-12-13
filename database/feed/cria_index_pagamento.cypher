@@ -1,0 +1,1 @@
+CREATE INDEX ON :Pagamento(nu_Empenho, cd_agencia, cd_Conta);

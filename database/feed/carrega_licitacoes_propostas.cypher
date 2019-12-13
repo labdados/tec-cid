@@ -1,4 +1,4 @@
-USING PERIODIC COMMIT 100
+USING PERIODIC COMMIT 10000
 LOAD CSV WITH HEADERS FROM "file:///licitacoes_propostas.csv" AS line
 
 MERGE (ug:UnidadeGestora { cd_ugestora: line.cd_ugestora })
@@ -11,11 +11,13 @@ ON CREATE SET
         ug.nome_esfera_jurisdicionado = line.nome_esfera_jurisdicionado
 
 MERGE (lic:Licitacao {
-           cd_ugestora: line.cd_ugestora,
-           cd_modalidade: line.cd_modalidade_licitacao,
-           numero_licitacao: line.numero_licitacao
+        id_licitacao: (line.cd_ugestora + SUBSTRING('00', SIZE(line.cd_tipo_licitacao)) +
+		        line.cd_tipo_licitacao + line.numero_licitacao)
 })
 ON CREATE SET
+        lic.cd_ugestora = line.cd_ugestora,
+        lic.cd_tipo_licitacao = line.cd_tipo_licitacao,
+        lic.numero_licitacao = line.numero_licitacao,
         lic.modalidade = line.nome_modalidade_licitacao,
         lic.objeto = line.objeto_licitacao,
         lic.valor_estimado = toFloat(line.valor_estimado_licitacao),

@@ -1,0 +1,25 @@
+tipo_licitacao,cd_tipo_licitacao
+"Pregão (Eletrônico e Presencial)",0
+"Concorrência",1
+"Tomada de Preços",2
+"Tomada de Preço",2
+"Convite",3
+"Concurso",4
+"Leilão",5
+"Dispensa por Valor",6
+"Dispensada (Art. 17 - Lei 8.666/93)",6
+"Dispensa por outros motivos",7
+"Dispensa (Art. 24 - Lei 8.666/93)",7
+"Inexigível",8
+"Inexigibilidade",8
+"Sem Licitação",9
+"Pregão Eletrônico",10
+"Pregão Presencial",11
+"Adesão a Registro de Preço",12
+"Adesão a Ata de Registro de Preços",12
+"Chamada Pública",13
+"RDC - Regime Diferenciado de Contratações Públicas",14
+"Licitação da Lei Nº 13.303/2016",15
+"Licitação da Lei Nº 13.303/2016 (Art. 29 ou 30)",15
+Licitação Internacional (GN 2350-9),16
+"Contratação Emergencial de Organização (Art. 12, II da Lei Nº 9.454/2011)",17
