@@ -1,1 +1,1 @@
-CREATE INDEX ON :Licitacao(cd_ugestora, cd_modalidade, numero_licitacao);
+CREATE CONSTRAINT ON (lic:Licitacao) ASSERT lic.id_licitacao IS UNIQUE;

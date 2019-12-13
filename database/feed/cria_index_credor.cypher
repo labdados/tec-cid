@@ -1,0 +1,1 @@
+CREATE INDEX ON :Credor(cpf_cnpj, nome);
