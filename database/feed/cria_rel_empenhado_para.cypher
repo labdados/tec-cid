@@ -3,7 +3,7 @@ LOAD CSV WITH HEADERS FROM "file:///empenhos.csv" AS line
 WITH line
 
 MATCH (emp:Empenho {
-	id_empenho: (line.cd_ugestora + line.dt_Ano + line.nu_Empenho)
+	id_empenho: line.id_empenho
 })
 WITH emp, line, CASE WHEN line.cd_credor STARTS WITH '000'
 					THEN ('***' + substring(line.cd_credor, 6, 6) + '**')
