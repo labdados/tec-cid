@@ -6,6 +6,6 @@ MATCH (lic:Licitacao {
 				   line.cd_tipo_licitacao + line.nu_Licitacao)
 })
 MATCH (emp:Empenho {
-	id_empenho: (line.cd_ugestora + line.dt_Ano + line.nu_Empenho)
+	id_empenho: line.id_empenho
 })
 MERGE (lic)-[:GEROU]->(emp);
