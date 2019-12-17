@@ -20,4 +20,4 @@ MATCH (pag:Pagamento {
 })
 
 WITH emp, pag, part
-MERGE (emp)-[:GEROU]-(pag)-[:PARA]-(part);
+CREATE (emp)-[:GEROU]-(pag)-[:PARA]-(part);
