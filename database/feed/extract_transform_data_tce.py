@@ -122,51 +122,51 @@ def transform_liquidacoes(line):
 
 
 if __name__ == '__main__':
-    # input_file = sys.argv[1] if len(sys.argv) > 1 else LICITACOES_INPUT_GZ
-    # output_file = sys.argv[2] if len(sys.argv) > 2 else LICITACOES_OUTPUT_CSV
+    input_file = sys.argv[1] if len(sys.argv) > 1 else LICITACOES_INPUT_GZ
+    output_file = sys.argv[2] if len(sys.argv) > 2 else LICITACOES_OUTPUT_CSV
 
-    # initial_time = time.time()
+    initial_time = time.time()
 
-    # print('Writing in ' + LICITACOES_OUTPUT_CSV)
-    # with open(output_file, 'w') as csv_file:
-    #     writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
-    #     row_num = 0
-    #     for line in extract_licitacao(input_file):
-    #         row_num += 1
-    #         fields = transform_licitacao(line)
-    #         fields = add_tipo_licitacao(
-    #             fields, row_num, TIPO_LICITACAO_IDX)
-    #         writer.writerow(fields)
+    print('Writing in ' + LICITACOES_OUTPUT_CSV)
+    with open(output_file, 'w') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
+        row_num = 0
+        for line in extract_licitacao(input_file):
+            row_num += 1
+            fields = transform_licitacao(line)
+            fields = add_tipo_licitacao(
+                fields, row_num, TIPO_LICITACAO_IDX)
+            writer.writerow(fields)
 
-    # final_time = time.time()
-    # total = final_time - initial_time
-    # print('(written in {:.2f} minutes)'.format(total / 60))
+    final_time = time.time()
+    total = final_time - initial_time
+    print('(written in {:.2f} minutes)'.format(total / 60))
 
-    # input_file = sys.argv[1] if len(sys.argv) > 1 else EMPENHOS_INPUT_GZ
-    # output_file = sys.argv[2] if len(sys.argv) > 2 else EMPENHOS_OUTPUT_CSV
+    input_file = sys.argv[1] if len(sys.argv) > 1 else EMPENHOS_INPUT_GZ
+    output_file = sys.argv[2] if len(sys.argv) > 2 else EMPENHOS_OUTPUT_CSV
 
-    # initial_time = time.time()
+    initial_time = time.time()
 
-    # print('Writing in ' + EMPENHOS_OUTPUT_CSV)
-    # with open(output_file, 'w') as csv_file:
-    #     writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
-    #     row_num = 0
-    #     for line in extract_empenhos(input_file):
-    #         row_num += 1
-    #         fields = filter_empenhos(transform_empenhos(line), row_num)
-    #         if fields:
-    #             fields = add_tipo_licitacao(
-    #                 fields, row_num, TIPO_LICITACAO_EMPENHOS_IDX)
-    #             id_empenho = fields[CD_UGESTORA_IDX] + fields[DT_ANO_IDX] + fields[DESC_UORCAMENTARIA_IDX] + fields[NUMERO_EMPENHO_IDX]
-    #             fields = add_id_hash(fields, row_num, get_id_hash(id_empenho))
-    #             writer.writerow(fields)
+    print('Writing in ' + EMPENHOS_OUTPUT_CSV)
+    with open(output_file, 'w') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
+        row_num = 0
+        for line in extract_empenhos(input_file):
+            row_num += 1
+            fields = filter_empenhos(transform_empenhos(line), row_num)
+            if fields:
+                fields = add_tipo_licitacao(
+                    fields, row_num, TIPO_LICITACAO_EMPENHOS_IDX)
+                id_empenho = fields[CD_UGESTORA_IDX] + fields[DT_ANO_IDX] + fields[DESC_UORCAMENTARIA_IDX] + fields[NUMERO_EMPENHO_IDX]
+                fields = add_id_hash(fields, row_num, get_id_hash(id_empenho))
+                writer.writerow(fields)
 
-    # # Atualiza o arquivo tipo_licitacao.csv, caso tenha novos tipos
-    # if (len(CD_TIPOS_LICITACOES_AUX) > 1): update_csv(CSV_TIPOS_LICITACOES, CD_TIPOS_LICITACOES_AUX)
+    # Atualiza o arquivo tipo_licitacao.csv, caso tenha novos tipos
+    if (len(CD_TIPOS_LICITACOES_AUX) > 1): update_csv(CSV_TIPOS_LICITACOES, CD_TIPOS_LICITACOES_AUX)
     
-    # final_time = time.time()
-    # total = final_time - initial_time
-    # print('(written in {:.2f} minutes)'.format(total / 60))
+    final_time = time.time()
+    total = final_time - initial_time
+    print('(written in {:.2f} minutes)'.format(total / 60))
 
     input_file = sys.argv[1] if len(sys.argv) > 1 else PAGAMENTOS_INPUT_GZ
     output_file = sys.argv[2] if len(sys.argv) > 2 else PAGAMENTOS_OUTPUT_CSV
