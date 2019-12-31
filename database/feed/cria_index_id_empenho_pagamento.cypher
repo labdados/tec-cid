@@ -1,1 +1,0 @@
-CREATE INDEX ON :Pagamento(id_empenho);
