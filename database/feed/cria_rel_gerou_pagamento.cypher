@@ -2,13 +2,12 @@ USING PERIODIC COMMIT 2000
 LOAD CSV WITH HEADERS FROM "file:///pagamentos.csv" AS line
 WITH line
 
-
 MATCH (emp:Empenho {
-    id_empenho: (line.cd_UGestora + line.dt_Ano + line.nu_Empenho)
+    id_empenho: line.id_empenho
 })-[:EMPENHADO_PARA]-(part:Participante)
 
 MATCH (pag:Pagamento {
-	id_empenho: (line.cd_UGestora + line.dt_Ano + line.nu_Empenho),
+	id_empenho: line.id_empenho,
 	numero_parcela: line.nu_Parcela,
 	valor_pagto: line.vl_Pagamento,
 	data_pagto: date({
@@ -20,4 +19,4 @@ MATCH (pag:Pagamento {
 })
 
 WITH emp, pag, part
-CREATE (emp)-[:GEROU]-(pag)-[:PARA]-(part);
+MERGE (emp)-[:GEROU]-(pag)-[:PARA]-(part);
