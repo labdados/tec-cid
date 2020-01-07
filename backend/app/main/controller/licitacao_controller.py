@@ -1,10 +1,13 @@
 from ..service.licitacao_service import LicitacaoService
-from flask_restplus import Namespace, Resource
+from flask_restplus import Namespace, Resource, fields
 from flask import Flask, json, request, jsonify
+from ..model.api_models import ModelFactory
 
 api = Namespace('Licitação', description='Operações relacionadas a licitações')
 
 lic_service = LicitacaoService()
+
+swagger = ModelFactory(api)
 
 def gerando_response(results, x_total_count):
    response = Flask.response_class(response=results, headers={
@@ -26,6 +29,7 @@ def gerando_response(results, x_total_count):
    "idMunicipio": "ID do município a quem pertence as licitações"
 })
 class LicitacaoList(Resource):
+   #S@api.marshal_with(model, as_list=True)
    def get(self):
       ''' 
       Retorna as licitações baseadas nos filtros que foram passados
@@ -52,6 +56,7 @@ class LicitacaoList(Resource):
 @api.route("/<string:id>")
 @api.doc(params={'id': 'id da licitação'})
 class Licitacao(Resource):
+   @api.marshal_with(swagger.licitacoes_swagger())
    def get(self, id):
       '''
       Retorna uma licitação específica
@@ -63,6 +68,8 @@ class Licitacao(Resource):
       licitacao = lic_service.get_licitacao(codUnidadeGestora, codTipoLicitacao, codLicitacao)
       licitacao = json.dumps({"dados": licitacao})
       response = gerando_response(licitacao, 1)
+      
+      print(licitacao)
       return response
 
 @api.route("/<string:id>/propostas")
@@ -70,6 +77,7 @@ class Licitacao(Resource):
 @api.doc(params={'pagina': 'Página que será acessada'})
 @api.doc(params={'limite': 'Quantos resultados serão retornados'})
 class PropostaList(Resource):
+   @api.marshal_with(swagger.propostas_swagger(), as_list=True)
    def get(self, id):
       '''
       Retorna as propostas que um participante fez em uma determinada licitação
