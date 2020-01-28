@@ -15,15 +15,18 @@ if __name__ == '__main__':
         'cria_index_licitacao.cypher',
         'cria_index_participante.cypher',
         'cria_index_empenho.cypher',
-        #'cria_index_valor_pagamento.cypher',
-        #'cria_index_id_empenho_pagamento.cypher',
-        ##'cria_index_empenho_uorcamentaria.cypher',
-        ##'cria_index_credor.cypher',
+        'cria_index_empenho_uorcamentaria.cypher',
+        #'cria_index_pagamento_id_empenho.cypher',
+        #'cria_index_pagamento_valor.cypher',
+        #'cria_index_pagamento_data.cypher',
+        #'cria_index_pagamento_ugestora.cypher',
         'carrega_licitacoes_propostas.cypher',
         'carrega_municipios.cypher',
         'carrega_nodes_empenhos.cypher',
         'cria_rel_gerou_empenho.cypher',
-        'cria_rel_empenhado_para.cypher',
+        'cria_rel_empenhado_para.cypher'
+        #'deleta_rel_gerou_pagamento.cypher',
+        #'deleta_pagamentos.cypher',
         #'carrega_nodes_pagamentos.cypher',
         #'cria_rel_gerou_pagamento.cypher'
     ]

@@ -1,0 +1,1 @@
+CREATE INDEX ON :Pagamento(data_pagto);
