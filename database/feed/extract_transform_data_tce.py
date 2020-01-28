@@ -29,6 +29,8 @@ ANO_PAGAMENTO_COL = 2
 CD_UGESTORA_IDX = 0
 DT_ANO_IDX = 2
 DESC_UORCAMENTARIA_IDX = 3
+
+NUMERO_EMPENHO_PAGTO_IDX = 4
 NUMERO_EMPENHO_IDX = 17
 
 CD_TIPOS_LICITACOES = get_dictionary(CSV_TIPOS_LICITACOES)
@@ -179,6 +181,8 @@ if __name__ == '__main__':
             row_num += 1
             fields = filter_pagamentos(transform_pagamentos(line), row_num)
             if fields:
+                id_empenho = fields[CD_UGESTORA_IDX] + fields[DT_ANO_IDX] + fields[DESC_UORCAMENTARIA_IDX] + fields[NUMERO_EMPENHO_PAGTO_IDX]
+                fields = add_id_hash(fields, row_num, get_id_hash(id_empenho))
                 writer.writerow(fields)
 
     final_time = time.time()
