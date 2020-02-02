@@ -1,0 +1,1 @@
+CREATE CONSTRAINT ON (e:Empresa) ASSERT e.cnpj IS UNIQUE;
