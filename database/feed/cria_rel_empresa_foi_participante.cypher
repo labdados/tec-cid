@@ -20,4 +20,7 @@ ON CREATE SET
 	e.porte = line.porte,
 	e.situacao_especial = line.situacao_especial
 
-MERGE (e)-[:FOI]-(p:Participante {cpf_cnpj: line.cnpj})
+WITH line, e
+MATCH (p:Participante {cpf_cnpj: line.cnpj})
+
+MERGE (e)-[:FOI]-(p);
