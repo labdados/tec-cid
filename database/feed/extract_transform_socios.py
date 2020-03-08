@@ -2,14 +2,15 @@ import csv
 import io
 import gzip
 
+
+CNPJ_INDEX = 0
+TAMANHO_HEADER = 10
+
 EMPRESA_LICITANTE_PB_CSV = "../../dados/empresa_licitante_pb.csv"
 SOCIO_CSV_GZ = "../../dados/socio.csv.gz"
 SOCIO_CSV = "../../dados/socio.csv"
 
-HEADER = ['cnpj', 'identificador_de_socio', 'nome_socio', 'cnpj_cpf_do_socio', 'codigo_qualificacao_socio', 'percentual_capital_social', 'data_entrada_sociedade', 'codigo_pais', 'nome_pais_socio', 'cpf_representante_legal', 'nome_representante_legal', 'codigo_qualificacao_representante_legal']
-
-CNPJ_INDEX = 0
-TAMANHO_HEADER = 12
+HEADER = ['cnpj', 'identificador_de_socio', 'nome_socio', 'cnpj_cpf_do_socio', 'codigo_qualificacao_socio', 'percentual_capital_social', 'data_entrada_sociedade', 'cpf_representante_legal', 'nome_representante_legal', 'codigo_qualificacao_representante_legal']
 
 
 def extract_socios(input_gz):
@@ -18,7 +19,7 @@ def extract_socios(input_gz):
             yield line
 
 def transform_socios(line):
-    for fields in csv.reader([line], delimiter=","):
+    for fields in csv.reader([line], delimiter=","):            
         assert len(fields) == TAMANHO_HEADER
         return fields
 
