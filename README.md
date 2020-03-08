@@ -34,12 +34,16 @@ docker-compose up
 . .env
 cd database/feed
 pip3 install -r requirements.txt
+
 python3 download_data_tce.py
 python3 download_data_tse.py
 python3 download_data_receita.py
+
 python3 extract_transform_data_tce.py
 python3 extract_transform_data_tse.py
-python3 extract_transform_data_receita.py
+python3 extract_transform_data_empresas.py
+python3 extract_transform_data_socios.py
+
 python3 load_data_tce.py
 python3 load_data_tse.py
 python3 load_data_receita.py
