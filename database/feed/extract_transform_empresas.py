@@ -6,23 +6,28 @@ from decouple import config
 from py2neo import Graph
 import gzip
 
+CNPJ_INDEX = 0
+TAMANHO_CPF = 11
+TAMANHO_CNPJ = 14
+
+HEADER = ["cnpj","identificador_matriz_filial","razao_social","nome_fantasia","situacao_cadastral","data_situacao_cadastral","motivo_situacao_cadastral","nome_cidade_exterior","codigo_natureza_juridica","data_inicio_atividade","cnae_fiscal","descricao_tipo_logradouro","logradouro","numero","complemento","bairro","cep","uf","codigo_municipio","municipio","ddd_telefone_1","ddd_telefone_2","ddd_fax","qualificacao_do_responsavel","capital_social","porte","opcao_pelo_simples","data_opcao_pelo_simples","data_exclusao_do_simples","opcao_pelo_mei","situacao_especial","data_situacao_especial"]
+
 EMPRESA_CSV_GZ = "../../dados/empresa.csv.gz"
 EMPRESA_LICITANTE_PB_CSV = "../../dados/empresa_licitante_pb.csv"
-CNPJ_INDEX = 0
-HEADER = ["cnpj","identificador_matriz_filial","razao_social","nome_fantasia","situacao_cadastral","data_situacao_cadastral","motivo_situacao_cadastral","nome_cidade_exterior","codigo_natureza_juridica","data_inicio_atividade","cnae_fiscal","descricao_tipo_logradouro","logradouro","numero","complemento","bairro","cep","uf","codigo_municipio","municipio","ddd_telefone_1","ddd_telefone_2","ddd_fax","qualificacao_do_responsavel","capital_social","porte","opcao_pelo_simples","data_opcao_pelo_simples","data_exclusao_do_simples","opcao_pelo_mei","situacao_especial","data_situacao_especial"]
 
 
 def get_summary(set_participantes):
     cpfs = cnpjs = erros = total = 0
 
     for p in participantes:
-        if (len(p) == 11):
+        if (len(p) == TAMANHO_CPF):
             cpfs += 1
 
-        elif (len(p) == 14):
+        elif (len(p) == TAMANHO_CNPJ):
             cnpjs += 1
 
         else:
+            print('TAMANHO DO CPF / CNPJ INCORRETO: ', len(p))
             erros += 1
 
         total += 1
