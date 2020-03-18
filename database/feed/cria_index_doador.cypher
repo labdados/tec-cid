@@ -1,0 +1,1 @@
+CREATE INDEX ON :Doador(cpf_cnpj);
