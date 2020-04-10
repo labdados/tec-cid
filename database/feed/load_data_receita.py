@@ -11,8 +11,11 @@ if __name__ == '__main__':
     cypher_files = [
         'cria_index_empresa_cnpj.cypher',
         'cria_index_socio.cypher',
+        'carrega_nodes_empresas.cypher',
+        'carrega_nodes_socios.cypher',
         'cria_rel_empresa_foi_participante.cypher',
-        'cria_rel_empresa_tem_socio.cypher'
+        'cria_rel_empresa_tem_socio.cypher',
+        'carrega_doacoes_socios.cypher'
     ]
     
     for cypher_file in cypher_files:
