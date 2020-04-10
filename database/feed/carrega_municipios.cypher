@@ -2,7 +2,7 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///localidade.csv" AS line
 WITH line
-WHERE line.uf = "Paraíba"
+WHERE line.uf = "Paraíba" AND line.nome <> "Paraíba (ESTADO)"
 
 MERGE (m:Municipio { id: line.id })
 ON CREATE SET
