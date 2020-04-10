@@ -15,7 +15,8 @@ if __name__ == '__main__':
         'cria_index_doador.cypher',
         'carrega_candidatos.cypher',
         'cria_rel_participante_foi_doador.cypher',
-        'carrega_doacoes_candidatos.cypher']
+        'carrega_doacoes_candidatos.cypher'
+    ]
     
     for cypher_file in cypher_files:
         query_from_file(neo4j, cypher_file)
