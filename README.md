@@ -48,7 +48,14 @@ python3 load_data_tce.py <neo4j-user> <neo4j-password>
 python3 load_data_tse.py <neo4j-user> <neo4j-password>
 ```
 
-5. Verificar se tudo ocorreu como esperado acessando a [API](http://localhost:5000/tec-cid/api/docs) e o [browser do Neo4j](http://localhost:7474/browser), usando as credenciais especificadas no `.env`
+5. Executar os testes unitários no diretório `database/test`
+```
+cd ../test
+
+python3 run.py
+```
+
+6. Verificar se tudo ocorreu como esperado acessando a [API](http://localhost:5000/tec-cid/api/docs) e o [browser do Neo4j](http://localhost:7474/browser), usando as credenciais especificadas no `.env`
 
 ## Como rodar o frontend em Angular
 
