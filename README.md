@@ -2,7 +2,7 @@
 
 Sistema do projeto Tecnologia Cidadã - PROBEX 2019
 
-## Como rodar a API REST e o banco de dados Neo4j
+## Como rodar a API REST e o Banco de Dados Neo4j
 
 ### Pré-requisitos
 
@@ -33,16 +33,8 @@ docker-compose up
 ```
 . .env
 cd database/feed
-pip3 install -r requirements.txt
 
-python3 download_data_tce.py
-python3 download_data_tse.py
-python3 download_data_receita.py
-
-python3 extract_transform_data_tce.py
-python3 extract_transform_data_tse.py
-python3 extract_transform_data_empresas.py
-python3 extract_transform_data_socios.py
+python3 run.py
 
 python3 load_data_tce.py
 python3 load_data_tse.py
@@ -82,7 +74,7 @@ git clone https://github.com/labdados/tec-cid.git
 
 ### Passo a passo (Para o ambiente de produção)
 
-O ambiente de produçã é aquele em que o usuário final do sistema terá acesso. Nesse caso, um sevidor web por exemplo.
+O ambiente de produção é aquele em que o usuário final do sistema terá acesso. Nesse caso, um sevidor web por exemplo.
 Para simular um ambiente de produção é só seguir os seguintes passos:
 
 1. Clonar este repositório:
