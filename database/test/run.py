@@ -1,7 +1,7 @@
 import os
 import datetime
 
-PREFIX = "python"
+PREFIX = "python3"
 TEST_FILES = [
     'test_candidato.py',
     'test_unidade_gestora.py',
