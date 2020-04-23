@@ -13,4 +13,4 @@ OUTPUT_FILE_PAGAMENTOS = '../../dados/TCE-PB-SAGRES-Pagamentos_Esfera_Municipal.
 if __name__ == '__main__':
     download_file(LICITACOES_URL, OUTPUT_FILE_LICITACOES)
     download_file(EMPENHOS_URL, OUTPUT_FILE_EMPENHOS)
-    download_file(PAGAMENTOS_URL, OUTPUT_FILE_PAGAMENTOS)
+    # download_file(PAGAMENTOS_URL, OUTPUT_FILE_PAGAMENTOS)
