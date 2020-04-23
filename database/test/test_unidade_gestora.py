@@ -16,7 +16,6 @@ assert_utils = AssertUtils()
 class TestUnidadeGestora(unittest.TestCase):
 
     COUNT_INDEX = 0
-    TOTAL_UNIDADES_GESTORAS = 627
 
     @classmethod
     def comparar_total_unidades_gestoras(self):
@@ -24,7 +23,7 @@ class TestUnidadeGestora(unittest.TestCase):
         results = neo4j_utils.get_query_response(query)
         total_unidades = results[self.COUNT_INDEX]['total']
 
-        return total_unidades == self.TOTAL_UNIDADES_GESTORAS
+        return total_unidades > 0
 
     @classmethod
     def assert_total_unidades_gestoras(self):
