@@ -14,7 +14,7 @@ from test_socio import *
 neo4j_utils = Neo4jUtils()
 assert_utils = AssertUtils()
 
-test_participante = TestParticipante()
+test_participante_empenhos = TestParticipanteEmpenhos()
 test_socio = TestSocio()
 
 class TestEmpresa(unittest.TestCase):
@@ -40,7 +40,7 @@ class TestEmpresa(unittest.TestCase):
     def assert_empresas_e_participantes(self):
         self.assert_empresas()
 
-        total_participantes = test_participante.comparar_total_participantes()
+        total_participantes = test_participante_empenhos.comparar_total_participantes()
 
         if (not total_participantes):
             raise unittest.SkipTest("O total de participantes não pode ser zero!")
