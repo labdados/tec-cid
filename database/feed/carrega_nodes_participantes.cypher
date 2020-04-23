@@ -1,5 +1,5 @@
-USING PERIODIC COMMIT 5000
-LOAD CSV WITH HEADERS FROM 'file:///empenhos.csv' AS line
+USING PERIODIC COMMIT 10000
+LOAD CSV WITH HEADERS FROM "file:///empenhos.csv" AS line
 WITH line
 WHERE size(line.cd_credor) = 14 OR size(line.cd_credor) <= 11
 
@@ -9,12 +9,5 @@ WITH line, CASE WHEN size(line.cd_credor) <= 11 OR (line.cd_credor STARTS WITH '
 
 WITH line, cpf_cnpj_credor
 
-MATCH (emp:Empenho {id_empenho: line.id_empenho})
-MATCH (p:Participante {cpf_cnpj: cpf_cnpj_credor})
-
-WITH line, emp, p
-MERGE (emp)-[r:EMPENHADO_PARA {
-	id_linha: line.id_empenho,
-	cd_linha: line.cd_credor,
-	nome_linha: toUpper(line.no_Credor)
-}]-(p);
+MERGE (p:Participante { cpf_cnpj: cpf_cnpj_credor })
+ON CREATE SET p.nome = toUpper(line.no_Credor);
