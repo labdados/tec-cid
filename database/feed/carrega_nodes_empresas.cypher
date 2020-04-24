@@ -1,5 +1,5 @@
 USING PERIODIC COMMIT 3000
-LOAD CSV WITH HEADERS FROM "file:///empresa_licitante_pb.csv" as line
+LOAD CSV WITH HEADERS FROM "file:///empresa.csv" as line
 
 MERGE (e:Empresa {cnpj: line.cnpj})
 ON CREATE SET

@@ -16,7 +16,7 @@ HEADER = ["cnpj","identificador_matriz_filial","razao_social","nome_fantasia","s
 TAMANHO_HEADER = len(HEADER) #32
 
 EMPRESA_CSV_GZ = "../../dados/empresa.csv.gz"
-EMPRESA_LICITANTE_PB_CSV = "../../dados/empresa_licitante_pb.csv"
+EMPRESA_CSV = "../../dados/empresa.csv"
 
 
 def get_summary(set_participantes):
@@ -41,9 +41,16 @@ def get_summary(set_participantes):
 def get_query_response(neo4j: Graph, query):
     return neo4j.run(query).data()
 
-def get_set_cpf_cnpj(neo4j: Graph, query):
+def get_set_cpf_cnpj_participantes(neo4j: Graph, query):
     participantes = get_query_response(neo4j, query)
     aux = [p['p.cpf_cnpj'] for p in participantes]
+
+    return set(aux)
+
+def get_set_cpf_cnpj_doadores(neo4j: Graph, query):
+    doadores = get_query_response(neo4j, query)
+    aux = [d['d.cpf_cnpj'] for d in doadores]
+
     return set(aux)
 
 def extract_empresas(input_gz):
@@ -68,6 +75,11 @@ def get_time():
 
     return  '{}h:{}m:{}s'.format(hours, minutes, seconds)
 
+def assert_max_size(old_size, new_size):
+    assert new_size > old_size
+
+def isSubset(set_a, set_b):
+    assert set_a.issubset(set_b) == True
 
 if __name__ == '__main__':
     start_time = '[START extract empresas]: ' + get_time()
@@ -79,9 +91,20 @@ if __name__ == '__main__':
 
     neo4j = Graph("localhost", user=user, password=password)
 
-    query = "MATCH (p:Participante) RETURN p.cpf_cnpj;"
+    query_participantes = "MATCH (p:Participante) WHERE size(p.cpf_cnpj) = 14 RETURN p.cpf_cnpj;"
+    query_doadores = "MATCH (d:Doador) WHERE size(d.cpf_cnpj) = 14 RETURN d.cpf_cnpj;"
 
-    participantes = get_set_cpf_cnpj(neo4j, query)
+    participantes = get_set_cpf_cnpj_participantes(neo4j, query_participantes)
+    doadores = get_set_cpf_cnpj_doadores(neo4j, query_doadores)
+
+    empresas = participantes
+    old_size = len(empresas)
+
+    empresas.update(doadores)
+    new_size = len(empresas)
+
+    assert_max_size(old_size, new_size)
+    isSubset(doadores, empresas)
 
     get_summary(participantes)
 
@@ -92,14 +115,14 @@ if __name__ == '__main__':
     if ('0013670772812' in participantes):
         participantes.remove('0013670772812')
 
-    with open(EMPRESA_LICITANTE_PB_CSV, 'w') as csv_file:
+    with open(EMPRESA_CSV, 'w') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(HEADER)
 
         for line in extract_empresas(EMPRESA_CSV_GZ):
             cnpj = get_cnpj(line)
 
-            if (cnpj in participantes):
+            if (cnpj in empresas):
                 writer.writerow(transform_empresas(line))
 
     finish_time = '[FINISH extract empresas]: ' + get_time()

@@ -6,7 +6,7 @@ import gzip
 CNPJ_INDEX = 0
 TAMANHO_HEADER = 10
 
-EMPRESA_LICITANTE_PB_CSV = "../../dados/empresa_licitante_pb.csv"
+EMPRESAS = "../../dados/empresa.csv"
 SOCIO_CSV_GZ = "../../dados/socio.csv.gz"
 SOCIO_CSV = "../../dados/socio.csv"
 
@@ -53,6 +53,6 @@ def write_socios(socio_csv_gz, socio_csv, set_cnpj):
 
 
 if __name__ == '__main__':
-    cnpj_empresas = get_cnpjs_empresas(EMPRESA_LICITANTE_PB_CSV)
+    cnpj_empresas = get_cnpjs_empresas(EMPRESAS)
     
     write_socios(SOCIO_CSV_GZ, SOCIO_CSV, cnpj_empresas)
