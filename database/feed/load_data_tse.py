@@ -14,7 +14,7 @@ if __name__ == '__main__':
         'cria_index_partido.cypher',
         'cria_index_doador.cypher',
         'carrega_candidatos.cypher',
-        'cria_rel_participante_foi_doador.cypher',
+        'carrega_nodes_doador.cypher',
         'carrega_doacoes_candidatos.cypher'
     ]
     
