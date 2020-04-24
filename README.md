@@ -35,10 +35,6 @@ docker-compose up
 cd database/feed
 
 python3 run.py
-
-python3 load_data_tce.py
-python3 load_data_tse.py
-python3 load_data_receita.py
 ```
 
 Outra opção, caso as credenciais do neo4j não sejam carregadas do `.env`, é passar as credenciais direto nos scripts de load:
