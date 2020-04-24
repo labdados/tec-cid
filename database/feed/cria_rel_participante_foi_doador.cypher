@@ -1,11 +1,7 @@
-USING PERIODIC COMMIT
+USING PERIODIC COMMIT 10000
 LOAD CSV WITH HEADERS FROM "file:///doacoes_candidatos.csv" AS line
+WITH line
+WHERE size(line.`CPF/CNPJ do doador`) >= 11
 
-MATCH (p:Participante)
-WHERE (size(p.cpf_cnpj) <= 11 AND p.cpf_cnpj = ('***' + substring(line.`CPF/CNPJ do doador`, 3, 6) + '**')) OR
-      (size(p.cpf_cnpj) > 11 AND p.cpf_cnpj = line.`CPF/CNPJ do doador`)
-
-MERGE (d:Doador {cpf_cnpj: p.cpf_cnpj})
-ON CREATE SET d.nome = p.nome
-
-MERGE (p)-[:FOI]-(d);
+MERGE (d:Doador {cpf_cnpj: line.`CPF/CNPJ do doador`})
+ON CREATE SET d.nome = line.`Nome do doador`
