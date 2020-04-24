@@ -1,5 +1,7 @@
 import os
 import datetime
+import traceback
+
 
 PREFIX = "python3"
 BLANK_SPACE = " "
@@ -10,18 +12,25 @@ DOWNLOAD_FILES = [
     'download_data_receita.py'
 ]
 
-EXTRACT_FILES = [
-    'extract_transform_data_tce.py',
-    'extract_transform_data_tse.py',
-    'extract_transform_data_empresas.py',
-    'extract_transform_data_socios.py'
-]
+EXTRACT_TRANSFORM_TCE       =    'extract_transform_data_tce.py'
+EXTRACT_TRANSFORM_TSE       =    'extract_transform_data_tse.py'   
+EXTRACT_TRANSFORM_EMPRESAS  =    'extract_transform_data_empresas.py'   
+EXTRACT_TRANSFORM_SOCIOS    =    'extract_transform_data_socios.py'  
 
-LOAD_FILES = [
-    'load_data_tce.py',
-    'load_data_tse.py',
-    'load_data_receita.py'
-]
+LOAD_DATA_TCE               =    'load_data_tce.py'
+LOAD_DATA_TSE               =    'load_data_tse.py'
+LOAD_DATA_RECEITA           =    'load_data_receita.py'
+
+
+def download_files(download_files):
+    for file in download_files:
+        os.system(PREFIX + BLANK_SPACE + file)
+
+def extract_file(extract_file):
+    os.system(PREFIX + BLANK_SPACE + extract_file)
+
+def load_data(load_file):
+    os.system(PREFIX + BLANK_SPACE + load_file)
 
 def get_time():
     now = datetime.datetime.now()
@@ -31,31 +40,30 @@ def get_time():
 
     return '{}h:{}m:{}s'.format(hours, minutes, seconds)
 
-def download_files(download_files):
-    for file in download_files:
-        os.system(PREFIX + BLANK_SPACE + file)
-
-def extract_files(extract_files):
-    for file in extract_files:
-        os.system(PREFIX + BLANK_SPACE + file)
-
-def load_data(load_files):
-    for file in load_files:
-        os.system(PREFIX + BLANK_SPACE + file)
-
 
 if __name__ == "__main__":
+
     try:
         start_time = '[START TIME]: ' + get_time()
 
         os.system("pip3 install -r requirements.txt")
 
         download_files(DOWNLOAD_FILES)
-        extract_files(EXTRACT_FILES)
-        # load_data(LOAD_FILES)
+
+        extract_file(EXTRACT_TRANSFORM_TCE)
+        extract_file(EXTRACT_TRANSFORM_TSE)
+
+        load_data(LOAD_DATA_TCE)
+        load_data(LOAD_DATA_TSE)
+
+        extract_file(EXTRACT_TRANSFORM_EMPRESAS)
+        extract_file(EXTRACT_TRANSFORM_SOCIOS)
+
+        load_data(LOAD_DATA_RECEITA)
 
     except Exception as error:
         print(error)
+        print(traceback.format_exc())
 
     finally:
         finish_time = '[FINISH TIME]: ' + get_time()
