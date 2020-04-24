@@ -13,8 +13,4 @@ MATCH (emp:Empenho {id_empenho: line.id_empenho})
 MATCH (p:Participante {cpf_cnpj: cpf_cnpj_credor})
 
 WITH line, emp, p
-MERGE (emp)-[r:EMPENHADO_PARA {
-	id_linha: line.id_empenho,
-	cd_linha: line.cd_credor,
-	nome_linha: toUpper(line.no_Credor)
-}]-(p);
+MERGE (emp)-[:EMPENHADO_PARA]-(p);
