@@ -1,5 +1,5 @@
 from ..service.licitacao_service import LicitacaoService
-from flask_restplus import Namespace, Resource
+from flask_restx import Namespace, Resource
 from flask import Flask, json, request, jsonify
 
 api = Namespace('Licitação', description='Operações relacionadas a licitações')
