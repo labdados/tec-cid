@@ -1,0 +1,1 @@
+CALL db.index.fulltext.createNodeIndex("nome_doador", ["Doador"], ["nome", "cpf_cnpj"]);
