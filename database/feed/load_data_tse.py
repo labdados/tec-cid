@@ -13,6 +13,7 @@ if __name__ == '__main__':
         'cria_index_candidato.cypher',
         'cria_index_partido.cypher',
         'cria_index_doador.cypher',
+        'cria_index_fulltext_doador.cypher',
         'carrega_candidatos.cypher',
         'carrega_nodes_doador.cypher',
         'carrega_doacoes_candidatos.cypher'
