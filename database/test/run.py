@@ -7,7 +7,8 @@ TEST_FILES = [
     'test_unidade_gestora.py',
     'test_socio.py',
     'test_participante.py',
-    'test_empresa.py'
+    'test_empresa.py',
+    'test_doador.py'
 ]
 
 def get_time():
