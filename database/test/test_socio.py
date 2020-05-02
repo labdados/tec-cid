@@ -37,6 +37,15 @@ class TestSocio(unittest.TestCase):
         if (not total_doadores):
             raise unittest.SkipTest("O total de doadores não pode ser zero!")
 
+    def test_quantidade_de_socios_doadores(self):
+        self.assert_socios_e_doadores()
+
+        query = "MATCH x=(s:Socio)-[:FOI]-(d:Doador) RETURN COUNT(x) as total;"
+        result = neo4j_utils.get_query_response(query)
+        total_relacionamentos = result[self.COUNT_INDEX]['total']
+
+        self.assertTrue(total_relacionamentos > 0)
+
     def test_socio_foi_doador(self):
         self.assert_socios_e_doadores()
 
