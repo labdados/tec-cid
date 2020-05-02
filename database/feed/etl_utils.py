@@ -3,6 +3,8 @@ import requests
 from py2neo import Graph
 from tqdm import tqdm
 
+OK_STATUS = 200
+
 def download_file(url, output_file=None, chunk_size=8192, progress=True):
     if not output_file:
         output_file = url.split('/')[-1]
@@ -27,3 +29,6 @@ def query_from_file(neo4j:Graph, cypher_file):
         query = f.read().rstrip("\n")
         print(query)
         return neo4j.evaluate(query)
+
+def is_url_status_ok(url):
+    return requests.get(url).status_code == OK_STATUS
