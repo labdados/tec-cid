@@ -10,7 +10,14 @@ if __name__ == '__main__':
     neo4j = Graph("localhost", user=user, password=password)
     cypher_files = [
         'cria_index_empresa_cnpj.cypher',
-        'cria_rel_empresa_foi_participante.cypher'
+        'cria_index_socio.cypher',
+        'carrega_nodes_empresas.cypher',
+        'carrega_nodes_socios.cypher',
+        'cria_rel_empresa_foi_participante.cypher',
+        'cria_rel_empresa_tem_socio.cypher',
+        'export_doacoes_socios_com_nomes_distintos.cypher',
+        'carrega_doacoes_socios_com_nomes_iguais.cypher',
+        'carrega_doacoes_socios_com_nomes_distintos.cypher'
     ]
     
     for cypher_file in cypher_files:
