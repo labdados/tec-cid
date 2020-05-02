@@ -42,9 +42,8 @@ def get_time():
 
 
 if __name__ == "__main__":
-
     try:
-        start_time = '[START TIME]: ' + get_time()
+        global_start_time = '[GLOBAL START TIME]: ' + get_time()
 
         os.system("pip3 install -r requirements.txt")
 
@@ -66,7 +65,7 @@ if __name__ == "__main__":
         print(traceback.format_exc())
 
     finally:
-        finish_time = '[FINISH TIME]: ' + get_time()
+        global_finish_time = '[GLOBAL FINISH TIME]: ' + get_time()
 
-        print(start_time)
-        print(finish_time)
+        print(global_start_time)
+        print(global_finish_time)
