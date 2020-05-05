@@ -5,7 +5,7 @@ from py2neo import Graph
 
 import unittest
 
-from neo4j_utils import *
+from neo4j_utils import Neo4jUtils
 from assert_utils import *
 from test_doador import *
 
