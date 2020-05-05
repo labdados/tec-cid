@@ -1,0 +1,4 @@
+"url","output_file_zip","max_days_from_today"
+"http://www.portaltransparencia.gov.br/download-de-dados/ceis/","../../dados/ceis.zip",10
+"http://www.portaltransparencia.gov.br/download-de-dados/cepim/","../../dados/cepim.zip",15
+"http://www.portaltransparencia.gov.br/download-de-dados/cnep/","../../dados/cnep.zip",10
