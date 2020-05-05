@@ -10,3 +10,4 @@
 "Empresa","Socio","TEM_SOCIO","-"
 "Empresa","Participante","FOI","-"
 "Participante","Licitacao","FEZ_PROPOSTA_EM","->"
+"Empresa","Sancao","TEM","-"
