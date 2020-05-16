@@ -19,7 +19,7 @@ WITH "MATCH (s:Socio)
     WITH s, d, doador, total
     RETURN s.nome AS nome_socio, s.cpf_cnpj AS cpf_cnpj_socio, d.nome AS nome_doador, d.cpf_cnpj AS cpf_cnpj_doador" AS query
 
-CALL apoc.export.csv.query(query,"socios_doadores_com_nomes_distintos.csv", {})
+CALL apoc.export.csv.query(query,"../../data/socios_doadores_com_nomes_distintos.csv", {})
 
 YIELD file, nodes, properties, data
 RETURN file, nodes, properties, data
