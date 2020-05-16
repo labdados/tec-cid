@@ -15,9 +15,15 @@ if __name__ == '__main__':
         'index_partido.cypher',
         'index_doador.cypher',
         'index_fulltext_doador.cypher',
+        'index_pessoa.cypher',
         'nodes_candidatos.cypher',
         'nodes_doador.cypher',
-        'rel_doacoes_candidatos.cypher'
+        'rel_doacoes_candidatos.cypher',
+        'rel_empresa_foi_doador.cypher',
+        'rel_pessoa_foi_participante.cypher',
+        'rel_pessoa_foi_doador.cypher',
+        'rel_pessoa_foi_candidato.cypher',
+        'rel_pessoa_foi_socio.cypher'
     ]
     
     for cypher_file in cypher_files:
