@@ -5,4 +5,4 @@ WITH s
 MERGE (p:Pessoa {cpf: s.cpf_cnpj, nome: s.nome})
 WITH s, p
 
-MERGE (p)-[:FOI]-(s);
+MERGE (p)-[:FOI]->(s);

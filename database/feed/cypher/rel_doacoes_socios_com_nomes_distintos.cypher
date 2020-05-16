@@ -8,4 +8,4 @@ WITH s, line
 MATCH (d:Doador) WHERE d.cpf_cnpj = line.cpf_cnpj_doador AND d.nome = toUpper(line.nome_doador)
 WITH s, d
 
-MERGE (s)-[:FOI]-(d);
+MERGE (s)-[:FOI]->(d);
