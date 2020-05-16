@@ -15,4 +15,4 @@ WITH line, cpf_cnpj_credor, emp
 MATCH (p:Participante {cpf_cnpj: cpf_cnpj_credor, nome: toUpper(line.no_Credor)})
 WITH emp, p
 
-MERGE (emp)-[:EMPENHADO_PARA]-(p);
+MERGE (emp)-[:EMPENHADO_PARA]->(p);

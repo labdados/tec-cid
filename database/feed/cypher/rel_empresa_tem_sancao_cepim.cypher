@@ -12,4 +12,4 @@ MERGE (s:Sancao {
 })
 
 WITH e, s
-MERGE (e)-[:TEM]-(s);
+MERGE (e)-[:TEM]->(s);
