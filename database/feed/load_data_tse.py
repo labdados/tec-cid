@@ -19,11 +19,9 @@ if __name__ == '__main__':
         'nodes_candidatos.cypher',
         'nodes_doador.cypher',
         'rel_doacoes_candidatos.cypher',
-        'rel_empresa_foi_doador.cypher',
         'rel_pessoa_foi_participante.cypher',
         'rel_pessoa_foi_doador.cypher',
         'rel_pessoa_foi_candidato.cypher',
-        'rel_pessoa_foi_socio.cypher'
     ]
     
     for cypher_file in cypher_files:
