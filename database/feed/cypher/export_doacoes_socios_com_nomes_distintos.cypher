@@ -14,12 +14,12 @@ WITH "MATCH (s:Socio)
     WITH s, d
 
     CALL db.index.fulltext.queryNodes('nome_doador', s.nome) YIELD node as doador, score as total
-    WHERE total >= 1.3 AND doador.cpf_cnpj = d.cpf_cnpj
+    WHERE total >= 1.3 AND doador.cpf_cnpj = s.cpf_cnpj AND doador.nome <> s.nome
 
     WITH s, d, doador, total
     RETURN s.nome AS nome_socio, s.cpf_cnpj AS cpf_cnpj_socio, d.nome AS nome_doador, d.cpf_cnpj AS cpf_cnpj_doador" AS query
 
-CALL apoc.export.csv.query(query,"../../data/socios_doadores_com_nomes_distintos.csv", {})
+CALL apoc.export.csv.query(query, "socios_doadores_com_nomes_distintos.csv", {})
 
 YIELD file, nodes, properties, data
 RETURN file, nodes, properties, data
