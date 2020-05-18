@@ -15,10 +15,6 @@ CNEP_INPUT_ZIP = '../../dados/cnep.zip'
 CNEP_OUTPUT_CSV = '../../dados/cnep.csv'
 HEADER_SIZE_CNEP = 21
 
-LENIENCIA_INPUT_ZIP = '../../dados/acordos_leniencia.zip'
-LENIENCIA_OUTPUT_CSV = '../../dados/acordos_leniencia.csv'
-HEADER_SIZE_LENIENCIA = 11
-
 FILENAME_INDEX = 0
 HEADER_SIZE = 22
 
@@ -41,8 +37,7 @@ if __name__ == '__main__':
     ceis_zip_file_name = get_zip_file_name(CEIS_INPUT_ZIP)
     cepim_zip_file_name = get_zip_file_name(CEPIM_INPUT_ZIP)
     cnep_zip_file_name = get_zip_file_name(CNEP_INPUT_ZIP)
-    leniencia_zip_file_name = get_zip_file_name(LENIENCIA_INPUT_ZIP)
-
+    
 
     with open(CEIS_OUTPUT_CSV, 'w') as csv_file:
         writer = csv.writer(csv_file, delimiter=";", quoting=csv.QUOTE_NONNUMERIC)
