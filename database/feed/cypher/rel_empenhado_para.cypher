@@ -10,7 +10,9 @@ WITH line, CASE WHEN size(line.cd_credor) <= 11 OR (line.cd_credor STARTS WITH '
 WITH line, cpf_cnpj_credor
 
 MATCH (emp:Empenho {id_empenho: line.id_empenho})
-MATCH (p:Participante {cpf_cnpj: cpf_cnpj_credor})
+WITH line, cpf_cnpj_credor, emp
 
-WITH line, emp, p
-MERGE (emp)-[:EMPENHADO_PARA]-(p);
+MATCH (p:Participante {cpf_cnpj: cpf_cnpj_credor, nome: toUpper(line.no_Credor)})
+WITH emp, p
+
+MERGE (emp)-[:EMPENHADO_PARA]->(p);

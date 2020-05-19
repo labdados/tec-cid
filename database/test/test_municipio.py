@@ -3,7 +3,7 @@ import os
 from decouple import config
 from py2neo import Graph
 
-from neo4j_utils import *
+from neo4j_utils import Neo4jUtils
 
 neo4j_utils = Neo4jUtils()
 

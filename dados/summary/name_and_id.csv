@@ -9,3 +9,5 @@
 "Partido","numero"
 "Socio","cpf_cnpj"
 "UnidadeGestora","cd_ugestora"
+"Sancao","cadastro"
+"Pessoa","cpf"

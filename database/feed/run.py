@@ -9,17 +9,20 @@ BLANK_SPACE = " "
 DOWNLOAD_FILES = [
     'download_data_tce.py',
     'download_data_tse.py',
-    'download_data_receita.py'
+    'download_data_receita.py',
+    'download_data_sancoes.py'
 ]
 
 EXTRACT_TRANSFORM_TCE       =    'extract_transform_data_tce.py'
-EXTRACT_TRANSFORM_TSE       =    'extract_transform_data_tse.py'   
-EXTRACT_TRANSFORM_EMPRESAS  =    'extract_transform_data_empresas.py'   
-EXTRACT_TRANSFORM_SOCIOS    =    'extract_transform_data_socios.py'  
+EXTRACT_TRANSFORM_TSE       =    'extract_transform_data_tse.py'
+EXTRACT_TRANSFORM_EMPRESAS  =    'extract_transform_data_empresas.py'
+EXTRACT_TRANSFORM_SOCIOS    =    'extract_transform_data_socios.py'
+EXTRACT_TRANSFORM_SANCOES   =    'extract_transform_data_sancoes.py'
 
 LOAD_DATA_TCE               =    'load_data_tce.py'
 LOAD_DATA_TSE               =    'load_data_tse.py'
 LOAD_DATA_RECEITA           =    'load_data_receita.py'
+LOAD_DATA_SANCOES           =    'load_data_sancoes.py'
 
 
 def download_files(download_files):
@@ -59,6 +62,9 @@ if __name__ == "__main__":
         extract_file(EXTRACT_TRANSFORM_SOCIOS)
 
         load_data(LOAD_DATA_RECEITA)
+
+        extract_file(EXTRACT_TRANSFORM_SANCOES)
+        load_data(LOAD_DATA_SANCOES)
 
     except Exception as error:
         print(error)

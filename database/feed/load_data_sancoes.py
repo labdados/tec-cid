@@ -11,17 +11,9 @@ if __name__ == '__main__':
     
     neo4j = Graph("localhost", user=user, password=password)
     cypher_files = [
-        'index_candidato.cypher',
-        'index_partido.cypher',
-        'index_doador.cypher',
-        'index_fulltext_doador.cypher',
-        'index_pessoa.cypher',
-        'nodes_candidatos.cypher',
-        'nodes_doador.cypher',
-        'rel_doacoes_candidatos.cypher',
-        'rel_pessoa_foi_participante.cypher',
-        'rel_pessoa_foi_doador.cypher',
-        'rel_pessoa_foi_candidato.cypher',
+        'rel_empresa_tem_sancao_ceis.cypher',
+        'rel_empresa_tem_sancao_cepim.cypher',
+        'rel_empresa_tem_sancao_cnep.cypher'
     ]
     
     for cypher_file in cypher_files:
