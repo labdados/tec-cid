@@ -9,5 +9,4 @@ WITH line, CASE WHEN size(line.cd_credor) <= 11 OR (line.cd_credor STARTS WITH '
 
 WITH line, cpf_cnpj_credor
 
-MERGE (p:Participante { cpf_cnpj: cpf_cnpj_credor })
-ON CREATE SET p.nome = toUpper(line.no_Credor);
+MERGE (p:Participante {cpf_cnpj: cpf_cnpj_credor, nome: toUpper(line.no_Credor)});
