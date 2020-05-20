@@ -2,6 +2,9 @@
 
 Sistema do projeto Tecnologia Cidadã - PROBEX 2019
 
+# Licença
+A licença do projeto é [LGPL3](https://www.gnu.org/licenses/lgpl-3.0.en.html) e dos dados convertidos [Creative Commons Attribution ShareAlike](https://creativecommons.org/licenses/by-sa/4.0/). Os dados de sócios e empresas são originalmente da Receita Federal do Brasil, que foram tratados por Álvaro Justen/[Brasil.IO](https://brasil.io/).
+
 ## Como rodar a API REST e o Banco de Dados Neo4j
 
 ### Pré-requisitos
