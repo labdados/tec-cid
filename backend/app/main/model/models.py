@@ -23,7 +23,7 @@ class Municipio(GraphObject):
 
 class Licitacao(GraphObject):
     cd_ugestora = Property()
-    cd_modalidade = Property()
+    cd_tipo_licitacao = Property()
     numero_licitacao = Property()
     modalidade = Property()
     objeto = Property()
