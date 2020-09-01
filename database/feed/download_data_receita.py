@@ -1,11 +1,28 @@
-import gdown
+from gdrive_utils import download_file, get_dictionary
+import datetime
 
-SOCIOS_URL = 'https://drive.google.com/uc?id=19DeL9HbOebNXRFZ_bmmZu1uAogdY8ZGI'
-OUTPUT_FILE_SOCI0S = '../../dados/socio.csv.gz'
-
-EMPRESAS_URL = 'https://drive.google.com/uc?id=1c_gwLqaVQzRmY2IYCMyPDDCoC8OtTuiW'
-OUTPUT_FILE_EMPRESAS = '../../dados/empresa.csv.gz'
+DOWNLOAD_RECEITA_CSV = '../../dados/download_receita.csv'
 
 
-gdown.download(EMPRESAS_URL, output=OUTPUT_FILE_EMPRESAS)
-gdown.download(SOCIOS_URL, output=OUTPUT_FILE_SOCI0S)
+def get_time():
+    now = datetime.datetime.now()
+    hours = now.hour
+    minutes = now.minute
+    seconds = now.second
+    return '{}h:{}m:{}s'.format(hours, minutes, seconds)
+
+
+if __name__ == '__main__':
+    files = get_dictionary(DOWNLOAD_RECEITA_CSV)
+    path = '../../dados/'
+
+    for id, name in files.items():
+        try:
+            final_path = path + name
+
+            print(f'[{get_time()}] Starting download: {name}')
+            download_file(id, final_path)
+            print(f'[{get_time()}] Finished download: {name}\n\n')
+
+        except Exception as e:
+            print(e)
