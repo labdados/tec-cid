@@ -35,8 +35,7 @@ ON CREATE SET
 
 MERGE (ug)-[:REALIZOU]->(lic)
 
-MERGE (p:Participante{cpf_cnpj: line.cpf_cnpj_proponente})
-ON CREATE SET p.nome = toUpper(line.nome_proponente)
+MERGE (p:Participante{cpf_cnpj: line.cpf_cnpj_proponente, nome: toUpper(line.nome_proponente)})
 
 MERGE (p)-[prop:FEZ_PROPOSTA_EM]->(lic)
 ON CREATE SET
