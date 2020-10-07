@@ -24,7 +24,7 @@ class LicitacaoService:
             conditions.append("mun.id = '{}'".format(id_municipio))
         
         if tipo:
-            conditions.append("lic.cd_modalidade = '{}'".format(tipo))
+            conditions.append("lic.cd_tipo_licitacao = '{}'".format(tipo))
 
         if unidade:
             conditions.append("lic.cd_ugestora = '{}'".format(unidade))
@@ -61,14 +61,14 @@ class LicitacaoService:
         nodes = []
         for res in results:
             node = {**res["lic"], 'nome_unidade_gestora': res["nome_ug"]}
-            node["id"] = "{}-{}-{}".format(node["cd_ugestora"], node["cd_modalidade"],
+            node["id"] = "{}-{}-{}".format(node["cd_ugestora"], node["cd_tipo_licitacao"],
                                            node["numero_licitacao"])
             nodes.append(node)
         return nodes
 
     def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
         result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,
-                                           cd_modalidade = codTipoLicitacao,
+                                           cd_tipo_licitacao = codTipoLicitacao,
                                            numero_licitacao = codLicitacao)
         
         unidade_gestora = UnidadeGestora.match(db).where(cd_ugestora = codUnidadeGestora)
@@ -77,7 +77,7 @@ class LicitacaoService:
             node = uni.__node__
             nome_unidade_gest = node['nome']
 
-        #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_modalidade='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
+        #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_tipo_licitacao='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
         nodes = []
         for lic in result:
             node = lic.__node__
@@ -91,13 +91,13 @@ class LicitacaoService:
         skip = limite * (pagina - 1)
 
         query = "MATCH (p:Participante)-[r:FEZ_PROPOSTA_EM]->(l:Licitacao) \
-                WHERE l.cd_ugestora='{}' and l.cd_modalidade='{}' and l.numero_licitacao='{}'".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+                WHERE l.cd_ugestora='{}' and l.cd_tipo_licitacao='{}' and l.numero_licitacao='{}'".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
 
         self.count_props = self.get_count(query + "RETURN COUNT(*)")
 
         result = db.run(query + " RETURN p.nome as nome_participante, p.cpf_cnpj as cpf_cnpj_participante, \
                                  l.cd_ugestora as cd_ugestora, l.numero_licitacao as numero_licitacao, \
-                                 l.cd_modalidade as cd_modalidade_licitacao, r.valor as valor_proposta, \
+                                 l.cd_tipo_licitacao as cd_tipo_licitacao, r.valor as valor_proposta, \
                                  r.situacao as situacao_proposta \
                                  SKIP {} LIMIT {}".format(skip, limite)).data()
         return result
