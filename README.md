@@ -2,7 +2,10 @@
 
 Sistema do projeto Tecnologia Cidadã - PROBEX 2019
 
-## Como rodar a API REST e o banco de dados Neo4j
+# Licença
+A licença do projeto é [LGPL3](https://www.gnu.org/licenses/lgpl-3.0.en.html) e dos dados convertidos [Creative Commons Attribution ShareAlike](https://creativecommons.org/licenses/by-sa/4.0/). Os dados de sócios e empresas são originalmente da Receita Federal do Brasil, que foram tratados por Álvaro Justen/[Brasil.IO](https://brasil.io/).
+
+## Como rodar a API REST e o Banco de Dados Neo4j
 
 ### Pré-requisitos
 
@@ -33,16 +36,8 @@ docker-compose up
 ```
 . .env
 cd database/feed
-pip3 install -r requirements.txt
-python3 download_data_tce.py
-python3 download_data_tse.py
-python3 download_data_receita.py
-python3 extract_transform_data_tce.py
-python3 extract_transform_data_tse.py
-python3 extract_transform_data_receita.py
-python3 load_data_tce.py
-python3 load_data_tse.py
-python3 load_data_receita.py
+
+python3 run.py
 ```
 
 Outra opção, caso as credenciais do neo4j não sejam carregadas do `.env`, é passar as credenciais direto nos scripts de load:
@@ -52,7 +47,14 @@ python3 load_data_tce.py <neo4j-user> <neo4j-password>
 python3 load_data_tse.py <neo4j-user> <neo4j-password>
 ```
 
-5. Verificar se tudo ocorreu como esperado acessando a [API](http://localhost:5000/tec-cid/api/docs) e o [browser do Neo4j](http://localhost:7474/browser), usando as credenciais especificadas no `.env`
+5. Executar os testes unitários no diretório `database/test`
+```
+cd ../test
+
+python3 run.py
+```
+
+6. Verificar se tudo ocorreu como esperado acessando a [API](http://localhost:5000/tec-cid/api/docs) e o [browser do Neo4j](http://localhost:7474/browser), usando as credenciais especificadas no `.env`
 
 ## Como rodar o frontend em Angular
 
@@ -78,7 +80,7 @@ git clone https://github.com/labdados/tec-cid.git
 
 ### Passo a passo (Para o ambiente de produção)
 
-O ambiente de produçã é aquele em que o usuário final do sistema terá acesso. Nesse caso, um sevidor web por exemplo.
+O ambiente de produção é aquele em que o usuário final do sistema terá acesso. Nesse caso, um sevidor web por exemplo.
 Para simular um ambiente de produção é só seguir os seguintes passos:
 
 1. Clonar este repositório:

@@ -1,5 +1,5 @@
 USING PERIODIC COMMIT 3000
-LOAD CSV WITH HEADERS FROM "file:///empresa_licitante_pb.csv" as line
+LOAD CSV WITH HEADERS FROM "file:///empresa.csv" as line
 
 MERGE (e:Empresa {cnpj: line.cnpj})
 ON CREATE SET
@@ -19,8 +19,3 @@ ON CREATE SET
 	e.capital_social = line.capital_social,
 	e.porte = line.porte,
 	e.situacao_especial = line.situacao_especial
-
-WITH line, e
-MATCH (p:Participante {cpf_cnpj: line.cnpj})
-
-MERGE (e)-[:FOI]-(p);
