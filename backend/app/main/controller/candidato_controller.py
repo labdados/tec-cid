@@ -1,5 +1,5 @@
 from ..service.candidato_service import CandidatoService
-from flask_restplus import Resource, Namespace
+from flask_restx import Resource, Namespace
 from flask import request, jsonify
 
 candidato_service = CandidatoService()

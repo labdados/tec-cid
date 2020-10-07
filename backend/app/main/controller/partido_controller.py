@@ -1,5 +1,5 @@
 from ..service.partido_service import PartidoService
-from flask_restplus import Resource, Namespace
+from flask_restx import Resource, Namespace
 from flask import request, jsonify
 
 partidos = PartidoService()

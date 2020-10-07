@@ -7,7 +7,7 @@ from .main.controller.municipio_controller import api as municipios_namespace
 from .main.controller.estatistica_controller import api as estatistica_namespace
 
 from flask import Flask, Blueprint, url_for
-from flask_restplus import Api, Resource, apidoc
+from flask_restx import Api, Resource, apidoc
 
 api_url_prefix = "/tec-cid/api"
 
@@ -15,7 +15,7 @@ class MyCustomApi(Api):
 
     def _register_apidoc(self, app: Flask) -> None:
         conf = app.extensions.setdefault('restplus', {})
-        custom_apidoc = apidoc.Apidoc('restplus_doc', 'flask_restplus.apidoc',
+        custom_apidoc = apidoc.Apidoc('restplus_doc', 'flask_restx.apidoc',
         template_folder='templates', static_folder='static',
         static_url_path=api_url_prefix)
 

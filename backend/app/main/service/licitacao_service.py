@@ -77,7 +77,7 @@ class LicitacaoService:
             node = uni.__node__
             nome_unidade_gest = node['nome']
 
-        #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_modalidade='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
+        #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_tipo_licitacao='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
         nodes = []
         for lic in result:
             node = lic.__node__
@@ -97,7 +97,7 @@ class LicitacaoService:
 
         result = db.run(query + " RETURN p.nome as nome_participante, p.cpf_cnpj as cpf_cnpj_participante, \
                                  l.cd_ugestora as cd_ugestora, l.numero_licitacao as numero_licitacao, \
-                                 l.cd_tipo_licitacao as cd_tipo_licitacao_licitacao, r.valor as valor_proposta, \
+                                 l.cd_tipo_licitacao as cd_tipo_licitacao, r.valor as valor_proposta, \
                                  r.situacao as situacao_proposta \
                                  SKIP {} LIMIT {}".format(skip, limite)).data()
         return result

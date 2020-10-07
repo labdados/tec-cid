@@ -1,5 +1,5 @@
 from ..service.municipio_service import MunicipioService
-from flask_restplus import Resource, Namespace
+from flask_restx import Resource, Namespace
 from flask import request, jsonify
 from datetime import datetime
 

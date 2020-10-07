@@ -1,5 +1,5 @@
 from ..service.estatistica_service import EstatisticaService
-from flask_restplus import Namespace, Resource
+from flask_restx import Namespace, Resource
 from flask import Flask, json, request, jsonify
 
 api = Namespace('Estatística', description='Estatísticas agregadas de licitações.')
