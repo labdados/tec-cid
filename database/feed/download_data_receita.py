@@ -1,11 +1,14 @@
-import gdown
+from etl_utils import download_file
 
-SOCIOS_URL = 'https://drive.google.com/uc?id=19DeL9HbOebNXRFZ_bmmZu1uAogdY8ZGI'
+URL_PREFIX = 'https://data.brasil.io/dataset/socios-brasil/'
+
+SOCIOS_URL = URL_PREFIX + 'socio.csv.gz'
 OUTPUT_FILE_SOCI0S = '../../dados/socio.csv.gz'
 
-EMPRESAS_URL = 'https://drive.google.com/uc?id=1c_gwLqaVQzRmY2IYCMyPDDCoC8OtTuiW'
+EMPRESAS_URL = URL_PREFIX + 'empresa.csv.gz'
 OUTPUT_FILE_EMPRESAS = '../../dados/empresa.csv.gz'
 
 
-gdown.download(EMPRESAS_URL, output=OUTPUT_FILE_EMPRESAS)
-gdown.download(SOCIOS_URL, output=OUTPUT_FILE_SOCI0S)
+if __name__ == "__main__":
+    download_file(url=SOCIOS_URL, output_file=OUTPUT_FILE_SOCI0S)
+    download_file(url=EMPRESAS_URL, output_file=OUTPUT_FILE_EMPRESAS)
