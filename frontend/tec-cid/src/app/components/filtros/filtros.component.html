@@ -14,11 +14,17 @@
         <div class="row animated bounceInUp">
             <div class="mx-auto">
                 <!--<h1 *ngIf="!isLoadingResults" style="color: #0d4247">Selecione seu município</h1>-->
-                <div class="example-loading-shade" *ngIf="isLoadingResults">
+                <div class="example-loading-shade" *ngIf="Loader">
                     <mat-spinner></mat-spinner>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="ErroLoad" id="ErrorPesquisa">
+        <label>Ocorreu um erro ao fazer a busca, tente novamente</label>
+        <label>Caso persista mande um e-mail</label>
+        <button>Relatar problema</button>
     </div>
 
     <div *ngIf="exibir">
@@ -57,7 +63,7 @@
                         <div class=" gasto mx-auto">
                             <div class="info-gasto">
                                 <h1 id="gasto">{{ valorLicitacoes | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1>
-                                <p align="center">Total gasto do inicío do mandato até o presente momento.</p>
+                                <p aling="center">Total gasto do inicío do mandato até o presente momento.</p>
                             </div>
                             <div class="btn-detalhes">
                                 <button (click)="exibirMunicipio()" mat-raised-button>Veja detalhadamente</button>
