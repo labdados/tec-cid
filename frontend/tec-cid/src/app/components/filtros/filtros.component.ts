@@ -1,24 +1,23 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { MunicipiosService } from 'src/app/services/municipios.service';
-import { Municipio } from 'src/app/models/municipio.model';
-import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
-import { EstatisticasService } from 'src/app/services/estatisticas.service';
+import { MunicipiosService } from '../../services/municipios.service';
+import { Municipio } from '../../models/municipio.model';
+import { UnidadeGestoraService } from '../../services/unidade-gestora.service';
+import { EstatisticasService } from '../../services/estatisticas.service';
 import { Router } from '@angular/router';
-import { Gestao } from 'src/app/models/gestao.model';
-import { CandidatosService } from 'src/app/services/candidatos.service';
-
+import { Gestao } from '../../models/gestao.model';
+import {CandidatosService} from '../../services/candidatos.service'
 @Component({
   selector: 'app-filtros',
   templateUrl: './filtros.component.html',
   styleUrls: ['./filtros.component.css']
 })
 export class FiltrosComponent implements OnInit, AfterViewInit {
-
+  Loader : boolean = false
   exibir: boolean = false;
   cidade: Municipio;
   valorLicitacoes: any;
   gestao: Gestao;
-  isLoadingResults: boolean = false;
+  ErroLoad: boolean = false
 
   configCidades = {
     displayKey: "nome",
@@ -68,23 +67,11 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   }
 
   filtroMunicipio() {
-    this.isLoadingResults = true;
     this.municipiosService.getMunicipio(this.cidade.id);
     this.getValorLicitacoes(this.cidade.id);
-    this.getGestao();
+    this.ErroLoad = false
+    this.GerenciaLoadBusca()
     this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
-    setTimeout(() => {
-      this.isLoadingResults = false;
-      this.show();
-    }, 2000);
-  }
-
-  show() {
-    if (this.municipio === undefined || this.gestao === undefined || this.candidato === undefined) {
-      this.exibir = false;
-    } else {
-      this.exibir = true;
-    }
   }
 
   getValorLicitacoes(id: string) {
@@ -93,18 +80,36 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     })
   }
 
-  getGestao() {
+  async getGestao() {
     let ano = new Date().getFullYear();
-    this.municipiosService.getGestao(this.cidade.id, ano).subscribe(res => {
-      this.gestao = res.dados[0];
-
-      this.candidatosService.getCandidato(this.gestao.id_candidato);
+    const Espera = new Promise(resolve=>{
+      this.municipiosService.getGestao(this.cidade.id,ano).subscribe(async res => {
+          if(res.dados.length > 0){
+            this.Loader = false
+            this.exibir = true
+            this.gestao = res.dados[0]
+            return this.candidatosService.getCandidato(this.gestao.id_candidato);
+          }
+          else{
+            this.Loader = false
+           return this.ExibirErro()
+          }
+      })
     })
-    console.log(this.gestao)
   }
+
+  async GerenciaLoadBusca(){
+      this.Loader = true
+      this.exibir = false
+      const retorno = await this.getGestao()
+  }
+
 
   exibirMunicipio() {
     this.router.navigate(['/municipio', this.cidade.id])
   }
 
+  ExibirErro(){
+    this.ErroLoad = true
+  }
 }

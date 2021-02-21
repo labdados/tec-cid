@@ -97,6 +97,40 @@
     background-size: cover;    
 }
 
+#ErrorPesquisa{
+    background-color:transparent;
+    display: block;
+    color: #0d4247;
+    padding-top: 4vh;
+    padding-bottom: 2vh;
+}
+#ErrorPesquisa label{
+    display: block;
+    text-align: center;
+    font-family: Roboto;
+}
+
+#ErrorPesquisa label:first-child{
+    font-size: 2vw;
+}
+#ErrorPesquisa label:nth-child(2){
+    font-size: 1.4vw;
+    margin-bottom: 5vh;
+}
+
+#ErrorPesquisa button{
+    display: block;
+    margin-left: 36vw;
+    border:none;
+    padding-top:2vh;
+    padding-bottom: 2vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    background-color:#0d4247;
+    color: white;
+    border-radius: 10px;
+}
+
 @media screen and (max-width: 768px) {
     #selecionar {
         font-size: 26px;
@@ -160,6 +194,8 @@
         font-size: 18px;
         color: #0d4247
     }
+
+
 
 }
 
