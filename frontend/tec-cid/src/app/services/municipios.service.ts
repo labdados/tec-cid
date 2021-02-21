@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { API_URL } from './tc.api';
 import { Municipio } from '../models/municipio.model';
 
@@ -25,7 +24,9 @@ export class MunicipiosService {
           pagina: '1',
           limite: '230'
         }
-      }).subscribe(res => { this.municipios = res.dados })
+      }).subscribe(res => { 
+        this.municipios = res.dados
+      })
   }
 
   getLicitacoesMunicipio(idMunicipio: any, pagina: number) {

@@ -14,7 +14,7 @@ export class CandidatosService {
     private http: HttpClient
   ) { }
 
-  getCandidato(id_candidato: string) {
+  getCandidato(id_candidato: any) {
     return this.http.get<any>(`${API_URL}/candidatos/${id_candidato}`).subscribe(res => {
       this.candidato = res.dados[0];
     });
