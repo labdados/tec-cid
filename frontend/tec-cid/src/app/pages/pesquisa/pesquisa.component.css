@@ -10,10 +10,43 @@
     max-width: 700px;
     height: 95%;
     padding: 15px;
-    background-color: white;
+    background-color:white;
     margin: auto;
     margin-bottom: 15px;
     text-align: center;
+}
+.EffectLoad{
+    display: flex;
+    flex-direction: column;
+    width: 52vw;
+    max-width: 700px;
+    height: 52vh;
+    padding: 15px;
+    margin: auto;
+    margin-bottom: 15px;
+    text-align: center;
+    animation:load 2s infinite;
+    background-color: white
+}
+.container-second{
+    position: absolute;
+    margin-left: 24.9vw;
+    z-index: 10;
+}
+@keyframes load{
+    from{
+        background-color:white;
+        
+    }
+    to{
+        background-color:#ddd;
+    }
+}
+
+.my-card label{
+    color:#0d4247;
+    font-weight: bolder;
+    font-size: 2vw;
 }
 
 @media screen and (max-width: 768px) {
