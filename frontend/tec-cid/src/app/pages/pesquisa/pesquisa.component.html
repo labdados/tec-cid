@@ -2,21 +2,30 @@
 
 <app-filtros></app-filtros>
 
+<div class="container-second" *ngIf="Loaded">
+    <div class="row justify-content-md-center my-10">
+        <div class="EffectLoad mat-elevation-z2 col"></div>
+    </div>
+    <div class="row justify-content-md-center my-10">
+        <div class="EffectLoad mat-elevation-z2 col"></div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row justify-content-md-center my-10">
         <div class="my-card mat-elevation-z2 col">
             <h5>Ranking de gastos por município (R$)</h5>
-            <app-bar-chart [data]="data"></app-bar-chart>
+            <app-bar-chart [data]="data" *ngIf="!ExibirErrorMunicipio"></app-bar-chart>
+            <label *ngIf="ExibirErrorMunicipio">Ocorreu um erro na visulização</label>
         </div>
     </div>
     <div class="row justify-content-md-center my-10">
         <div class="my-card mat-elevation-z2 col">
             <h5>Ranking de gastos por empresa (R$)</h5>
-            <app-barchart-empresas [dataEmpresas]="dataEmpresas"></app-barchart-empresas>
+            <app-barchart-empresas [dataEmpresas]="dataEmpresas" *ngIf="!ExibirErrorEmpresa"></app-barchart-empresas>
+            <label *ngIf="ExibirErrorEmpresa">Ocorreu um erro na visulização</label>
         </div>
     </div>
 </div>
 
-<div class="container">
-    
-</div>
+
