@@ -81,7 +81,8 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   }
 
   async getGestao() {
-    let ano = new Date().getFullYear();
+    //let ano = new Date().getFullYear();
+    let ano = 2020
     const Espera = new Promise(resolve=>{
       this.municipiosService.getGestao(this.cidade.id,ano).subscribe(async res => {
           if(res.dados.length > 0){
