@@ -14,6 +14,7 @@ import {CandidatosService} from '../../services/candidatos.service'
 export class FiltrosComponent implements OnInit, AfterViewInit {
   Loader : boolean = false
   exibir: boolean = false;
+  //instancia cidade usando a classe Municipio
   cidade: Municipio;
   valorLicitacoes: any;
   gestao: Gestao;
@@ -39,7 +40,21 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.municipiosService.getMunicipios();
+    //Chama função que gerencia a promise com um await
+    this.GetMunicipios()
+  }
+
+  //responsavel por criar uma Promise que faz a requisição dos municipios pelo municipios.service
+  GetMunicipiosReqPromise(){
+    const Retorno = new Promise(resolve=>{
+      this.municipiosService.getMunicipios();
+    })
+    return Retorno
+  }
+
+  //Utiliza a promise criada em GetMunicipiosReqPromise
+  async GetMunicipios(){
+     return await this.GetMunicipiosReqPromise()
   }
 
   ngAfterViewInit() {
@@ -61,7 +76,7 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   get candidato() {
     return this.candidatosService.candidato
   }
-
+  
   displayFn(municipio?: Municipio): string | undefined {
     return municipio ? municipio.nome : undefined;
   }
