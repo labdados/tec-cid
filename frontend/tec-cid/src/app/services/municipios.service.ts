@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from './tc.api';
 import { Municipio } from '../models/municipio.model';
+import {Observable} from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,15 @@ export class MunicipiosService {
     private http: HttpClient
   ) { }
 
+  public teste():Observable<any>{
+    return this.http.get<any>('http://labdados.dcx.ufpb.br/tec-cid/api/municipios',{
+        params:{
+          atributos: 'id,nome',
+          pagina: '1',
+          limite: '230'
+        }
+    })
+  }
   getMunicipios() {
     return this.http.get<any>(`${API_URL}/municipios`,
       {
