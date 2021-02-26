@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { MunicipiosService } from '../../services/municipios.service';
-import { Municipio } from '../../models/municipio.model';
-import { UnidadeGestoraService } from '../../services/unidade-gestora.service';
-import { EstatisticasService } from '../../services/estatisticas.service';
+import { MunicipiosService } from 'src/app/services/municipios.service';
+import { Municipio } from 'src/app/models/municipio.model';
+import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
+import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import { Router } from '@angular/router';
-import { Gestao } from '../../models/gestao.model';
-import {CandidatosService} from '../../services/candidatos.service'
+import { Gestao } from 'src/app/models/gestao.model';
+import {CandidatosService} from 'src/app/services/candidatos.service'
 @Component({
   selector: 'app-filtros',
   templateUrl: './filtros.component.html',
@@ -40,22 +40,15 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    //Chama função que gerencia a promise com um await
-    this.GetMunicipios()
+    this.teste()
   }
 
-  //responsavel por criar uma Promise que faz a requisição dos municipios pelo municipios.service
-  GetMunicipiosReqPromise(){
-    const Retorno = new Promise(resolve=>{
-      this.municipiosService.getMunicipios();
+  teste(){
+    this.municipiosService.teste().subscribe(data=>{
+      this.municipiosService.municipios = data.dados
     })
-    return Retorno
   }
 
-  //Utiliza a promise criada em GetMunicipiosReqPromise
-  async GetMunicipios(){
-     return await this.GetMunicipiosReqPromise()
-  }
 
   ngAfterViewInit() {
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
