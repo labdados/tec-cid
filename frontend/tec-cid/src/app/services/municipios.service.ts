@@ -17,7 +17,7 @@ export class MunicipiosService {
   ) { }
 
   public teste():Observable<any>{
-    return this.http.get<any>('http://labdados.dcx.ufpb.br/tec-cid/api/municipios',{
+    return this.http.get<any>(`${API_URL/municipios',{
         params:{
           atributos: 'id,nome',
           pagina: '1',
