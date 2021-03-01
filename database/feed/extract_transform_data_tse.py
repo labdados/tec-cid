@@ -51,5 +51,5 @@ if __name__ == '__main__':
          row_num = 0
          writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
          for line in extract_tse(CANDIDATOS_INPUT_ZIP, CANDIDATOS_ZIP_FILENAME):
-            row = filter_candidatos(transform_tse(line, n_fields=58))
+            row = filter_candidatos(transform_tse(line, n_fields=63))
             writer.writerow(row)
