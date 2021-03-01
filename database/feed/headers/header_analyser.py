@@ -37,28 +37,6 @@ class HeaderAnalyser:
         return message
 
     @staticmethod
-    def fill_header_and_used_attributes(key_name:str) -> None:
-        """
-        Método que preenche o header e quais atributos dos *.csv são utilizados,
-        a partir de umas das chaves presentes no arquivo `used_files.json`
-        """
-        UsedFileUtils.create_files_with_attributes_json()
-        file_names = UsedFileUtils.get_used_files_list_from_key_name(key_name)
-        csv_with_used_attributes = CypherUtils.get_used_attributes_from_cypher_files(key_name)
-
-        if file_names:
-            for file_name in file_names:
-                prefix = FileUtils.get_full_path(HeaderAnalyser.PREFIX)
-                prefix += '/'
-                header = HeaderUtils.get_header(prefix + file_name)
-
-                used_attributes = [aux.get('used_attributes') for aux in csv_with_used_attributes if aux.get('csv_name') == file_name]
-                used_attributes = used_attributes[0]
-
-                UsedFileUtils.update_used_file(file_name, 'header', header)
-                UsedFileUtils.update_used_file(file_name, 'used_attributes', used_attributes)
-
-    @staticmethod
     def analyze(key_name:str, file_names=None) -> None:
         """
         Método que analisa se existe algum atributo que foi removido ou atualizado
