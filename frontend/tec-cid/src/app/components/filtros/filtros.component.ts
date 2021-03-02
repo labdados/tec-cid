@@ -40,11 +40,11 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.teste()
+    this.RecebeMunicipios()
   }
 
-  teste(){
-    this.municipiosService.teste().subscribe(data=>{
+  RecebeMunicipios(){
+    this.municipiosService.ReqMunicipios().subscribe(data=>{
       this.municipiosService.municipios = data.dados
     })
   }
@@ -75,11 +75,16 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   }
 
   filtroMunicipio() {
-    this.municipiosService.getMunicipio(this.cidade.id);
-    this.getValorLicitacoes(this.cidade.id);
-    this.ErroLoad = false
-    this.GerenciaLoadBusca()
-    this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
+    if(this.cidade.id == undefined){
+      //evita erro de selecionar algo que não existe
+    }
+    else{
+      this.municipiosService.getMunicipio(this.cidade.id);
+      this.getValorLicitacoes(this.cidade.id);
+      this.ErroLoad = false
+      this.GerenciaLoadBusca()
+      this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
+    }
   }
 
   getValorLicitacoes(id: string) {
