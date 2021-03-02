@@ -67,11 +67,10 @@ class HeaderAnalyser:
                 print(f'[INFO]: Todos os atributos que são utilizados do arquivo {file_name} estão presentes no seu header!')
 
             else:
-                files_with_missed_attributes.append(file_name)
                 missing_attributes = used_attributes - header
                 missing_attributes_array = [value for value in missing_attributes]
 
-                result = CypherUtils.get_missed_attributes_from_cypher_file(files_with_missed_attributes, missing_attributes_array)
+                result = CypherUtils.get_missed_attributes_from_cypher_file([file_name], missing_attributes_array)
                 results.append(result)
 
         if (results != []):
