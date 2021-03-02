@@ -1,10 +1,6 @@
 import os
-import json
-
 import headers.json_utils
 
-from re import finditer
-from re import search
 from csv import Sniffer
 
 class FileUtils:
