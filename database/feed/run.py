@@ -65,6 +65,10 @@ if __name__ == "__main__":
         HeaderUtils.fill_header_and_used_attributes(key_name='tce')
         HeaderUtils.fill_header_and_used_attributes(key_name='tse')
 
+        tce = UsedFileUtils.get_used_files_list_from_key_name(key_name='tce')
+        tse = UsedFileUtils.get_used_files_list_from_key_name(key_name='tse')
+        HeaderAnalyser.analyze(key_name=None, file_names=tce + tse)
+
         HeaderAnalyser.analyze(key_name='tce')
         HeaderAnalyser.analyze(key_name='tse')
 
