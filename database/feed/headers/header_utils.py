@@ -1,4 +1,3 @@
-import os
 import csv
 
 import headers.cypher_utils
@@ -6,21 +5,29 @@ import headers.cypher_utils
 from headers.file_utils import FileUtils
 from headers.used_file_utils import UsedFileUtils
 
+from headers.exceptions.invalid_header_exception import InvalidHeaderException
+
 class HeaderUtils:
 
     PREFIX = '/../../../dados'
+
+    @staticmethod
+    def validate_header(file_name:str, header:str) -> None:
+        if (header == None):
+            raise InvalidHeaderException(file_name)
 
     @staticmethod
     def get_header(file_name:str) -> list:
         if (FileUtils.file_exists(file_name)):
             with open(file_name, 'r') as csv_file:
                 reader = csv.reader(csv_file)
-                header = next(reader)
+                header = next(reader, None)
+                HeaderUtils.validate_header(file_name, header)
                 delimiter = FileUtils.detect_csv_delimiter(str(header))
 
             with open(file_name, 'r') as csv_file:
                 reader = csv.reader(csv_file, delimiter=delimiter)
-                return next(reader)
+                return next(reader, None)
         else:
             return None
 
