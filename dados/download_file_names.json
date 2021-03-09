@@ -1,0 +1,70 @@
+{
+    "tce": {
+        "licitacoes": {
+            "url": "https://dados.tce.pb.gov.br/TCE-PB-Portal-Gestor-Licitacoes_Propostas.txt.gz",
+            "output_file": "TCE-PB-Portal-Gestor-Licitacoes_Propostas.txt.gz"
+        },
+        "empenhos": {
+            "url": "https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Empenhos_Esfera_Municipal.txt.gz",
+            "output_file": "TCE-PB-SAGRES-Empenhos_Esfera_Municipal.txt.gz"
+        },
+        "pagamentos": {
+            "url": "https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Pagamentos_Esfera_Municipal.txt.gz",
+            "output_file": "TCE-PB-SAGRES-Pagamentos_Esfera_Municipal.txt.gz"
+        }
+    },
+    "tse": [
+        {
+            "candidatos": [
+                {
+                    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2016.zip",
+                    "output_file": "consulta_cand_2016.zip"
+                },
+                {
+                    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2020.zip",
+                    "output_file": "consulta_cand_2020.zip"
+                }
+            ]
+        },
+        {
+            "receita_candidatos": [
+                {
+                    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_contas_2016.zip",
+                    "output_file": "prestacao_contas_2016.zip"
+                },
+                {
+                    "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_de_contas_eleitorais_candidatos_2020.zip",
+                    "output_file": "prestacao_de_contas_eleitorais_candidatos_2020.zip"
+                }
+            ]
+
+        }
+    ],
+    "receita_federal": {
+        "socios": {
+            "url": "https://data.brasil.io/dataset/socios-brasil/socio.csv.gz",
+            "output_file": "socio.csv.gz"
+        },
+        "empresas": {
+            "url": "https://data.brasil.io/dataset/socios-brasil/empresa.csv.gz",
+            "output_file": "empresa.csv.gz"
+        }
+    },
+    "sancoes": {
+        "ceis": {
+            "url": "http://www.portaltransparencia.gov.br/download-de-dados/ceis/",
+            "output_file": "ceis.zip",
+            "max_days_from_today": 10
+        },
+        "cepim": {
+            "url": "http://www.portaltransparencia.gov.br/download-de-dados/cepim/",
+            "output_file": "cepim.zip",
+            "max_days_from_today": 15
+        },
+        "cnep": {
+            "url": "http://www.portaltransparencia.gov.br/download-de-dados/cnep/",
+            "output_file": "cnep.zip",
+            "max_days_from_today": 10
+        }
+    }
+}

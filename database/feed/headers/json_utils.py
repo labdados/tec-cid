@@ -16,8 +16,12 @@ class JsonUtils:
         return json.loads(json_object)
 
     @staticmethod
-    def get_dict_from_json_file(json_file_path:str) -> dict:
-        final_path = headers.file_utils.FileUtils.get_full_path(json_file_path)
+    def get_dict_from_json_file(json_file_path:str, full_path=True) -> dict:
+        if (full_path):
+            final_path = headers.file_utils.FileUtils.get_full_path(json_file_path)
+        else:
+            final_path = json_file_path
+            
         with open(final_path, 'r') as json_file:
             data = json.load(json_file)
             return data
@@ -70,7 +74,6 @@ class JsonUtils:
         Método que retorna se um dicionário já existe na lista de dicionários de arquivos
         """
         exists = JsonUtils.get_dict_by_key_value_from_dict_array(dict_key, value, dict_list)
-
         return True if exists else False
 
     @staticmethod
