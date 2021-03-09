@@ -18,6 +18,7 @@ class TestCandidato(unittest.TestCase):
 
     COUNT_INDEX = 0
     TOTAL_CANDIDATOS_2016 = 11639
+    TOTAL_CANDIDATOS_2020 = 12145
 
     @classmethod
     def comparar_total_candidatos(self):
@@ -25,7 +26,7 @@ class TestCandidato(unittest.TestCase):
         results = neo4j_utils.get_query_response(query)
         total_candidatos = results[self.COUNT_INDEX]['total']
 
-        return total_candidatos == self.TOTAL_CANDIDATOS_2016
+        return total_candidatos == (self.TOTAL_CANDIDATOS_2016 + self.TOTAL_CANDIDATOS_2020)
 
     @classmethod
     def assert_candidatos_e_municipios(self):
