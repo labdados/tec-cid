@@ -71,8 +71,7 @@ def add_tipo_licitacao(fields, row_num, tipo_licitacao_idx):
         PROXIMO_CD_TIPO_LICITACAO = get_max_codigo_licitacao(CD_TIPOS_LICITACOES) + 1
         CD_TIPOS_LICITACOES_AUX[tipo_licitacao] = PROXIMO_CD_TIPO_LICITACAO
 
-        print("Adicionando novo tipo de licitacao: {} ({})".format(tipo_licitacao,
-                                                                   PROXIMO_CD_TIPO_LICITACAO))
+        print("Adicionando novo tipo de licitacao: {} ({})".format(tipo_licitacao, PROXIMO_CD_TIPO_LICITACAO))
         CD_TIPOS_LICITACOES[tipo_licitacao] = PROXIMO_CD_TIPO_LICITACAO
         text = CD_TIPOS_LICITACOES[tipo_licitacao]
 
@@ -134,8 +133,7 @@ if __name__ == '__main__':
         for line in extract_licitacao(input_file):
             row_num += 1
             fields = transform_licitacao(line)
-            fields = add_tipo_licitacao(
-                fields, row_num, TIPO_LICITACAO_IDX)
+            fields = add_tipo_licitacao(fields, row_num, TIPO_LICITACAO_IDX)
             writer.writerow(fields)
 
     final_time = time.time()
@@ -155,8 +153,7 @@ if __name__ == '__main__':
             row_num += 1
             fields = filter_empenhos(transform_empenhos(line), row_num)
             if fields:
-                fields = add_tipo_licitacao(
-                    fields, row_num, TIPO_LICITACAO_EMPENHOS_IDX)
+                fields = add_tipo_licitacao(fields, row_num, TIPO_LICITACAO_EMPENHOS_IDX)
                 id_empenho = fields[CD_UGESTORA_IDX] + fields[DT_ANO_IDX] + fields[DESC_UORCAMENTARIA_IDX] + fields[NUMERO_EMPENHO_IDX]
                 fields = add_id_hash(fields, row_num, get_id_hash(id_empenho))
                 writer.writerow(fields)

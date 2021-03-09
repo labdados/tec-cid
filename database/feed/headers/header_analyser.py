@@ -48,8 +48,6 @@ class HeaderAnalyser:
         if (not file_names):
             file_names = UsedFileUtils.get_used_files_list_from_key_name(key_name)
 
-        files_with_missed_attributes = []
-
         used_files_with_attributes = JsonUtils.get_dict_from_json_file(UsedFileUtils.FILES_WITH_ATTRIBUTES_JSON)
         used_files_with_attributes = used_files_with_attributes['files']
 
