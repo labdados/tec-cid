@@ -78,7 +78,7 @@ def get_time():
 def assert_max_size(old_size, new_size):
     assert new_size > old_size
 
-def isSubset(set_a, set_b):
+def is_subset(set_a, set_b):
     assert set_a.issubset(set_b) == True
 
 if __name__ == '__main__':
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     new_size = len(empresas)
 
     assert_max_size(old_size, new_size)
-    isSubset(doadores, empresas)
+    is_subset(doadores, empresas)
 
     get_summary(participantes)
 
