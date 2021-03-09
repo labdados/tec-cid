@@ -1,9 +1,14 @@
 from etl_utils import download_file
+from download_utils import DownloadUtils
 
-OUTPUT_DIR = '../../dados/'
-PRESTACAO_CONTAS_URL = 'http://agencia.tse.jus.br/estatistica/sead/odsele/prestacao_contas/prestacao_contas_2016.zip'
-CANDIDATOS_URL = 'http://agencia.tse.jus.br/estatistica/sead/odsele/consulta_cand/consulta_cand_2016.zip'
+INDEX_VALUES = 0
+PREFIX = '../../dados/'
+KEY = 'tse'
 
 if __name__ == '__main__':
-    download_file(PRESTACAO_CONTAS_URL, OUTPUT_DIR)
-    download_file(CANDIDATOS_URL, OUTPUT_DIR)
+    download_file_names = DownloadUtils.get_download_file_names_from_key(key_name=KEY)
+
+    for download_file_name in download_file_names:
+        for key, files in download_file_name.items():
+            for file in files:
+                download_file(url=file['url'], output_file=PREFIX + file['output_file'])
