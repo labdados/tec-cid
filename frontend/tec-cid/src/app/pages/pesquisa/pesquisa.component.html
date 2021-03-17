@@ -1,6 +1,15 @@
-<app-header></app-header>
 
+<nav id="NavSPA" *ngIf="NavVisivel">
+    <label>Municipio</label>
+    <label>Licitação</label>
+</nav>
+<app-header></app-header>
+<button id="btnMenu" *ngIf="MenuVisivel" [matMenuTriggerFor]="meuMenu">{{municipio.nome}}</button>
+<mat-menu #meuMenu="matMenu">
+    <button mat-menu-item>Licitações</button>
+</mat-menu>
 <app-filtros></app-filtros>
+
 
 <div class="container-second" *ngIf="Loaded">
     <div class="row justify-content-md-center my-10">
@@ -11,7 +20,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="barchartVisivel">
     <div class="row justify-content-md-center my-10">
         <div class="my-card mat-elevation-z2 col">
             <h5>Ranking de gastos por município (R$)</h5>
@@ -28,4 +37,6 @@
     </div>
 </div>
 
-
+<app-tabela id="tabela" *ngIf="ShowTabela"></app-tabela>
+<app-licitacao id="licitacao" *ngIf="ShowLicitacao"></app-licitacao>
+<div style="height: 10vh;"></div>

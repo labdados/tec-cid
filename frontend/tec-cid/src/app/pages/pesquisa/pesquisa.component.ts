@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 //import { DataModel } from 'src/app/models/data.model';
 import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import {BarchartEmpresasComponent} from 'src/app/components/barchart-empresas/barchart-empresas.component'
+import { MunicipiosService } from 'src/app/services/municipios.service';
+
 @Component({
   selector: 'app-pesquisa',
   templateUrl: './pesquisa.component.html',
@@ -14,7 +16,13 @@ export class PesquisaComponent implements OnInit {
   ExibirErrorEmpresa: boolean = false;
   ExibirErrorMunicipio: boolean = false;
   Loaded: boolean = true;
+  ShowTabela:boolean = false;
+  ShowLicitacao:boolean = false;
+  barchartVisivel: boolean = true;
+  MenuVisivel:boolean = false;
+  NavVisivel:boolean = false;
   constructor(
+    private municipiosService: MunicipiosService,
     private estatisticasService: EstatisticasService
   ){}
 
@@ -42,6 +50,9 @@ export class PesquisaComponent implements OnInit {
     return RetornoMunicipios
   }
   
+  get municipio() {
+    return this.municipiosService.municipio
+  }
 
 
  async TopEmpresas(){
