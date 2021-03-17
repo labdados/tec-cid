@@ -7,6 +7,12 @@ table {
     width: 100%;
 }
 
+#bgtabela{
+    margin-top: 3vh;
+    background-color: white;
+    padding-bottom: 10vh;
+}
+
 .mat-form-field-underline {
     background-color: green;
 }
@@ -85,6 +91,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 h3 {
     color: #0d4247;
+    padding-top: 5vh;
+    margin-left: 4vw;
 }
 
 
