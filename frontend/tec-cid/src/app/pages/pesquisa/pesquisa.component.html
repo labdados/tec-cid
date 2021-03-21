@@ -4,11 +4,11 @@
     <label>Licitação</label>
 </nav>
 <app-header></app-header>
-<button id="btnMenu" *ngIf="MenuVisivel" [matMenuTriggerFor]="meuMenu">{{municipio.nome}}</button>
+<button (click)="troca2()" id="btnMenu" *ngIf="MenuVisivel" [matMenuTriggerFor]="meuMenu">{{this.Principal}}</button>
 <mat-menu #meuMenu="matMenu">
-    <button mat-menu-item>Licitações</button>
+    <button (click)="troca()" mat-menu-item>{{this.Inferior}}</button>
 </mat-menu>
-<app-filtros></app-filtros>
+<app-filtros [NomeCidade]="municipio.nome"></app-filtros>
 
 
 <div class="container-second" *ngIf="Loaded">

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 //import { DataModel } from 'src/app/models/data.model';
 import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import {BarchartEmpresasComponent} from 'src/app/components/barchart-empresas/barchart-empresas.component'
 import { MunicipiosService } from 'src/app/services/municipios.service';
+import { Municipio } from 'src/app/models/municipio.model';
 
 @Component({
   selector: 'app-pesquisa',
@@ -21,6 +22,8 @@ export class PesquisaComponent implements OnInit {
   barchartVisivel: boolean = true;
   MenuVisivel:boolean = false;
   NavVisivel:boolean = false;
+  Principal:String = "carregando...";
+  Inferior:String = "Licitações";
   constructor(
     private municipiosService: MunicipiosService,
     private estatisticasService: EstatisticasService
@@ -50,8 +53,27 @@ export class PesquisaComponent implements OnInit {
     return RetornoMunicipios
   }
   
+  
   get municipio() {
     return this.municipiosService.municipio
+  }
+
+  MudaMunicipioBTN(){
+    this.Principal = this.municipio.nome
+  }
+
+  troca(){
+    this.Principal = this.Inferior
+    this.Inferior = this.municipio.nome
+  }
+  troca2(){
+    if(this.Inferior==this.Principal){
+      this.Inferior = "Licitações"
+      this.Principal = this.municipio.nome
+    }
+  }
+  reset(){
+    this.Inferior = "Licitações"
   }
 
 
