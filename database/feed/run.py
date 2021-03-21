@@ -55,10 +55,8 @@ def get_time():
 if __name__ == "__main__":
     try:
         global_start_time = '[GLOBAL START TIME]: ' + get_time()
-
+        
         subprocess.run(['pip3', 'install', '-r', 'requirements.txt'], check=True)
-        os.system("pip3 install -r requirements.txt")
-
         download_files(DOWNLOAD_FILES)
 
         extract_file(EXTRACT_TRANSFORM_TCE)
