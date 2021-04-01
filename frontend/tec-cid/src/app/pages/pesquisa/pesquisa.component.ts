@@ -5,7 +5,8 @@ import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import {BarchartEmpresasComponent} from 'src/app/components/barchart-empresas/barchart-empresas.component'
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Municipio } from 'src/app/models/municipio.model';
-
+import { TabelaComponent } from '../../components/tabela/tabela.component';
+import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
 @Component({
   selector: 'app-pesquisa',
   templateUrl: './pesquisa.component.html',
@@ -24,10 +25,14 @@ export class PesquisaComponent implements OnInit {
   NavVisivel:boolean = false;
   Principal:String = "carregando...";
   Inferior:String = "Licitações";
+  InferiorVisivel:Boolean = false;
+  public Licitacao: LicitacaoComponent
+
   constructor(
     private municipiosService: MunicipiosService,
-    private estatisticasService: EstatisticasService
-  ){}
+    private estatisticasService: EstatisticasService,
+    private Tabela: TabelaComponent,
+    ){}
 
 
   ExibeErrorTopEmpresasData(){
@@ -61,21 +66,23 @@ export class PesquisaComponent implements OnInit {
   MudaMunicipioBTN(){
     this.Principal = this.municipio.nome
   }
-
-  troca(){
-    this.Principal = this.Inferior
-    this.Inferior = this.municipio.nome
-  }
-  troca2(){
-    if(this.Inferior==this.Principal){
-      this.Inferior = "Licitações"
-      this.Principal = this.municipio.nome
-    }
-  }
-  reset(){
+  public ResetMenu(){
     this.Inferior = "Licitações"
   }
-
+  public SelectSuperior(){
+    this.InferiorVisivel = !this.InferiorVisivel
+  }
+  public SelectInferior(){
+    if(this.Inferior !== this.municipio.nome){
+      this.Principal = "Licitações"
+      this.Inferior = this.municipio.nome
+      this.Tabela.scroll()
+    }
+    else if(this.Inferior == this.municipio.nome){
+      this.Principal = this.municipio.nome;
+      this.Inferior = "Licitações"
+    }
+  }
 
  async TopEmpresas(){
     const RetornoEmpresas = new Promise(resolve=>{

@@ -1,13 +1,13 @@
-
 <nav id="NavSPA" *ngIf="NavVisivel">
     <label>Municipio</label>
     <label>Licitação</label>
 </nav>
 <app-header></app-header>
-<button (click)="troca2()" id="btnMenu" *ngIf="MenuVisivel" [matMenuTriggerFor]="meuMenu">{{this.Principal}}</button>
-<mat-menu #meuMenu="matMenu">
-    <button (click)="troca()" mat-menu-item>{{this.Inferior}}</button>
-</mat-menu>
+<div id="menuBtnScroll" *ngIf="MenuVisivel">
+    <button id="btnMenu" (click)="SelectSuperior()">{{this.Principal}}</button>
+    <button id="opt" *ngIf="InferiorVisivel" (click)="SelectInferior()">{{this.Inferior}}</button>
+</div>
+
 <app-filtros [NomeCidade]="municipio.nome"></app-filtros>
 
 
@@ -37,6 +37,6 @@
     </div>
 </div>
 
-<app-tabela id="tabela" *ngIf="ShowTabela"></app-tabela>
+<app-tabela *ngIf="ShowTabela"></app-tabela>
 <app-licitacao id="licitacao" *ngIf="ShowLicitacao"></app-licitacao>
 <div style="height: 10vh;"></div>
