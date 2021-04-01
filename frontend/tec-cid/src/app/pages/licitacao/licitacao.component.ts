@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit, Injectable} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Licitacao } from 'src/app/models/licitacao.model';
 import { LicitacaoService } from 'src/app/services/licitacao.service';
@@ -8,6 +8,9 @@ import { MunicipiosService } from 'src/app/services/municipios.service';
   selector: 'app-licitacao',
   templateUrl: './licitacao.component.html',
   styleUrls: ['./licitacao.component.css']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class LicitacaoComponent implements OnInit, AfterViewInit {
 
@@ -62,6 +65,10 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
     return this.licitacaoService.exibirPerdedores
   }
 
+  scroll(){
+    let element = document.getElementById("superior")
+    element.scrollIntoView()
+  }
   
 
 }
