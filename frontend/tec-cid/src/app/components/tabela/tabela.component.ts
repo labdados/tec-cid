@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -19,6 +19,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class TabelaComponent implements OnInit {
 
@@ -59,6 +62,12 @@ export class TabelaComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  
+  scroll(){
+    
+    let element = document.getElementById("bgtabela")
+    element.scrollIntoView({behavior:"smooth"})
   }
 
   exibirLicitacao(idLicitacao: any) {
