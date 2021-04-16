@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 //import { DataModel } from 'src/app/models/data.model';
 import { EstatisticasService } from 'src/app/services/estatisticas.service';
@@ -7,12 +7,15 @@ import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Municipio } from 'src/app/models/municipio.model';
 import { TabelaComponent } from '../../components/tabela/tabela.component';
 import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
+
+
+
 @Component({
   selector: 'app-pesquisa',
   templateUrl: './pesquisa.component.html',
   styleUrls: ['./pesquisa.component.css']
 })
-export class PesquisaComponent implements OnInit {
+export class PesquisaComponent implements OnInit, OnChanges {
   data: Observable<any>;
   dataEmpresas: Observable<any>;
   ExibirErrorEmpresa: boolean = false;
@@ -22,10 +25,10 @@ export class PesquisaComponent implements OnInit {
   ShowLicitacao:boolean = false;
   barchartVisivel: boolean = true;
   MenuVisivel:boolean = false;
-  NavVisivel:boolean = false;
   Principal:String = "carregando...";
   Inferior:String = "Licitações";
   InferiorVisivel:Boolean = false;
+  NavVisivel:Boolean = false
   public Licitacao: LicitacaoComponent
 
   constructor(
@@ -34,7 +37,16 @@ export class PesquisaComponent implements OnInit {
     private Tabela: TabelaComponent,
     ){}
 
-
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll(event) {
+    if(window.scrollY > 280){
+      this.NavVisivel = true
+    }
+    else{
+      this.NavVisivel = false
+      
+    }
+    }
   ExibeErrorTopEmpresasData(){
     this.ExibirErrorEmpresa = true
     }
@@ -42,7 +54,8 @@ export class PesquisaComponent implements OnInit {
   ExibeErrorMunicipiosData(){
     this.ExibirErrorMunicipio = true
     }
-
+   
+  
   async TopMunicipios(){
     const RetornoMunicipios =new Promise(resolve=>{
         this.estatisticasService.getRankingMunicipios(10).subscribe(res =>{
@@ -77,11 +90,13 @@ export class PesquisaComponent implements OnInit {
       this.Principal = "Licitações"
       this.Inferior = this.municipio.nome
       this.Tabela.scroll()
+      
     }
     else if(this.Inferior == this.municipio.nome){
       this.Principal = this.municipio.nome;
       this.Inferior = "Licitações"
     }
+  
   }
 
  async TopEmpresas(){
@@ -104,8 +119,12 @@ export class PesquisaComponent implements OnInit {
 
 }
 
+  
   ngOnInit() {
     this.InsertData()
+  }
+  ngOnChanges(){
+
   }
 
 }
