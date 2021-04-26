@@ -1,11 +1,13 @@
 <nav id="NavSPA" *ngIf="NavVisivel">
-    <label>Municipio</label>
-    <label>Licitação</label>
+    <label (click)="ScrollParaTop()">{{municipio.nome}}</label>
+    <label (click)="ScrollParaTabela()">Licitação</label>
+    <label (click)="ScrollParaLicitacao()">{{LicitacaoID}}</label>
 </nav>
 <app-header></app-header>
 <div id="menuBtnScroll" *ngIf="MenuVisivel">
     <button id="btnMenu" (click)="SelectSuperior()">{{this.Principal}}</button>
-    <button id="opt" *ngIf="InferiorVisivel" (click)="SelectInferior()">{{this.Inferior}}</button>
+    <button class="opt" *ngIf="InferiorVisivel" (click)="SelectInferior()">{{this.Inferior}}</button>
+    <button class="opt" *ngIf="BtnLicitaVisibilidade" (click)="ScrollParaLicitacao()" >{{LicitacaoID}}</button>
 </div>
 
 <app-filtros [NomeCidade]="municipio.nome"></app-filtros>
@@ -37,6 +39,6 @@
     </div>
 </div>
 
-<app-tabela *ngIf="ShowTabela"></app-tabela>
+<app-tabela *ngIf="ShowTabela" [LicitacaoID]="LicitacaoID" (mudouValor)="onMudouValor($event)"></app-tabela>
 <app-licitacao id="licitacao" *ngIf="ShowLicitacao"></app-licitacao>
 <div style="height: 10vh;"></div>

@@ -18,6 +18,7 @@ import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
 export class PesquisaComponent implements OnInit, OnChanges {
   data: Observable<any>;
   dataEmpresas: Observable<any>;
+  idMunicipio: Observable<any>;
   ExibirErrorEmpresa: boolean = false;
   ExibirErrorMunicipio: boolean = false;
   Loaded: boolean = true;
@@ -28,13 +29,16 @@ export class PesquisaComponent implements OnInit, OnChanges {
   Principal:String = "carregando...";
   Inferior:String = "Licitações";
   InferiorVisivel:Boolean = false;
-  NavVisivel:Boolean = false
-  public Licitacao: LicitacaoComponent
-
+  NavVisivel:Boolean = false;
+  LicitacaoID:any;
+  BtnLicitaVisibilidade: boolean = false;
+  Starter:boolean = true
+  
   constructor(
     private municipiosService: MunicipiosService,
     private estatisticasService: EstatisticasService,
     private Tabela: TabelaComponent,
+    private licitacaoComponet: LicitacaoComponent,
     ){}
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
@@ -55,7 +59,18 @@ export class PesquisaComponent implements OnInit, OnChanges {
     this.ExibirErrorMunicipio = true
     }
    
-  
+  teste(){
+    this.ShowTabela = false
+  }
+  private ScrollParaLicitacao(){
+    this.licitacaoComponet.scroll()
+  }
+  private ScrollParaTabela(){
+    this.Tabela.scroll()
+  }  
+  private ScrollParaTop(){
+    //
+  }
   async TopMunicipios(){
     const RetornoMunicipios =new Promise(resolve=>{
         this.estatisticasService.getRankingMunicipios(10).subscribe(res =>{
@@ -76,16 +91,19 @@ export class PesquisaComponent implements OnInit, OnChanges {
     return this.municipiosService.municipio
   }
 
+
   MudaMunicipioBTN(){
     this.Principal = this.municipio.nome
   }
   public ResetMenu(){
     this.Inferior = "Licitações"
+    this.BtnLicitaVisibilidade = false
   }
-  public SelectSuperior(){
+
+  private SelectSuperior(){
     this.InferiorVisivel = !this.InferiorVisivel
   }
-  public SelectInferior(){
+  private SelectInferior(){
     if(this.Inferior !== this.municipio.nome){
       this.Principal = "Licitações"
       this.Inferior = this.municipio.nome
@@ -97,6 +115,10 @@ export class PesquisaComponent implements OnInit, OnChanges {
       this.Inferior = "Licitações"
     }
   
+  }
+
+  public MenuAdd(){
+    this.BtnLicitaVisibilidade = true
   }
 
  async TopEmpresas(){
@@ -118,13 +140,22 @@ export class PesquisaComponent implements OnInit, OnChanges {
     await Promise.all([this.TopMunicipios(),this.TopEmpresas()]);
 
 }
-
+  onMudouValor(evento){
+      this.LicitacaoID = "Licitação " + evento
+      this.ShowLicitacao = true
+      this.MenuAdd()
+      this.licitacaoComponet.scroll()
+  }
   
+  ResetPagina(){
+    this.ShowLicitacao = false
+    this.ShowTabela = false
+  }
   ngOnInit() {
     this.InsertData()
+  
   }
   ngOnChanges(){
-
   }
 
 }
