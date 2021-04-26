@@ -1,12 +1,13 @@
 import { Component, OnInit, ElementRef, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MunicipiosService } from 'src/app/services/municipios.service';
-import { Municipio } from 'src/app/models/municipio.model';
-import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
-import { EstatisticasService } from 'src/app/services/estatisticas.service';
+import { MunicipiosService } from '../../services/municipios.service';
+import { Municipio } from '../../models/municipio.model';
+import { UnidadeGestoraService } from '../../services/unidade-gestora.service';
+import { EstatisticasService } from '../../services/estatisticas.service';
 import { Router } from '@angular/router';
-import { Gestao } from 'src/app/models/gestao.model';
-import {CandidatosService} from 'src/app/services/candidatos.service';
-import {PesquisaComponent} from 'src/app/pages/pesquisa/pesquisa.component';
+import { Gestao } from '../../models/gestao.model';
+import {CandidatosService} from '../../services/candidatos.service';
+import {PesquisaComponent} from '../../pages/pesquisa/pesquisa.component';
+import {TabelaComponent} from '../tabela/tabela.component';
 @Component({
   selector: 'app-filtros',
   templateUrl: './filtros.component.html',
@@ -38,7 +39,7 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
     private candidatosService: CandidatosService,
     private router: Router,
     private elementRef: ElementRef,
-    private Pesquisa: PesquisaComponent
+    private Pesquisa: PesquisaComponent,
   ) { }
   ngOnInit() {
     this.RecebeMunicipios()
@@ -46,7 +47,8 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges){
       if(changes.NomeCidade.currentValue !==""){
-        this.Pesquisa.MudaMunicipioBTN()
+        this.Pesquisa.MudaMunicipioBTN();
+        this.ExibeFiltro();
       }
   }
   RecebeMunicipios(){
@@ -64,11 +66,9 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
     return this.municipiosService.municipios
   }
 
-  /*
-  get municipio() {
-    return this.municipiosService.municipio
+  ExibeFiltro(){
+    this.Pesquisa.ShowTabela = true;
   }
-  */
 
   get unidadesGestoras() {
     return this.unidadeGestoraService.unidadesGestoras
@@ -92,7 +92,8 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
       this.getValorLicitacoes(this.cidade.id);
       this.ErroLoad = false
       this.GerenciaLoadBusca()
-      this.Pesquisa.reset()
+      this.Pesquisa.ResetMenu()
+      this.Pesquisa.teste()
       this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
     }
   }
@@ -114,7 +115,6 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
             this.Pesquisa.MenuVisivel = true
             this.Loader = false
             this.exibir = true
-            this.Pesquisa.ShowTabela = true
             this.gestao = res.dados[0]
             return this.candidatosService.getCandidato(this.gestao.id_candidato);
           }

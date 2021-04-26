@@ -13,7 +13,6 @@
     <div *ngIf="!exibir" class="mt-5">
         <div class="row animated bounceInUp">
             <div class="mx-auto">
-                <!--<h1 *ngIf="!isLoadingResults" style="color: #0d4247">Selecione seu município</h1>-->
                 <div class="example-loading-shade" *ngIf="Loader">
                     <mat-spinner></mat-spinner>
                 </div>
@@ -45,7 +44,7 @@
         <div class="col-md-12 mt-3" >
             <div class="row">
                 <div class="col-md-6 mb-3" >
-                    <div class="row mat-elevation-z4 my-card">
+                    <div class="row mat-elevation-z4 my-card" id="ngt">
                         <div class="col-4" id="foto">
                             <img class="img-fluid" src="assets/images/user.png" alt="Foto do prefeito da cidade">
                         </div>
