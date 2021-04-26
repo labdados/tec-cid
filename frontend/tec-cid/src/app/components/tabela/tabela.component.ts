@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Input, Injectable } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input, Injectable, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,7 +6,9 @@ import { Licitacao } from 'src/app/models/licitacao.model';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
+import {LicitacaoService} from '../../services/licitacao.service'
+import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
 
 @Component({
   selector: 'app-tabela',
@@ -28,37 +30,61 @@ export class TabelaComponent implements OnInit {
   displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'valor_licitado', 'acao'];
   dataSource: MatTableDataSource<Licitacao>;
   expandedElement: Licitacao | null;
-
   resultsLength: number;
+  
+  @Input()
+  LicitacaoID: any;
 
-  idMunicipio: any;
+  @Output()
+  mudouValor = new EventEmitter()
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private municipioService: MunicipiosService,
+    private licitacaoService: LicitacaoService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private licitacaoComponent: LicitacaoComponent
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => this.idMunicipio = params['idMunicipio']);
+    this.InsertDados()
+  }
 
-    this.municipioService.getLicitacoesMunicipio(this.idMunicipio, 1).subscribe(res => {
-      this.dataSource = new MatTableDataSource(res.dados);
+  InsertDados(){
+    this.getDataLicitacoesMunicipio(this.municipio.id,1).subscribe(res=>{
+      this.dataSource = new MatTableDataSource (res.dados);
       this.resultsLength = res.dados.length;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    });
-
+  })
+  }
+  
+  getDataLicitacoesMunicipio(id:any,pagina:number){
+    return this.municipioService.getLicitacoesMunicipio(this.municipio.id,pagina)
   }
 
-  applyFilter(filterValue: string) {
-    console.log(filterValue);
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.data)
+  get municipio(){
+    return this.municipioService.municipio;
+  }
 
+  get licitacao(){
+    return this.licitacaoService.licitacao
+  }
+
+  Reqlicitacao(param){
+     this.licitacaoService.getLicitacao(param).subscribe(res=>{
+        this.licitacaoService.licitacao = res.dados[0]
+        this.mudouValor.emit(res.dados[0].id)
+     })
+  }
+  
+
+  
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -70,8 +96,5 @@ export class TabelaComponent implements OnInit {
     element.scrollIntoView({behavior:"smooth"})
   }
 
-  exibirLicitacao(idLicitacao: any) {
-    this.router.navigate([`/municipio/${this.idMunicipio}/licitacao/${idLicitacao}`])
-  }
 
 }
