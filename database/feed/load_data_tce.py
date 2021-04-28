@@ -54,10 +54,6 @@ if __name__ == '__main__':
         for cypher_file in cypher_files:
             query_from_file(neo4j, PREFIX + cypher_file)
 
-    except Exception as exception:
-        print(exception)
-        print(traceback.format_exc())
-
     finally:
         finish_time = '[FINISH TIME load_data_tce]: ' + get_time()
 

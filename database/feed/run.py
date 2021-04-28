@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 import traceback
 import datetime
@@ -32,15 +33,15 @@ LOAD_DATA_SANCOES           =    'load_data_sancoes.py'
 def download_files(download_files):
     for file in download_files:
         print(f'Executando arquivo de download {file}...')
-        os.system(PREFIX + BLANK_SPACE + file)
+        subprocess.run([PREFIX, file], check=True)
 
 def extract_file(extract_file):
     print(f'Executando arquivo de extração {extract_file}...')
-    os.system(PREFIX + BLANK_SPACE + extract_file)
+    subprocess.run([PREFIX, extract_file], check=True)
 
 def load_data(load_file):
     print(f'Executando arquivo de carregamento {load_file}...')
-    os.system(PREFIX + BLANK_SPACE + load_file)
+    subprocess.run([PREFIX, load_file], check=True)
 
 def get_time():
     now = datetime.datetime.now()
@@ -54,9 +55,8 @@ def get_time():
 if __name__ == "__main__":
     try:
         global_start_time = '[GLOBAL START TIME]: ' + get_time()
-
-        os.system("pip3 install -r requirements.txt")
-
+        
+        subprocess.run(['pip3', 'install', '-r', 'requirements.txt'], check=True)
         download_files(DOWNLOAD_FILES)
 
         extract_file(EXTRACT_TRANSFORM_TCE)
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         exit(1)
 
     except KeyboardInterrupt:
-        print('O script parou devido a interrupção via teclado!')
+        print(traceback.format_exc())
         exit(1)
 
     except Exception as error:

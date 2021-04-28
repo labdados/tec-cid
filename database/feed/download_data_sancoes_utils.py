@@ -1,12 +1,6 @@
 from etl_utils import download_file, is_url_status_ok
 from datetime import date, timedelta
-
-
 class DownloadSancao:
-    url = ''
-    output_zip_file = ''
-    max_days_from_today = 0
-
     def __init__(self, url, output_zip_file, max_days_from_today):
         self.url = url
         self.output_zip_file = output_zip_file
@@ -29,5 +23,6 @@ class DownloadSancao:
             days_before_today += 1
 
         assert valid_url == True
-        print(final_url)
+        print(f'Tentando realizar download com a URL {final_url}')
+
         download_file(final_url, self.output_zip_file)
