@@ -1,0 +1,14 @@
+{
+    "tce": [
+        "licitacoes_propostas.csv", "empenhos.csv", "localidade.csv"
+    ],
+    "tse": [
+        "doacoes_candidatos.csv", "candidatos.csv"
+    ],
+    "receita_federal": [
+        "socio.csv", "empresa.csv"
+    ],
+    "sancoes": [
+        "ceis.csv","cepim.csv","cnep.csv"
+    ]
+}

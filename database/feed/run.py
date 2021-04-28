@@ -1,7 +1,12 @@
 import os
-import datetime
+import subprocess
+import sys
 import traceback
+import datetime
 
+from headers.header_analyser import HeaderAnalyser
+from headers.used_file_utils import UsedFileUtils
+from headers.header_utils import HeaderUtils
 
 PREFIX = "python3"
 BLANK_SPACE = " "
@@ -27,13 +32,16 @@ LOAD_DATA_SANCOES           =    'load_data_sancoes.py'
 
 def download_files(download_files):
     for file in download_files:
-        os.system(PREFIX + BLANK_SPACE + file)
+        print(f'Executando arquivo de download {file}...')
+        subprocess.run([PREFIX, file], check=True)
 
 def extract_file(extract_file):
-    os.system(PREFIX + BLANK_SPACE + extract_file)
+    print(f'Executando arquivo de extração {extract_file}...')
+    subprocess.run([PREFIX, extract_file], check=True)
 
 def load_data(load_file):
-    os.system(PREFIX + BLANK_SPACE + load_file)
+    print(f'Executando arquivo de carregamento {load_file}...')
+    subprocess.run([PREFIX, load_file], check=True)
 
 def get_time():
     now = datetime.datetime.now()
@@ -47,13 +55,22 @@ def get_time():
 if __name__ == "__main__":
     try:
         global_start_time = '[GLOBAL START TIME]: ' + get_time()
-
-        os.system("pip3 install -r requirements.txt")
-
+        
+        subprocess.run(['pip3', 'install', '-r', 'requirements.txt'], check=True)
         download_files(DOWNLOAD_FILES)
 
         extract_file(EXTRACT_TRANSFORM_TCE)
         extract_file(EXTRACT_TRANSFORM_TSE)
+
+        HeaderUtils.fill_header_and_used_attributes(key_name='tce')
+        HeaderUtils.fill_header_and_used_attributes(key_name='tse')
+
+        tce = UsedFileUtils.get_used_files_list_from_key_name(key_name='tce')
+        tse = UsedFileUtils.get_used_files_list_from_key_name(key_name='tse')
+        HeaderAnalyser.analyze(key_name=None, file_names=tce + tse)
+
+        HeaderAnalyser.analyze(key_name='tce')
+        HeaderAnalyser.analyze(key_name='tse')
 
         load_data(LOAD_DATA_TCE)
         load_data(LOAD_DATA_TSE)
@@ -61,17 +78,35 @@ if __name__ == "__main__":
         extract_file(EXTRACT_TRANSFORM_EMPRESAS)
         extract_file(EXTRACT_TRANSFORM_SOCIOS)
 
+        HeaderUtils.fill_header_and_used_attributes(key_name='receita_federal')
+        HeaderAnalyser.analyze(key_name='receita_federal')
+
         load_data(LOAD_DATA_RECEITA)
 
         extract_file(EXTRACT_TRANSFORM_SANCOES)
+        
+        HeaderUtils.fill_header_and_used_attributes(key_name='sancoes')
+        HeaderAnalyser.analyze(key_name='sancoes')
+
         load_data(LOAD_DATA_SANCOES)
 
-    except Exception as error:
-        print(error)
+    except AssertionError:
+        _, _, tb = sys.exc_info()
+        traceback.print_tb(tb)
+        tb_info = traceback.extract_tb(tb)
+        filename, line, func, text = tb_info[-1]
+        print(f'Ocorreu um erro de asserção na linha {line} no trecho "{text}" do arquivo {filename}')
+        exit(1)
+
+    except KeyboardInterrupt:
         print(traceback.format_exc())
+        exit(1)
+
+    except Exception as error:
+        print(traceback.format_exc())
+        exit(1)
 
     finally:
         global_finish_time = '[GLOBAL FINISH TIME]: ' + get_time()
-
         print(global_start_time)
         print(global_finish_time)

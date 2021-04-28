@@ -1,0 +1,23 @@
+{
+    "attributes_2016_dict": {
+        "Descricao da receita": "DS_RECEITA",
+        "Nome do doador (Receita Federal)": "NM_DOADOR_RFB",
+        "Sequencial Candidato": "SQ_CANDIDATO",
+        "Setor econômico do doador": "DS_CNAE_DOADOR",
+        "Tipo receita": "DS_ORIGEM_RECEITA",
+        "CPF/CNPJ do doador": "NR_CPF_CNPJ_DOADOR",
+        "Valor receita": "VR_RECEITA",
+        "Fonte recurso": "DS_FONTE_RECEITA"
+    },
+    "used_attributes_2016_list": [
+        "DS_RECEITA",
+        "NM_DOADOR_RFB",
+        "SQ_CANDIDATO",
+        "DS_CNAE_DOADOR",
+        "DS_ORIGEM_RECEITA",
+        "NR_CPF_CNPJ_DOADOR",
+        "VR_RECEITA",
+        "DS_FONTE_RECEITA",
+        "ANO_ELEICAO"
+    ]
+}
