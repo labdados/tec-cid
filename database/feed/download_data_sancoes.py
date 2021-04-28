@@ -1,17 +1,13 @@
 from download_data_sancoes_utils import DownloadSancao
-import csv
+from download_utils import DownloadUtils
 
-DOWNLOAD_DATA_SANCOES = '../../dados/download_data_sancoes.csv'
-
-URL_INDEX = 0
-OUTPUT_FILE_INDEX = 1
-MAX_DAYS_INDEX = 2
+PREFIX = '../../dados/'
+KEY = 'sancoes'
 
 if __name__ == '__main__':
-    with open(DOWNLOAD_DATA_SANCOES, 'r') as csv_file:
-        csv_data = csv.reader(csv_file, delimiter=',')
-        next(csv_data)
+    download_file_names = DownloadUtils.get_download_file_names_from_key(key_name=KEY)
 
-        for download in csv_data:
-            sancao = DownloadSancao(download[URL_INDEX], download[OUTPUT_FILE_INDEX], int(download[MAX_DAYS_INDEX]))
-            sancao.download_from_url()
+    for key, value in download_file_names.items():
+        sancao = DownloadSancao(value['url'], PREFIX + value['output_file'], value['max_days_from_today'])
+        print(f'A iniciar download do arquivo {value["output_file"]}...')
+        sancao.download_from_url()

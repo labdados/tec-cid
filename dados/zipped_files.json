@@ -1,0 +1,50 @@
+{
+   "candidatos": [
+      {
+         "input_zip": "consulta_cand_2016.zip",
+         "zip_filename": "consulta_cand_2016_PB.csv",
+         "output_csv": "candidatos_2016.csv",
+         "year": 2016
+      },
+      {
+         "input_zip": "consulta_cand_2020.zip",
+         "zip_filename": "consulta_cand_2020_PB.csv",
+         "output_csv": "candidatos_2020.csv",
+         "year": 2020
+      }
+   ],
+   "receita_candidatos": [
+      {
+         "input_zip": "prestacao_contas_2016.zip",
+         "zip_filename": "receitas_candidatos_2016_PB.txt",
+         "output_csv": "doacoes_candidatos_2016.csv",
+         "year": 2016
+      },
+      {
+         "input_zip": "prestacao_de_contas_eleitorais_candidatos_2020.zip",
+         "zip_filename": "receitas_candidatos_2020_PB.csv",
+         "output_csv": "doacoes_candidatos_2020.csv",
+         "year": 2020
+      }
+   ],
+   "sancoes": [
+      {
+         "input_zip": "ceis.zip",
+         "zip_filename": "",
+         "output_csv": "ceis.csv",
+         "year": ""
+      },
+      {
+         "input_zip": "cepim.zip",
+         "zip_filename": "",
+         "output_csv": "cepim.csv",
+         "year": ""
+      },
+      {
+         "input_zip": "cnep.zip",
+         "zip_filename": "",
+         "output_csv": "cnep.csv",
+         "year": ""
+      }
+   ]
+}

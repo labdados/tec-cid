@@ -2,7 +2,6 @@ import csv
 import io
 import gzip
 
-
 CNPJ_INDEX = 0
 TAMANHO_HEADER = 10
 
@@ -51,8 +50,6 @@ def write_socios(socio_csv_gz, socio_csv, set_cnpj):
             if (cpnj in set_cnpj):
                 writer.writerow(transform_socios(line))
 
-
 if __name__ == '__main__':
     cnpj_empresas = get_cnpjs_empresas(EMPRESAS)
-    
     write_socios(SOCIO_CSV_GZ, SOCIO_CSV, cnpj_empresas)

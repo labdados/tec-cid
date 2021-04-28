@@ -1,5 +1,6 @@
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM "file:///candidatos.csv" AS line
+FIELDTERMINATOR ';'
 
 MERGE (cand:Candidato { id: line.SQ_CANDIDATO })
 ON CREATE SET 

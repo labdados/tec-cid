@@ -1,16 +1,13 @@
 from etl_utils import download_file
+from download_utils import DownloadUtils
 
-LICITACOES_URL = 'https://dados.tce.pb.gov.br/TCE-PB-Portal-Gestor-Licitacoes_Propostas.txt.gz'
-OUTPUT_FILE_LICITACOES = '../../dados/TCE-PB-Portal-Gestor-Licitacoes_Propostas.txt.gz'
-
-EMPENHOS_URL = "https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Empenhos_Esfera_Municipal.txt.gz"
-OUTPUT_FILE_EMPENHOS = '../../dados/TCE-PB-SAGRES-Empenhos_Esfera_Municipal.txt.gz'
-
-PAGAMENTOS_URL = 'https://dados.tce.pb.gov.br/TCE-PB-SAGRES-Pagamentos_Esfera_Municipal.txt.gz'
-OUTPUT_FILE_PAGAMENTOS = '../../dados/TCE-PB-SAGRES-Pagamentos_Esfera_Municipal.txt.gz'
-
+PREFIX = '../../dados/'
+KEY = 'tce'
+UNSED_KEYS = ['pagamentos']
 
 if __name__ == '__main__':
-    download_file(LICITACOES_URL, OUTPUT_FILE_LICITACOES)
-    download_file(EMPENHOS_URL, OUTPUT_FILE_EMPENHOS)
-    # download_file(PAGAMENTOS_URL, OUTPUT_FILE_PAGAMENTOS)
+    download_file_names = DownloadUtils.get_download_file_names_from_key(key_name=KEY)
+
+    for key, value in download_file_names.items():
+        if (key not in UNSED_KEYS):
+            download_file(url=value['url'], output_file=PREFIX + value['output_file'])
