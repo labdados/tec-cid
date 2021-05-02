@@ -1,4 +1,4 @@
-<nav id="NavSPA" *ngIf="NavVisivel">
+<nav id="NavSPA" *ngIf="NavVisivel && !Starter">
     <label (click)="ScrollParaTop()">{{municipio.nome}}</label>
     <label (click)="ScrollParaTabela()">Licitação</label>
     <label (click)="ScrollParaLicitacao()">{{LicitacaoID}}</label>
@@ -39,6 +39,6 @@
     </div>
 </div>
 
-<app-tabela *ngIf="ShowTabela" [LicitacaoID]="LicitacaoID" (mudouValor)="onMudouValor($event)"></app-tabela>
+<app-tabela *ngIf="ShowTabela && !Starter" [LicitacaoID]="LicitacaoID" (mudouValor)="onMudouValor($event)"></app-tabela>
 <app-licitacao id="licitacao" *ngIf="ShowLicitacao"></app-licitacao>
 <div style="height: 10vh;"></div>

@@ -59,8 +59,9 @@ export class PesquisaComponent implements OnInit, OnChanges {
     this.ExibirErrorMunicipio = true
     }
    
-  teste(){
+  ResetPagina(){
     this.ShowTabela = false
+    this.ShowLicitacao = false
   }
   private ScrollParaLicitacao(){
     this.licitacaoComponet.scroll()
@@ -145,11 +146,6 @@ export class PesquisaComponent implements OnInit, OnChanges {
       this.ShowLicitacao = true
       this.MenuAdd()
       this.licitacaoComponet.scroll()
-  }
-  
-  ResetPagina(){
-    this.ShowLicitacao = false
-    this.ShowTabela = false
   }
   ngOnInit() {
     this.InsertData()
