@@ -93,7 +93,8 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
       this.ErroLoad = false
       this.GerenciaLoadBusca()
       this.Pesquisa.ResetMenu()
-      this.Pesquisa.teste()
+      this.Pesquisa.ResetPagina()
+      this.Pesquisa.Starter = false
       this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
     }
   }
