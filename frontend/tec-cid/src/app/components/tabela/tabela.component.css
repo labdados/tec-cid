@@ -9,7 +9,7 @@ table {
 .mat-form-field {
     font-size: 14px;
     width: 90%;
-    margin-left: 5%;
+    margin-left: 10%;
 }
 
 #bgtabela{
@@ -17,7 +17,7 @@ table {
     background-color: white;
     padding-bottom: 10vh;
     width: 90%;
-    margin-left: 30px;
+    margin-left: 5%;
     box-shadow: 5px 5px 5px slategrey;
 }
 
