@@ -59,9 +59,10 @@
                                 <h4 align="center" id="vencedor">{{ vencedores ? 'Vencedores' : 'Vencedor' }}</h4>
                             </div>
                         </div>
-                        <div *ngIf="!apenasUmVencedor" class="col-md-12 mx-auto">
+                        <div class="col-md-12 mx-auto">
                             <div class="table-responsive-md">
-                                <table id="tabela" class="table table-borderless">
+                                <label id="lblInfo" *ngIf="apenasUmVencedor"> Houve apenas um vencedor para a licitação</label>
+                                <table *ngIf="!apenasUmVencedor" id="tabela" class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th>Participante</th>
@@ -69,6 +70,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <tr *ngFor="let proposta of propostas | filterProposta">
                                             <td class="col-md-8">{{ proposta.nome_participante }}</td>
                                             <td class="col-md-4">
@@ -80,9 +82,6 @@
                                 </table>
                             </div>
 
-                        </div>
-                        <div *ngIf="apenasUmVencedor">
-                            <label align="center">Houve apenas um vencedor para está licitação</label>
                         </div>
                     </div>
 

@@ -4,8 +4,8 @@
     margin-left: 1vw;
     box-shadow: 2px 2px 5px #0d4247;
 }
-.informa{
-    text-align: center;
+#lblInfo{
+    margin-left: 10%;
 }
 #Nm{
     display: inline-block;
