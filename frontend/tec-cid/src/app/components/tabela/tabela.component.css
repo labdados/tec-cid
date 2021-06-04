@@ -1,16 +1,24 @@
 table {
     width: 100%;
 }
+.mat-elevation-z8{
+    width: 90%;
+    margin-left: 5%;
 
+}
 .mat-form-field {
     font-size: 14px;
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
 }
 
 #bgtabela{
     margin-top: 3vh;
     background-color: white;
     padding-bottom: 10vh;
+    width: 90%;
+    margin-left: 30px;
+    box-shadow: 5px 5px 5px slategrey;
 }
 
 .mat-form-field-underline {
