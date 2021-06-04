@@ -131,6 +131,10 @@
     border-radius: 10px;
 }
 
+#gInput{
+    padding-top: 50px;
+}
+
 @media screen and (max-width: 768px) {
     #selecionar {
         font-size: 26px;

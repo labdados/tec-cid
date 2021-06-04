@@ -74,7 +74,7 @@ export class TabelaComponent implements OnInit {
     return this.licitacaoService.licitacao
   }
 
-  Reqlicitacao(param){
+  reqLicitacao(param){
      this.licitacaoService.getLicitacao(param).subscribe(res=>{
         this.licitacaoService.licitacao = res.dados[0]
         this.mudouValor.emit(res.dados[0].id)

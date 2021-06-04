@@ -26,7 +26,7 @@ import { NgbTooltipModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule, MatFormFieldModule, MatPaginatorModule, MatSortModule, MatPaginatorIntl, MatInputModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule, MatButtonModule, MatCardModule, MatAutocompleteModule} from '@angular/material';
 import { getPortuguesePaginatorIntl } from './components/tabela/ptbr-pagination';
 import { BarchartEmpresasComponent } from './components/barchart-empresas/barchart-empresas.component';
-import { MenulicitacaoComponent } from './components/menulicitacao/menulicitacao.component';
+
 
 
 
@@ -47,7 +47,6 @@ registerLocaleData(localePt);
     FilterPropostaPerdedoraPipe,
     TabelaComponent,
     BarchartEmpresasComponent,
-    MenulicitacaoComponent,
   ],
   imports: [
     MatMenuModule,
