@@ -4,6 +4,9 @@
     margin-left: 1vw;
     box-shadow: 2px 2px 5px #0d4247;
 }
+.informa{
+    text-align: center;
+}
 #Nm{
     display: inline-block;
     margin-top: 5vh;

@@ -59,7 +59,7 @@
                                 <h4 align="center" id="vencedor">{{ vencedores ? 'Vencedores' : 'Vencedor' }}</h4>
                             </div>
                         </div>
-                        <div class="col-md-12 mx-auto">
+                        <div *ngIf="!apenasUmVencedor" class="col-md-12 mx-auto">
                             <div class="table-responsive-md">
                                 <table id="tabela" class="table table-borderless">
                                     <thead>
@@ -80,6 +80,9 @@
                                 </table>
                             </div>
 
+                        </div>
+                        <div *ngIf="apenasUmVencedor">
+                            <label align="center">Houve apenas um vencedor para está licitação</label>
                         </div>
                     </div>
 

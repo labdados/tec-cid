@@ -14,6 +14,7 @@ export class LicitacaoService {
   vencedores: boolean;
   perdedores: boolean;
   exibirPerdedores: boolean;
+  apenasUmvencedor:boolean;
   licitacao: Licitacao = new Licitacao('', '', '', '', '', '', '', '', '', '', '', '', '', ' ', ' ')
   constructor(
     private http: HttpClient
@@ -56,6 +57,10 @@ export class LicitacaoService {
     } else if (perd == 0) {
       this.perdedores = false;
       this.exibirPerdedores = true;
+    }
+
+    if(venc ==0 && perd ==0){
+      this.apenasUmvencedor = true;
     }
 
   }

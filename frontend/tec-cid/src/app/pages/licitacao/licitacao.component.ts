@@ -56,6 +56,10 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
     return this.licitacaoService.exibirPerdedores
   }
 
+  get apenasUmVencedor(){
+    return this.licitacaoService.apenasUmvencedor;
+  }
+
   scroll(){
     let element = document.getElementById("superior")
     if(element == null) {
