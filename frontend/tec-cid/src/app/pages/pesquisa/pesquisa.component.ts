@@ -24,7 +24,6 @@ export class PesquisaComponent implements OnInit, OnChanges {
   Loaded: boolean = true;
   ShowTabela:boolean = false;
   ShowLicitacao:boolean = false;
-  barchartVisivel: boolean = true;
   MenuVisivel:boolean = false;
   Principal:String = "carregando...";
   Inferior:String = "Licitações";
@@ -34,7 +33,10 @@ export class PesquisaComponent implements OnInit, OnChanges {
   BtnLicitaVisibilidade: boolean = false;
   Starter:boolean = true
   LoadingData:boolean = true;
-  
+  visivelBarchat:boolean = true;
+  loaderTabela:boolean = false;
+
+
   constructor(
     private municipiosService: MunicipiosService,
     private estatisticasService: EstatisticasService,
@@ -124,10 +126,10 @@ export class PesquisaComponent implements OnInit, OnChanges {
     this.BtnLicitaVisibilidade = false
   }
 
-  private SelectSuperior(){
+  public SelectSuperior(){
     this.InferiorVisivel = !this.InferiorVisivel
   }
-  private SelectInferior(){
+  public SelectInferior(){
     if(this.Inferior !== this.municipio.nome){
       this.Principal = "Licitações"
       this.Inferior = this.municipio.nome

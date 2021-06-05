@@ -88,6 +88,7 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
       //evita erro de selecionar algo que não existe
     }
     else{
+      this.Pesquisa.loaderTabela = true
       this.municipiosService.getMunicipio(this.cidade.id);
       this.getValorLicitacoes(this.cidade.id);
       this.ErroLoad = false
@@ -102,6 +103,7 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
   getValorLicitacoes(id: string) {
     this.estatisticasService.getEstatisticaMunicipio(id).subscribe(res => {
       this.valorLicitacoes = res.dados[0].valor_licitacoes
+      this.Pesquisa.loaderTabela = false
     })
   }
 
@@ -111,7 +113,7 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
     const Espera = new Promise(resolve=>{
       this.municipiosService.getGestao(this.cidade.id,ano).subscribe(async res => {
           if(res.dados.length > 0){
-            this.Pesquisa.barchartVisivel = false
+            this.Pesquisa.visivelBarchat = false
             this.Pesquisa.Loaded = false
             this.Pesquisa.MenuVisivel = true
             this.Loader = false
@@ -136,4 +138,10 @@ export class FiltrosComponent implements OnInit,OnChanges, AfterViewInit {
   ExibirErro(){
     this.ErroLoad = true
   }
+
+  scroll(){
+    let element = document.getElementById("Fdiv")
+    element.scrollIntoView({behavior:"smooth"})
+  }
+
 }
