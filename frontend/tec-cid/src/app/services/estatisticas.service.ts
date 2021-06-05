@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from './tc.api';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,25 +23,28 @@ export class EstatisticasService {
     })
   }
 
-  getRankingMunicipios(topN) {
+  
+  getDataMunicipios(numeroRanqueados):Observable<any>{
     return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
       params: {
         dataInicio: '2017-01-01',
         dataFim: '2020-12-31',
         agruparPor: 'municipio',
-        limite: topN
+        limite: numeroRanqueados
       }
     })
+
   }
 
-  getRankingEmpresas(topN) {
+  getDataEmpresas(numeroRanqueados):Observable<any>{
     return this.http.get<any>(`${API_URL}/estatisticas/licitacoes`, {
       params: {
         dataInicio: '2017-01-01',
         dataFim: '2020-12-31',
         agruparPor: 'participante',
-        limite: topN
+        limite: numeroRanqueados
       }
     })
   }
+ 
 }

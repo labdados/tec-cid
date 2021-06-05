@@ -33,6 +33,7 @@ export class PesquisaComponent implements OnInit, OnChanges {
   LicitacaoID:any;
   BtnLicitaVisibilidade: boolean = false;
   Starter:boolean = true
+  LoadingData:boolean = true;
   
   constructor(
     private municipiosService: MunicipiosService,
@@ -72,6 +73,28 @@ export class PesquisaComponent implements OnInit, OnChanges {
   private ScrollParaTop(){
     //
   }
+
+  get DataMunicipios(){
+    return this.estatisticasService.getDataMunicipios(10).subscribe(res=>{
+      if(res.dados.length >0 ){
+        this.LoadingData = false;
+        this.data = res.dados
+      }
+    })
+  }
+
+  get DataEmpresas(){
+    return this.estatisticasService.getDataEmpresas(10).subscribe(res=>{
+      if(res.dados.length >0){
+        this.dataEmpresas = res.dados
+      }
+      else{
+        return this.ExibeErrorTopEmpresasData()
+      }
+    })
+  }
+
+  /*
   async TopMunicipios(){
     const RetornoMunicipios =new Promise(resolve=>{
         this.estatisticasService.getRankingMunicipios(10).subscribe(res =>{
@@ -85,7 +108,7 @@ export class PesquisaComponent implements OnInit, OnChanges {
         })
     })
     return RetornoMunicipios
-  }
+  }*/
   
   
   get municipio() {
@@ -122,6 +145,7 @@ export class PesquisaComponent implements OnInit, OnChanges {
     this.BtnLicitaVisibilidade = true
   }
 
+/*
  async TopEmpresas(){
     const RetornoEmpresas = new Promise(resolve=>{
         this.estatisticasService.getRankingEmpresas(10).subscribe(async res =>{
@@ -136,11 +160,13 @@ export class PesquisaComponent implements OnInit, OnChanges {
     })
     return RetornoEmpresas
   }
-  
+  */
+/*
  async InsertData(){
     await Promise.all([this.TopMunicipios(),this.TopEmpresas()]);
 
-}
+}*/
+
   onMudouValor(evento){
       this.LicitacaoID = "Licitação " + evento
       this.ShowLicitacao = true
@@ -148,7 +174,8 @@ export class PesquisaComponent implements OnInit, OnChanges {
       this.licitacaoComponet.scroll()
   }
   ngOnInit() {
-    this.InsertData()
+    this.DataEmpresas;
+    this.DataMunicipios;
   
   }
   ngOnChanges(){
