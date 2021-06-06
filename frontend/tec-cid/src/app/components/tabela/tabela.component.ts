@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, Injectable, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Licitacao } from 'src/app/models/licitacao.model';
@@ -31,6 +32,8 @@ export class TabelaComponent implements OnInit {
   dataSource: MatTableDataSource<Licitacao>;
   expandedElement: Licitacao | null;
   resultsLength: number;
+  filtroVisivel:boolean;
+  filtroAberto:boolean = false;
   
   @Input()
   LicitacaoID: any;
@@ -81,6 +84,16 @@ export class TabelaComponent implements OnInit {
      })
   }
   
+  mostrarFiltro(){
+    if(this.filtroAberto){
+      console.log("oi")
+      this.filtroVisivel = !this.filtroVisivel
+      this.filtroAberto = !this.filtroAberto      
+    }else{
+      this.filtroVisivel = !this.filtroVisivel
+      this.filtroAberto = !this.filtroAberto
+    }
+  }
 
   
   applyFilter(filterValue: string) {

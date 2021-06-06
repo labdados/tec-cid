@@ -18,6 +18,9 @@ import { FilterPropostaPipe } from './pipes/filter-proposta.pipe';
 import { FilterPropostaPerdedoraPipe } from './pipes/filter-proposta-perdedora.pipe';
 import { TabelaComponent } from './components/tabela/tabela.component';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+//import {MatMomentDateModule} from '@angular/material/core'
 
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -70,7 +73,9 @@ registerLocaleData(localePt);
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'},

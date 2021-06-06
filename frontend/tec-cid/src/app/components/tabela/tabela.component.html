@@ -1,3 +1,14 @@
+<mat-form-field  *ngIf="filtroVisivel" id="FiltroPicker" appearance="fill">
+    <mat-label>Escolha uma data</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="mostrarFiltro()" id="FiltroBtn">Filtrar</button>
+
+
+
+
 <div id="bgtabela">
 <h3>Licitações</h3>
 
