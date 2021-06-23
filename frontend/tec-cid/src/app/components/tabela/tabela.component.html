@@ -1,15 +1,4 @@
-<mat-form-field  *ngIf="filtroVisivel" class="FiltroPicker" appearance="fill">
-    <mat-label>Escolha uma data</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-<mat-form-field  *ngIf="filtroVisivel" class="FiltroPicker" appearance="fill">
-    <mat-label>Escolha uma data</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+<app-formdate *ngIf="filtroAberto" class="date"></app-formdate>
 <button mat-raised-button color="primary" (click)="mostrarFiltro()" id="FiltroBtn">Filtrar</button>
 
 

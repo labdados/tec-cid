@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, Injectable, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepickerInput, MatDatepickerModule} from '@angular/material/datepicker';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Licitacao } from 'src/app/models/licitacao.model';
@@ -10,6 +10,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 import {LicitacaoService} from '../../services/licitacao.service'
 import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
+import {FormdateComponent} from '../formdate/formdate.component'
 
 @Component({
   selector: 'app-tabela',
@@ -86,7 +87,6 @@ export class TabelaComponent implements OnInit {
   
   mostrarFiltro(){
     if(this.filtroAberto){
-      console.log("oi")
       this.filtroVisivel = !this.filtroVisivel
       this.filtroAberto = !this.filtroAberto      
     }else{
