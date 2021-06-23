@@ -50,7 +50,8 @@ export class TabelaComponent implements OnInit {
     private licitacaoService: LicitacaoService,
     private route: ActivatedRoute,
     private router: Router,
-    private licitacaoComponent: LicitacaoComponent
+    private licitacaoComponent: LicitacaoComponent,
+    private formdateComponent : FormdateComponent
   ) { }
 
   ngOnInit() {
@@ -87,8 +88,9 @@ export class TabelaComponent implements OnInit {
   
   mostrarFiltro(){
     if(this.filtroAberto){
+      this.formdateComponent.teste()
       this.filtroVisivel = !this.filtroVisivel
-      this.filtroAberto = !this.filtroAberto      
+      this.filtroAberto = !this.filtroAberto 
     }else{
       this.filtroVisivel = !this.filtroVisivel
       this.filtroAberto = !this.filtroAberto

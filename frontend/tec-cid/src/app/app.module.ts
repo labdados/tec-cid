@@ -81,7 +81,8 @@ registerLocaleData(localePt);
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'},
-    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()}
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()},
+    FormdateComponent
   ],
   bootstrap: [AppComponent]
 })

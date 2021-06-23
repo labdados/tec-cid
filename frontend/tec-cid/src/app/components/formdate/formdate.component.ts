@@ -19,6 +19,9 @@ export class FormdateComponent implements OnInit {
       });
   }
   
+  teste(){
+    console.log(this.dataForm)
+  }
   get DataForm(){
       this.datas = {dataInicial:this.dataForm.value.dataInicial,dataFinal:this.dataForm.value.dataFinal}
       return this.datas
