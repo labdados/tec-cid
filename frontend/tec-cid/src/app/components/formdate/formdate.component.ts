@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, Form} from '@angular/forms'
 @Component({
   selector: 'app-formdate',
   templateUrl: './formdate.component.html',
   styleUrls: ['./formdate.component.css']
 })
 export class FormdateComponent implements OnInit {
+  public dataForm : FormGroup;
+  public datas:Object
+  constructor(
+    public fb:FormBuilder
+  ) { }
 
-  constructor() { }
-
-  ngOnInit() {
-    
+  ngOnInit():void {
+      this.dataForm = this.fb.group({
+        dataInicial:['',[Validators.required]],
+        dataFinal:['',[Validators.required]]
+      });
   }
-
+  
+  get DataForm(){
+      this.datas = {dataInicial:this.dataForm.value.dataInicial,dataFinal:this.dataForm.value.dataFinal}
+      return this.datas
+  }
 }
