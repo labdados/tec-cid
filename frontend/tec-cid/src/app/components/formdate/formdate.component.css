@@ -5,4 +5,9 @@
 .datepickerform{
     margin-right: 5px;
     display:inline;
+
+}
+#FiltroBtn{
+    background-color: #0d4247;
+    margin-left: 5%;
 }

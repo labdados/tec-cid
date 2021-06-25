@@ -33,8 +33,7 @@ export class TabelaComponent implements OnInit {
   dataSource: MatTableDataSource<Licitacao>;
   expandedElement: Licitacao | null;
   resultsLength: number;
-  filtroVisivel:boolean;
-  filtroAberto:boolean = false;
+  filtroVisivel:boolean = true
   
   @Input()
   LicitacaoID: any;
@@ -87,14 +86,7 @@ export class TabelaComponent implements OnInit {
   }
   
   mostrarFiltro(){
-    if(this.filtroAberto){
-      this.formdateComponent.teste()
-      this.filtroVisivel = !this.filtroVisivel
-      this.filtroAberto = !this.filtroAberto 
-    }else{
-      this.filtroVisivel = !this.filtroVisivel
-      this.filtroAberto = !this.filtroAberto
-    }
+    this.filtroVisivel = false
   }
 
   
@@ -105,11 +97,27 @@ export class TabelaComponent implements OnInit {
     }
   }
   
+  onMudou(evento){
+    let dataInicial = evento.dataInicial
+    let dataFinal = evento.dataFinal
+    let meses = [{'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,
+                  'Jul':7, 'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12}]
+
+    if(dataFinal !== "" && dataInicial !== "" || dataFinal !== " " && dataInicial !== " "){
+      //pass
+    }
+    else{
+      //pass
+    }
+
+
+  }
   scroll(){
     
     let element = document.getElementById("bgtabela")
     element.scrollIntoView({behavior:"smooth"})
   }
+
 
 
 }

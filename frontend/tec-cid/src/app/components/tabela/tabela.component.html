@@ -1,5 +1,5 @@
-<app-formdate *ngIf="filtroAberto" class="date"></app-formdate>
-<button mat-raised-button color="primary" (click)="mostrarFiltro()" id="FiltroBtn">Filtrar</button>
+<app-formdate *ngIf="!filtroVisivel" (mudouValor)="onMudou($event)" class="date"></app-formdate>
+<button mat-raised-button color="primary" *ngIf="filtroVisivel" (click)="mostrarFiltro()"  id="FiltroBtn">Filtrar</button>
 
 
 
@@ -7,9 +7,6 @@
 <div id="bgtabela">
 <h3>Licitações</h3>
 
-<mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
-</mat-form-field>
 
 <div class="mat-elevation-z8" id="table">
 

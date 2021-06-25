@@ -161,7 +161,7 @@ export class PesquisaComponent implements OnInit, OnChanges {
         })
     })
     return RetornoEmpresas
-  }
+  } 
   */
 /*
  async InsertData(){

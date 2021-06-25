@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, Form} from '@angular/forms'
 @Component({
   selector: 'app-formdate',
@@ -8,6 +8,9 @@ import {FormGroup, FormBuilder, Validators, Form} from '@angular/forms'
 export class FormdateComponent implements OnInit {
   public dataForm : FormGroup;
   public datas:Object
+  @Output() mudouValor = new EventEmitter()
+  
+
   constructor(
     public fb:FormBuilder
   ) { }
@@ -19,10 +22,11 @@ export class FormdateComponent implements OnInit {
       });
   }
   
-  teste(){
-    console.log(this.dataForm)
+  Emite(){
+    this.mudouValor.emit(this.DataForm)
   }
-  get DataForm(){
+  
+  get DataForm():any{
       this.datas = {dataInicial:this.dataForm.value.dataInicial,dataFinal:this.dataForm.value.dataFinal}
       return this.datas
   }
