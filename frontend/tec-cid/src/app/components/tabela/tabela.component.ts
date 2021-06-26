@@ -35,8 +35,8 @@ export class TabelaComponent implements OnInit {
   expandedElement: Licitacao | null;
   resultsLength: number;
   filtroVisivel:boolean = true
-  datas_arr:any = []
-  
+  datas_arr:any = ['2017-01-01','2020-12-31']
+  contador:number = 0  
   @Input()
   LicitacaoID: any;
 
@@ -69,7 +69,7 @@ export class TabelaComponent implements OnInit {
   }
   
   getDataLicitacoesMunicipio(id:any,pagina:number){
-    return this.municipioService.getLicitacoesMunicipio(this.municipio.id,pagina)
+    return this.municipioService.getLicitacoesMunicipio(this.municipio.id,pagina,this.datas_arr[0],this.datas_arr[1])
   }
 
   get municipio(){
@@ -108,6 +108,7 @@ export class TabelaComponent implements OnInit {
   }
 
   convertData(str){
+      
       let data_split = str.split(" ")
       let meses = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
       let dia = data_split[2]
@@ -115,11 +116,22 @@ export class TabelaComponent implements OnInit {
       let mes;
       for(let i =0;i<meses.length;i++){
         if(data_split[1] == meses[i]){
+          if(i<10){
+            let cont = i+1
+            mes = "0"+cont
+          }else{
             mes = i+1
+          }
         } 
       }
       let novaData = this.dataObj(dia,mes,ano)
-      this.datas_arr.push(novaData)
+      this.datas_arr[this.contador] = novaData
+      if(this.contador<1){
+        this.contador++
+      }else if(this.contador==1){
+        this.contador=0
+      }
+
     
   }
 
@@ -131,6 +143,7 @@ export class TabelaComponent implements OnInit {
         for(let cont =0; cont < datas.length; cont++){
             this.convertData(datas[cont])
         }
+        this.InsertDados()
     }
     else{
       //pass

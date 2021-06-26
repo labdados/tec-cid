@@ -19,9 +19,10 @@ export class LicitacaoService {
   constructor(
     private http: HttpClient
   ) { }
-
-  getLicitacoesMunicipio(idMunicipio?: any, codUni?:any, ano?: any, tipoLic?: any){
-    return this.http.get<any>(`${API_URL}/licitacoes?limite=40&pagina=${1}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}&idMunicipio=${idMunicipio}`)    
+  
+  //Falta testar no postman a API Rest
+  getLicitacoesMunicipio(idMunicipio?: any, codUni?:any, anoInicio?: any,anoFim?:any, tipoLic?: any){
+    return this.http.get<any>(`${API_URL}/licitacoes?limite=40&pagina=${1}&ano=${anoInicio}&codUni=${codUni}&tipoLic=${tipoLic}&idMunicipio=${idMunicipio}`)    
   }
 
   getLicitacao(idLicitacao:any): Observable<any> {
