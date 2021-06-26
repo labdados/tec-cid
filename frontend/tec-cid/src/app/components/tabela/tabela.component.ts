@@ -11,6 +11,7 @@ import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 import {LicitacaoService} from '../../services/licitacao.service'
 import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
 import {FormdateComponent} from '../formdate/formdate.component'
+import { chdir } from 'process';
 
 @Component({
   selector: 'app-tabela',
@@ -34,6 +35,7 @@ export class TabelaComponent implements OnInit {
   expandedElement: Licitacao | null;
   resultsLength: number;
   filtroVisivel:boolean = true
+  datas_arr:any = []
   
   @Input()
   LicitacaoID: any;
@@ -97,14 +99,38 @@ export class TabelaComponent implements OnInit {
     }
   }
   
-  onMudou(evento){
-    let dataInicial = evento.dataInicial
-    let dataFinal = evento.dataFinal
-    let meses = [{'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,
-                  'Jul':7, 'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12}]
+  dataObj(dia,mes,ano){
+    return{
+      dia: dia,
+      mes: mes,
+      ano: ano,
+    }
+  }
 
-    if(dataFinal !== "" && dataInicial !== "" || dataFinal !== " " && dataInicial !== " "){
-      //pass
+  convertData(str){
+      let data_split = str.split(" ")
+      let meses = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+      let dia = data_split[2]
+      let ano = data_split[3]
+      let mes;
+      for(let i =0;i<meses.length;i++){
+        if(data_split[1] == meses[i]){
+            mes = i+1
+        } 
+      }
+      let novaData = this.dataObj(dia,mes,ano)
+      this.datas_arr.push(novaData)
+    
+  }
+
+  onMudou(evento){
+    const datas = [evento.dataInicial.toString(),evento.dataFinal.toString()]
+    
+
+    if(datas[1] !== "" && datas[0] !== "" || datas[1] !== " " && datas[0] !== " "){
+        for(let cont =0; cont < datas.length; cont++){
+            this.convertData(datas[cont])
+        }
     }
     else{
       //pass
