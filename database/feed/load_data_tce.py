@@ -1,10 +1,13 @@
 import sys
+import datetime
+import logging
+from logging.config import dictConfig
+
 from decouple import config
 from etl_utils import query_from_file
 from py2neo import Graph
 
-import traceback
-import datetime
+from log_utils.log_utils import LogUtils
 
 PREFIX = 'cypher/'
 
@@ -18,6 +21,7 @@ def get_time():
 
 if __name__ == '__main__':
     start_time = '[START TIME load_data_tce]: ' + get_time()
+    dictConfig(LogUtils.get_updated_dict_config())
     
     user = sys.argv[1] if len(sys.argv) > 1 else config('NEO4J_USER', default='neo4j')
     password = sys.argv[2] if len(sys.argv) > 2 else config('NEO4J_PASSWORD', default='password')
@@ -56,6 +60,5 @@ if __name__ == '__main__':
 
     finally:
         finish_time = '[FINISH TIME load_data_tce]: ' + get_time()
-
-        print(start_time)
-        print(finish_time)
+        logging.info(start_time)
+        logging.info(finish_time)

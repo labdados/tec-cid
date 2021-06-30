@@ -7,6 +7,11 @@ import hashlib
 import time
 from dict_tipo_licitacao import get_dictionary, update_csv, get_max_codigo_licitacao
 
+import logging
+from logging.config import dictConfig
+from log_utils.log_utils import LogUtils
+
+
 LICITACOES_INPUT_GZ = '../../dados/TCE-PB-Portal-Gestor-Licitacoes_Propostas.txt.gz'
 LICITACOES_OUTPUT_CSV = '../../dados/licitacoes_propostas.csv'
 
@@ -71,7 +76,7 @@ def add_tipo_licitacao(fields, row_num, tipo_licitacao_idx):
         PROXIMO_CD_TIPO_LICITACAO = get_max_codigo_licitacao(CD_TIPOS_LICITACOES) + 1
         CD_TIPOS_LICITACOES_AUX[tipo_licitacao] = PROXIMO_CD_TIPO_LICITACAO
 
-        print("Adicionando novo tipo de licitacao: {} ({})".format(tipo_licitacao, PROXIMO_CD_TIPO_LICITACAO))
+        logging.info(f'Adicionando novo tipo de licitacao: {tipo_licitacao} ({PROXIMO_CD_TIPO_LICITACAO})')
         CD_TIPOS_LICITACOES[tipo_licitacao] = PROXIMO_CD_TIPO_LICITACAO
         text = CD_TIPOS_LICITACOES[tipo_licitacao]
 
@@ -125,8 +130,9 @@ if __name__ == '__main__':
     output_file = sys.argv[2] if len(sys.argv) > 2 else LICITACOES_OUTPUT_CSV
 
     initial_time = time.time()
+    dictConfig(LogUtils.get_updated_dict_config())
 
-    print('Writing in ' + LICITACOES_OUTPUT_CSV)
+    logging.info(f'Writing in {LICITACOES_OUTPUT_CSV}')
     with open(output_file, 'w') as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
         row_num = 0
@@ -138,14 +144,14 @@ if __name__ == '__main__':
 
     final_time = time.time()
     total = final_time - initial_time
-    print('(written in {:.2f} minutes)'.format(total / 60))
+    logging.info('Written {} in {:.2f} minutes)'.format(LICITACOES_OUTPUT_CSV, total / 60))
 
     input_file = sys.argv[1] if len(sys.argv) > 1 else EMPENHOS_INPUT_GZ
     output_file = sys.argv[2] if len(sys.argv) > 2 else EMPENHOS_OUTPUT_CSV
 
     initial_time = time.time()
 
-    print('Writing in ' + EMPENHOS_OUTPUT_CSV)
+    logging.info(f'Writing in {EMPENHOS_OUTPUT_CSV}')
     with open(output_file, 'w') as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
         row_num = 0
@@ -159,11 +165,13 @@ if __name__ == '__main__':
                 writer.writerow(fields)
 
     # Atualiza o arquivo tipo_licitacao.csv, caso tenha novos tipos
-    if (len(CD_TIPOS_LICITACOES_AUX) > 1): update_csv(CSV_TIPOS_LICITACOES, CD_TIPOS_LICITACOES_AUX)
+    if (len(CD_TIPOS_LICITACOES_AUX) > 1): 
+        update_csv(CSV_TIPOS_LICITACOES, CD_TIPOS_LICITACOES_AUX)
+        logging.info(f'O arquivo {CSV_TIPOS_LICITACOES} foi atualizado com novos tipos de licitações')
     
     final_time = time.time()
     total = final_time - initial_time
-    print('(written in {:.2f} minutes)'.format(total / 60))
+    logging.info('Written {} in {:.2f} minutes)'.format(EMPENHOS_OUTPUT_CSV, total / 60))
 
     # input_file = sys.argv[1] if len(sys.argv) > 1 else PAGAMENTOS_INPUT_GZ
     # output_file = sys.argv[2] if len(sys.argv) > 2 else PAGAMENTOS_OUTPUT_CSV

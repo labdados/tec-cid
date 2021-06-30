@@ -20,4 +20,4 @@ class DownloadUtils:
         if result:
             return result
 
-        raise Exception(f'[ERROR] The key must be "tce", "tse", "receita_federal" or "sancoes"')
+        raise Exception(f'The key must be "tce", "tse", "receita_federal" or "sancoes"')
