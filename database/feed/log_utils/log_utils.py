@@ -17,7 +17,7 @@ class LogUtils:
         '''
         Método que retorna o caminho absoluto a partir do caminho relativo do parâmetro.
         Exemplo: relative_path='../logs/mm-YYYY',
-        get_absolute_path(relative_path) -> '/home/user/tec-cid/database/feed/logs/mm-YYYY'
+        get_absolute_path(relative_path) -> '/home/user/tec-cid/database/logs/mm-YYYY'
         '''
         path = Path(relative_path).resolve()
         return str(path)
@@ -52,8 +52,9 @@ class LogUtils:
     @staticmethod
     def generate_log_filename() -> str:
         '''
-        Método que gera o nome do arquivo de log, com o dia, mês e ano no formato
-        dd-mm-yyyy_etl.log. Exemplo: 06-08-2020_etl.log
+        Método que gera o nome do arquivo de log, no formato de "epoch"
+        a partir do timestamp.
+        Exemplo: etl_1625050782.log
         '''
         current_epoch = LogUtils.get_epoch_timestamp()
         log_filename =  f'etl_{current_epoch}.log'
@@ -64,7 +65,7 @@ class LogUtils:
     def get_path_log_file():
         '''
         Método para retornar o caminho absoluto do arquivo de log que deverá ser utilizado.
-        Exemplo: home/user/tec-cid/database/feed/logs/08-2020/06-08-2020_etl.log
+        Exemplo: home/user/tec-cid/database/logs/08-2020/etl_1625050782.log
         '''
         relative_dir_name = LogUtils.get_relative_directory_name()
         absolute_path = LogUtils.get_absolute_path(relative_dir_name)
