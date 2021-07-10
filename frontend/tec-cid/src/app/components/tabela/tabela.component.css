@@ -102,8 +102,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 h3 {
     color: #0d4247;
-    padding-top: 5vh;
-    margin-left: 4vw;
+    padding: 20px;
+    margin-left: 40px;
 }
 
 @media screen and (max-width: 768px) {

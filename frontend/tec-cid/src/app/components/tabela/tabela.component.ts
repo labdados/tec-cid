@@ -12,6 +12,7 @@ import {LicitacaoService} from '../../services/licitacao.service'
 import {LicitacaoComponent } from '../../pages/licitacao/licitacao.component'
 import {FormdateComponent} from '../formdate/formdate.component'
 import { chdir } from 'process';
+import { thresholdSturges } from 'd3';
 
 @Component({
   selector: 'app-tabela',
@@ -61,11 +62,15 @@ export class TabelaComponent implements OnInit {
 
   InsertDados(){
     this.getDataLicitacoesMunicipio(this.municipio.id,1).subscribe(res=>{
-      this.dataSource = new MatTableDataSource (res.dados);
-      this.resultsLength = res.dados.length;
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-  })
+      if(res.dados.length==0){
+        alert("Não existem dados para esse intervalo de tempo")
+      }else{
+        this.dataSource = new MatTableDataSource (res.dados);
+        this.resultsLength = res.dados.length;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
   
   getDataLicitacoesMunicipio(id:any,pagina:number){
@@ -137,20 +142,16 @@ export class TabelaComponent implements OnInit {
 
   onMudou(evento){
     const datas = [evento.dataInicial.toString(),evento.dataFinal.toString()]
-    
+    this.filtroVisivel = !this.filtroVisivel
 
-    if(datas[1] !== "" && datas[0] !== "" || datas[1] !== " " && datas[0] !== " "){
-        for(let cont =0; cont < datas.length; cont++){
-            this.convertData(datas[cont])
-        }
-        this.InsertDados()
+    for(let valor of datas){
+       if(valor !== "" || valor !== " "){
+         this.convertData(valor)
+       }
     }
-    else{
-      //pass
-    }
-
-
+    this.InsertDados()
   }
+
   scroll(){
     
     let element = document.getElementById("bgtabela")
