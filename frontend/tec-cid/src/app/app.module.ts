@@ -13,11 +13,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PesquisaComponent } from './pages/pesquisa/pesquisa.component';
 import { FiltrosComponent } from './components/filtros/filtros.component';
-import { MunicipioComponent } from './pages/municipio/municipio.component'
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { FilterPropostaPipe } from './pipes/filter-proposta.pipe';
 import { FilterPropostaPerdedoraPipe } from './pipes/filter-proposta-perdedora.pipe';
 import { TabelaComponent } from './components/tabela/tabela.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+//import {MatMomentDateModule} from '@angular/material/core'
 
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -26,6 +29,9 @@ import { NgbTooltipModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTableModule, MatFormFieldModule, MatPaginatorModule, MatSortModule, MatPaginatorIntl, MatInputModule, MatTooltipModule, MatProgressSpinnerModule, MatIconModule, MatButtonModule, MatCardModule, MatAutocompleteModule} from '@angular/material';
 import { getPortuguesePaginatorIntl } from './components/tabela/ptbr-pagination';
 import { BarchartEmpresasComponent } from './components/barchart-empresas/barchart-empresas.component';
+import { FormdateComponent } from './components/formdate/formdate.component';
+
+
 
 
 
@@ -40,14 +46,15 @@ registerLocaleData(localePt);
     PesquisaComponent,
     FiltrosComponent,
     BarChartComponent,
-    MunicipioComponent,
     LicitacaoComponent,
     FilterPropostaPipe,
     FilterPropostaPerdedoraPipe,
     TabelaComponent,
-    BarchartEmpresasComponent
+    BarchartEmpresasComponent,
+    FormdateComponent,
   ],
   imports: [
+    MatMenuModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -68,11 +75,14 @@ registerLocaleData(localePt);
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR'},
-    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()}
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl()},
+    FormdateComponent
   ],
   bootstrap: [AppComponent]
 })

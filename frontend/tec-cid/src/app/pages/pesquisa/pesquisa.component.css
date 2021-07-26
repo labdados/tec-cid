@@ -2,7 +2,64 @@
     font-weight: 500;
     color: #0d4247;
 }
+#NavSPA{
+    width: 100vw;
+    background-color:rgb(4, 47, 61,1);
+    margin-right: 0vw;
+    position: fixed;
+    z-index: 300;
+    padding-top: 3vh;
+    padding-bottom: 2vh;
+    margin-top: 25px;
+}
+#NavSPA label{
+    display: inline;
+    color: white;
+    margin-left: 5vw;
+    cursor: pointer;
+}
+#NavSPA label:first-child{
+    margin-left: 5vw;
+}
+#menuBtnScroll{
+    display: block;
+    margin-left: 2vw;
+    margin-top: 50px;
+    padding-top: 20px;
+    position: absolute;
+}
+.opt{
+    border: none;
+    background-color: #fff;
+    color: #042F3D;
+    padding-left:2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-radius:5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 600;
 
+    margin-top: 1vh;
+    box-shadow:2px 2px 5px slategray ;
+    display: block;
+}
+#btnMenu{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border:none;
+    background-color: #fff;
+    box-shadow:2px 2px 5px slategray;
+    color:#042F3D;
+    font-weight: bold;
+    font-size: 13px;
+    padding-left:2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-radius: 10px;
+    margin-top: 3vh;
+    display: block;
+}
 .my-card {
     display: flex;
     flex-direction: column;
@@ -10,7 +67,7 @@
     max-width: 700px;
     height: 95%;
     padding: 15px;
-    background-color: white;
+    background-color:white;
     margin: auto;
     margin-bottom: 15px;
     text-align: center;
@@ -52,6 +109,16 @@
 @media screen and (max-width: 768px) {
     .my-card {
         max-width: 95%;
+    }
+
+    #NavSPA{
+        margin-top:20px;
+        display:none;
+    }
+    #menuBtnScroll{
+        position: relative;
+        margin-top: 50px;
+        padding-top: 20px;
     }
 }
 

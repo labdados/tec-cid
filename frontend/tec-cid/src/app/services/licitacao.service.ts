@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { API_URL } from './tc.api';
 import { Licitacao } from '../models/licitacao.model';
 import { Proposta } from '../models/proposta.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,18 @@ export class LicitacaoService {
   vencedores: boolean;
   perdedores: boolean;
   exibirPerdedores: boolean;
-
+  apenasUmvencedor:boolean;
+  licitacao: Licitacao = new Licitacao('', '', '', '', '', '', '', '', '', '', '', '', '', ' ', ' ')
   constructor(
     private http: HttpClient
   ) { }
-
-  getLicitacoesMunicipio(codUni?:any, ano?: any, tipoLic?: any){
-    return this.http.get<any>(`${API_URL}/licitacoes?limite=40&pagina=${1}&ano=${ano}&codUni=${codUni}&tipoLic=${tipoLic}`)    
+  
+  //Falta testar no postman a API Rest
+  getLicitacoesMunicipio(idMunicipio?: any, codUni?:any, anoInicio?: any,anoFim?:any, tipoLic?: any){
+    return this.http.get<any>(`${API_URL}/licitacoes?limite=40&pagina=${1}&ano=${anoInicio}&codUni=${codUni}&tipoLic=${tipoLic}&idMunicipio=${idMunicipio}`)    
   }
 
-  getLicitacao(idLicitacao:any) {
+  getLicitacao(idLicitacao:any): Observable<any> {
     return this.http.get<any>(`${API_URL}/licitacoes/${idLicitacao}`)
   }
 
@@ -55,6 +58,10 @@ export class LicitacaoService {
     } else if (perd == 0) {
       this.perdedores = false;
       this.exibirPerdedores = true;
+    }
+
+    if(venc ==0 && perd ==0){
+      this.apenasUmvencedor = true;
     }
 
   }

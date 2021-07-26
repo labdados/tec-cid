@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit, Injectable} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Licitacao } from 'src/app/models/licitacao.model';
 import { LicitacaoService } from 'src/app/services/licitacao.service';
 import { MunicipiosService } from 'src/app/services/municipios.service';
 
@@ -9,39 +8,34 @@ import { MunicipiosService } from 'src/app/services/municipios.service';
   templateUrl: './licitacao.component.html',
   styleUrls: ['./licitacao.component.css']
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class LicitacaoComponent implements OnInit, AfterViewInit {
 
   idMunicipio:string;
   idLicitacao: string;
-  licitacao: Licitacao = new Licitacao('', '', '', '', '', '', '', '', '', '', '', '', '','', '');
+  
 
   constructor(
     private route: ActivatedRoute,
     private licitacaoService: LicitacaoService,
     private municipioService: MunicipiosService,
-    private elementRef: ElementRef
+    //private elementRef: ElementRef
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.idMunicipio = params['idMunicipio'];
-      this.idLicitacao = params['idLicitacao'];
-
-      this.municipioService.getMunicipio(this.idMunicipio);
-
-      this.licitacaoService.getLicitacao(this.idLicitacao).subscribe(res => {
-        this.licitacao = res.dados[0];
-      })
-
-      this.licitacaoService.getPropostas(this.idLicitacao);
-    });
-
+    this.licitacaoService.getPropostas(this.licitacao.id)
   }
+
 
   ngAfterViewInit() {
-    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
+    //this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
   }
 
+  get licitacao(){
+    return this.licitacaoService.licitacao
+  }
   get propostas() {
     return this.licitacaoService.propostas
   }
@@ -62,6 +56,21 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
     return this.licitacaoService.exibirPerdedores
   }
 
-  
+  get apenasUmVencedor(){
+    return this.licitacaoService.apenasUmvencedor;
+  }
 
+  scroll(){
+    let element = document.getElementById("superior")
+    if(element == null) {
+      setTimeout(() => {
+        this.scroll()
+      }, 1000);
+    }
+    else{
+      element.scrollIntoView({behavior:"smooth"})
+    }
+
+  }
+  
 }

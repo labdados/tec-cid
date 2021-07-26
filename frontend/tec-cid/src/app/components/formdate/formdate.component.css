@@ -1,0 +1,18 @@
+#formDate{
+    margin-left: 80px;
+}
+.datepickerform{
+    margin-right: 5px;
+    display:inline;
+
+}
+#FiltroBtn{
+    background-color: #0d4247;
+    margin-left: 5%;
+}
+
+@media screen and (max-width: 768px) {
+    #formDate{
+        margin-left: 20px;
+    }
+}

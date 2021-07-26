@@ -1,10 +1,27 @@
-table {
-    width: 100%;
+
+.mat-elevation-z8{
+    width: 90%;
+    margin-left: 5%;
 }
-  
 .mat-form-field {
     font-size: 14px;
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
+}
+
+#FiltroBtn{
+    background-color: #0d4247;
+    margin-left: 5%;
+}
+
+
+#bgtabela{
+    margin-top: 3vh;
+    background-color: white;
+    padding-bottom: 10vh;
+    width: 90%;
+    margin-left: 5%;
+    box-shadow: 5px 5px 20px slategrey;
 }
 
 .mat-form-field-underline {
@@ -85,6 +102,12 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 h3 {
     color: #0d4247;
+    padding: 20px;
+    margin-left: 40px;
 }
 
-
+@media screen and (max-width: 768px) {
+    td,th{
+        font-size: 50%;
+    }
+}

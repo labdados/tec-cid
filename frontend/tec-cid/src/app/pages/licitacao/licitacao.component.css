@@ -1,7 +1,36 @@
-#titulo h1 {
+#superior{
+    background-color: white;
+    width: 97vw;
+    margin-left: 1vw;
+    box-shadow: 2px 2px 5px #0d4247;
+}
+#lblInfo{
+    margin-left: 10%;
+}
+#Nm{
+    display: inline-block;
+    margin-top: 5vh;
     font-size: 40px;
     color: #0d4247;
     font-weight: bold;
+}
+#ln{
+    width: 0.1vw;
+    height: 35vh;
+    margin-top: 3vh;
+    background-color:#0d4247;
+    position: absolute;
+    margin-left: 38vw;
+    z-index:1000;
+}
+#ln2{
+    width: 0.1vw;
+    height: 33vh;
+    background-color: #0d4247;
+    position: absolute;
+    margin-left: 38vw;
+    z-index:1000;
+    margin-top: 41vh;
 }
 
 #titulo h6 {

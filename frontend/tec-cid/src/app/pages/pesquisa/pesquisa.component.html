@@ -1,20 +1,27 @@
+<nav id="NavSPA" *ngIf="NavVisivel && !Starter">
+    <label (click)="ScrollParaTop()">{{municipio.nome}}</label>
+    <label (click)="ScrollParaTabela()">Licitações</label>
+    <label (click)="ScrollParaLicitacao()">{{LicitacaoID}}</label>
+</nav>
+
 <app-header></app-header>
 
-<app-filtros></app-filtros>
-
-<div class="container-second" *ngIf="Loaded">
-    <div class="row justify-content-md-center my-10">
-        <div class="EffectLoad mat-elevation-z2 col"></div>
-    </div>
-    <div class="row justify-content-md-center my-10">
-        <div class="EffectLoad mat-elevation-z2 col"></div>
-    </div>
+<div id="menuBtnScroll" *ngIf="MenuVisivel">
+    <button id="btnMenu" (click)="SelectSuperior()">{{this.Principal}}</button>
+    <button class="opt" *ngIf="InferiorVisivel" (click)="SelectInferior()">{{this.Inferior}}</button>
+    <button class="opt" *ngIf="BtnLicitaVisibilidade" (click)="ScrollParaLicitacao()" >{{LicitacaoID}}</button>
 </div>
 
-<div class="container">
+<app-filtros [NomeCidade]="municipio.nome"></app-filtros>
+
+
+
+
+<div class="container" *ngIf="visivelBarchat">
     <div class="row justify-content-md-center my-10">
         <div class="my-card mat-elevation-z2 col">
             <h5>Ranking de gastos por município (R$)</h5>
+            <mat-spinner class="loaderSpinner" *ngIf="LoadingData"></mat-spinner>
             <app-bar-chart [data]="data" *ngIf="!ExibirErrorMunicipio"></app-bar-chart>
             <label *ngIf="ExibirErrorMunicipio">Ocorreu um erro na visulização</label>
         </div>
@@ -22,10 +29,14 @@
     <div class="row justify-content-md-center my-10">
         <div class="my-card mat-elevation-z2 col">
             <h5>Ranking de gastos por empresa (R$)</h5>
+            <mat-spinner class="loaderSpinner" *ngIf="LoadingData"></mat-spinner>
             <app-barchart-empresas [dataEmpresas]="dataEmpresas" *ngIf="!ExibirErrorEmpresa"></app-barchart-empresas>
             <label *ngIf="ExibirErrorEmpresa">Ocorreu um erro na visulização</label>
         </div>
     </div>
 </div>
 
-
+<mat-spinner class="loaderSpinner" *ngIf="loaderTabela"></mat-spinner>
+<app-tabela *ngIf="ShowTabela && !Starter" [LicitacaoID]="LicitacaoID" (mudouValor)="onMudouValor($event)"></app-tabela>
+<app-licitacao id="licitacao" *ngIf="ShowLicitacao"></app-licitacao>
+<div style="height: 10vh;"></div>

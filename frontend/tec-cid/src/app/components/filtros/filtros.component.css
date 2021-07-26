@@ -131,6 +131,13 @@
     border-radius: 10px;
 }
 
+#gInput{
+    padding-top: 50px;
+}
+#groupCidade{
+    padding-top: 150px;
+}
+
 @media screen and (max-width: 768px) {
     #selecionar {
         font-size: 26px;
@@ -195,6 +202,9 @@
         color: #0d4247
     }
 
+    #groupCidade{
+        padding-top: 0px;
+    }
 
 
 }
