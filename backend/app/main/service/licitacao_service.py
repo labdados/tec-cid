@@ -61,37 +61,29 @@ class LicitacaoService:
         nodes = []
         for res in results:
             node = {**res["lic"], 'nome_unidade_gestora': res["nome_ug"]}
-            node["id"] = "{}-{}-{}".format(node["cd_ugestora"], node["cd_tipo_licitacao"],
-                                           node["numero_licitacao"])
+            #node["id"] = "{}-{}-{}".format(node["cd_ugestora"], node["cd_tipo_licitacao"],
+            #                               node["numero_licitacao"])
             nodes.append(node)
         return nodes
 
-    def get_licitacao(self, codUnidadeGestora, codTipoLicitacao, codLicitacao):
-        result = Licitacao.match(db).where(cd_ugestora = codUnidadeGestora,
-                                           cd_tipo_licitacao = codTipoLicitacao,
-                                           numero_licitacao = codLicitacao)
+    def get_licitacao(self, id_licitacao):
+        results = Licitacao.match(db, id_licitacao)
         
-        unidade_gestora = UnidadeGestora.match(db).where(cd_ugestora = codUnidadeGestora)
-        nome_unidade_gest = ''
-        for uni in unidade_gestora:
-            node = uni.__node__
-            nome_unidade_gest = node['nome']
+        nome_unidade_gest = next(iter(results.first().unidades_gestoras)).nome
 
-        #result = db.run("MATCH (l:Licitacao) WHERE l.cd_ugestora='{}' AND l.cd_tipo_licitacao='{}' AND l.numero_licitacao='{}' RETURN l ".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)).data()
         nodes = []
-        for lic in result:
+        for lic in results:
             node = lic.__node__
-            node["id"] = "{}-{}-{}".format(codUnidadeGestora, codLicitacao, codTipoLicitacao)
             node["data_homologacao"] = node["data_homologacao"].__str__()
             node["nome_unidade_gestora"] = nome_unidade_gest
             nodes.append(node)
         return nodes
 
-    def get_propostas(self, codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite):
+    def get_propostas(self, id_licitacao, pagina, limite):
         skip = limite * (pagina - 1)
 
         query = "MATCH (p:Participante)-[r:FEZ_PROPOSTA_EM]->(l:Licitacao) \
-                WHERE l.cd_ugestora='{}' and l.cd_tipo_licitacao='{}' and l.numero_licitacao='{}'".format(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+                 WHERE l.id_licitacao='{}'".format(id_licitacao)
 
         self.count_props = self.get_count(query + "RETURN COUNT(*)")
 

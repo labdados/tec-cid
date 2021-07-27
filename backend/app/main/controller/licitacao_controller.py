@@ -56,11 +56,7 @@ class Licitacao(Resource):
       '''
       Retorna uma licitação específica
       '''
-      data = id.split("-")
-      codUnidadeGestora = data[0]
-      codTipoLicitacao = data[1]
-      codLicitacao = data[2]
-      licitacao = lic_service.get_licitacao(codUnidadeGestora, codTipoLicitacao, codLicitacao)
+      licitacao = lic_service.get_licitacao(id)
       licitacao = json.dumps({"dados": licitacao})
       response = gerando_response(licitacao, 1)
       return response
@@ -74,16 +70,10 @@ class PropostaList(Resource):
       '''
       Retorna as propostas que um participante fez em uma determinada licitação
       '''
-
-      data = id.split("-")
-      codUnidadeGestora = data[0]
-      codTipoLicitacao = data[1]
-      codLicitacao = data[2]
-
       pagina = request.args.get("pagina", 1, int)
       limite = request.args.get("limite", 20, int)
 
-      propostas = lic_service.get_propostas(codUnidadeGestora, codTipoLicitacao, codLicitacao, pagina, limite)
+      propostas = lic_service.get_propostas(id, pagina, limite)
       results = json.dumps({"dados": propostas})
 
       response = gerando_response(results, lic_service.count_props)
