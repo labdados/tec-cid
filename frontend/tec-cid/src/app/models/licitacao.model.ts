@@ -4,7 +4,7 @@ export class Licitacao {
         public cd_modalidade: string,
         public cd_ugestora: string,
         public data_homologacao: string,        
-        public id: string,
+        public id_licitacao: string,
         public modalidade: string,
         public nome_estagio_processual: string,
         public nome_setor_atual: string,
