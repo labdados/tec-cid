@@ -61,8 +61,7 @@
                         </div>
                         <div class="col-md-12 mx-auto">
                             <div class="table-responsive-md">
-                                <label id="lblInfo" *ngIf="apenasUmVencedor"> Houve apenas um vencedor para a licitação</label>
-                                <table *ngIf="!apenasUmVencedor" id="tabela" class="table table-borderless">
+                                <table id="tabela" class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th>Participante</th>
@@ -96,11 +95,11 @@
                             </div>
                         </div>
 
-                        <div *ngIf="exibirPerdedor" class="mx-auto">
+                        <div *ngIf="perdedores == false" class="mx-auto">
                             Não houve proposta perdedora nesta licitação
                         </div>
 
-                        <div *ngIf="!exibirPerdedor" class="col-md-12 mx-auto">
+                        <div *ngIf="perdedores" class="col-md-12 mx-auto">
                             <div class="table-responsive-md">
                                 <table id="tabela" class="table table-borderless">
                                     <thead>

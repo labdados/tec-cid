@@ -25,7 +25,8 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.licitacaoService.getPropostas(this.licitacao.id)
+    console.log(this.licitacao.id_licitacao)
+    this.licitacaoService.getPropostas(this.licitacao.id_licitacao)
   }
 
 
@@ -52,13 +53,6 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
     return this.licitacaoService.perdedores
   }
 
-  get exibirPerdedor() {
-    return this.licitacaoService.exibirPerdedores
-  }
-
-  get apenasUmVencedor(){
-    return this.licitacaoService.apenasUmvencedor;
-  }
 
   scroll(){
     let element = document.getElementById("superior")

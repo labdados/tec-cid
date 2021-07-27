@@ -13,14 +13,12 @@ export class LicitacaoService {
   propostas: Proposta[] = []
   vencedores: boolean;
   perdedores: boolean;
-  exibirPerdedores: boolean;
-  apenasUmvencedor:boolean;
   licitacao: Licitacao = new Licitacao('', '', '', '', '', '', '', '', '', '', '', '', '', ' ', ' ')
   constructor(
     private http: HttpClient
   ) { }
   
-  //Falta testar no postman a API Rest
+  
   getLicitacoesMunicipio(idMunicipio?: any, codUni?:any, anoInicio?: any,anoFim?:any, tipoLic?: any){
     return this.http.get<any>(`${API_URL}/licitacoes?limite=40&pagina=${1}&ano=${anoInicio}&codUni=${codUni}&tipoLic=${tipoLic}&idMunicipio=${idMunicipio}`)    
   }
@@ -32,37 +30,16 @@ export class LicitacaoService {
   getPropostas(idLicitacao:string) {
     return this.http.get<any>(`${API_URL}/licitacoes/${idLicitacao}/propostas`).subscribe(res => {
       this.propostas = res.dados;
-      this.verificacao();
+      this.Nova_verificacao();
     })
   }
 
-  verificacao() {
-    let venc = 0;
-    let perd = 0;
-    this.propostas.forEach(e => {
-      if (e.situacao_proposta == 'Vencedora') {
-        venc++;
-      } else if (e.situacao_proposta == 'Perdedora') {
-        perd++;
-      }
-    });
-
-    if(venc > 1) {
-      this.vencedores = true;
-    } else {
-      this.vencedores = false;
-    }
-
-    if (perd > 1) {
-      this.perdedores = true;
-    } else if (perd == 0) {
-      this.perdedores = false;
-      this.exibirPerdedores = true;
-    }
-
-    if(venc ==0 && perd ==0){
-      this.apenasUmvencedor = true;
-    }
-
+  Nova_verificacao(){
+    this.propostas.forEach( elemento => { 
+      if(elemento.situacao_proposta == "Perdedora") return this.perdedores = true   
+      else return this.perdedores = false  
+    })
   }
+
+  
 }

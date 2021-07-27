@@ -85,10 +85,10 @@ export class TabelaComponent implements OnInit {
     return this.licitacaoService.licitacao
   }
 
-  reqLicitacao(param){
-     this.licitacaoService.getLicitacao(param).subscribe(res=>{
+  reqLicitacao(id_da_licitacao){
+     this.licitacaoService.getLicitacao(id_da_licitacao).subscribe(res=>{
         this.licitacaoService.licitacao = res.dados[0]
-        this.mudouValor.emit(res.dados[0].id)
+        this.mudouValor.emit(res.dados[0].id_licitacao)
      })
   }
   
@@ -154,8 +154,8 @@ export class TabelaComponent implements OnInit {
 
   scroll(){
     
-    let element = document.getElementById("bgtabela")
-    element.scrollIntoView({behavior:"smooth"})
+    let ElementScroll = document.getElementById("bgtabela")
+    ElementScroll.scrollIntoView({behavior:"smooth"})
   }
 
 
