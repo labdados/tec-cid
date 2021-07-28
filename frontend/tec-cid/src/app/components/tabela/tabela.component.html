@@ -1,6 +1,9 @@
 <div id="bgtabela">
 <h3>Licitações</h3>
 
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+</mat-form-field>
 
 <div class="mat-elevation-z8" id="table">
 
