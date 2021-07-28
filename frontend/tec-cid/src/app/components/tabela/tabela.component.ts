@@ -31,7 +31,7 @@ import { thresholdSturges } from 'd3';
 })
 export class TabelaComponent implements OnInit {
 
-  displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'valor_licitado', 'acao'];
+  displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'valor_licitado', 'acao', 'modalidade_de_licitação'];
   dataSource: MatTableDataSource<Licitacao>;
   expandedElement: Licitacao | null;
   resultsLength: number;

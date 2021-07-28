@@ -16,6 +16,11 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Unidade Gestora </th>
             <td mat-cell *matCellDef="let row"> {{row.nome_unidade_gestora}} </td>
         </ng-container>
+        
+        <ng-container matColumnDef="modalidade_de_licitação">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Modalidade de Licitação </th>
+            <td mat-cell *matCellDef="let row"> {{row.nome_unidade_gestora}} </td>
+        </ng-container>
 
         <!-- Valor Column -->
         <ng-container matColumnDef="valor_licitado">
