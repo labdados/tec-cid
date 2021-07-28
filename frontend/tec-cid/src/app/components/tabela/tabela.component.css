@@ -110,4 +110,7 @@ h3 {
     td,th{
         font-size: 50%;
     }
+    #bgtabela h3{
+        margin-left: 25%;
+    }
 }
