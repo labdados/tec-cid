@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, AfterViewInit, Injectable} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { LicitacaoService } from 'src/app/services/licitacao.service';
-import { MunicipiosService } from 'src/app/services/municipios.service';
+import { LicitacaoService } from '../../services/licitacao.service';
+import { MunicipiosService } from '../../services/municipios.service';
 
 @Component({
   selector: 'app-licitacao',
@@ -25,7 +25,6 @@ export class LicitacaoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.licitacao.id_licitacao)
     this.licitacaoService.getPropostas(this.licitacao.id_licitacao)
   }
 
