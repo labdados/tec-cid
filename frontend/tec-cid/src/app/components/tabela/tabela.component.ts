@@ -31,6 +31,7 @@ import { thresholdSturges } from 'd3';
 })
 export class TabelaComponent implements OnInit {
 
+  array_completo: MatTableDataSource<Licitacao>;
   displayedColumns: string[] = ['data_homologacao', 'nome_unidade_gestora', 'valor_licitado', 'acao', 'modalidade_de_licitação'];
   dataSource: MatTableDataSource<Licitacao>;
   expandedElement: Licitacao | null;
@@ -40,6 +41,7 @@ export class TabelaComponent implements OnInit {
   contador:number = 0  
   @Input()
   LicitacaoID: any;
+
 
   @Output()
   mudouValor = new EventEmitter()
@@ -66,6 +68,7 @@ export class TabelaComponent implements OnInit {
         alert("Não existem dados para esse intervalo de tempo")
       }else{
         this.dataSource = new MatTableDataSource (res.dados);
+        this.array_completo = new MatTableDataSource(res.dados);
         this.resultsLength = res.dados.length;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -98,9 +101,25 @@ export class TabelaComponent implements OnInit {
 
   
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    const arr_inteiro = this.array_completo.filteredData
+    let arr_filtrado = []
+    const buscaString = new RegExp(`${filterValue}`,'i')
+    const map_inteiro = arr_inteiro.map(obj_atual =>{
+        let valores = Object.values(obj_atual)
+        valores.forEach(valor => {
+            if(buscaString.test(valor)){
+              arr_filtrado.push(obj_atual)
+              return obj_atual
+            }
+        })
+        
+    })
+    if(arr_filtrado.length==0){ alert("Não foram encontrados resultados para esta pesquisa")}
+    else{
+      this.dataSource = new MatTableDataSource (arr_filtrado);
+      this.resultsLength = arr_filtrado.length;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     }
   }
   
