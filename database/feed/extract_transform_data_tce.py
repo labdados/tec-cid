@@ -45,6 +45,10 @@ PROXIMO_CD_TIPO_LICITACAO = get_max_codigo_licitacao(CD_TIPOS_LICITACOES) + 1
 
 CD_TIPOS_LICITACOES_AUX = {}
 
+MIN_VALID_SIZE_OF_EMPENHO_FIELDS = 26
+MAX_FIELDS_EMPENHO = 27
+EMPTY_TIPO_META_FIELD = ''
+
 def extract_licitacao(input_gz):
     with io.TextIOWrapper(gzip.GzipFile(input_gz)) as text_file:
         for line in text_file:
@@ -95,10 +99,21 @@ def get_id_hash(id):
 def transform_empenhos(line):
     fields = line.rstrip().replace('\r', '').replace('\\', '').split('|')
     fields = [x if x != 'NULL' else '' for x in fields]
-    return fields if (len(fields) == 26) else None
+    length_fields = len(fields)
+    if (MIN_VALID_SIZE_OF_EMPENHO_FIELDS == length_fields): fields.append(EMPTY_TIPO_META_FIELD)
+    return fields if (length_fields >= MIN_VALID_SIZE_OF_EMPENHO_FIELDS) else None
 
 def filter_empenhos(line, line_no):
-    return line if line_no == 1 or (line and int(line[ANO_EMPENHO_COL]) >= ANO_EMPENHO_MIN) else ''
+    if (line_no == 1 or (line and int(line[ANO_EMPENHO_COL]) >= ANO_EMPENHO_MIN)):
+        if (line_no == 1 and len(line) > MAX_FIELDS_EMPENHO):
+            logging.warning(f'Os seguintes atributos de empenhos do arquivo {EMPENHOS_INPUT_GZ} serão desconsiderados, '
+            + f'pois ultrapassam o limite máximo de campos que é {MAX_FIELDS_EMPENHO}: {line[MAX_FIELDS_EMPENHO:]}')
+        
+        if (len(line) > MAX_FIELDS_EMPENHO):
+            line = line[0:MAX_FIELDS_EMPENHO]
+        return line
+    else:
+        return ''
 
 def extract_pagamentos(input_gz):
     with io.TextIOWrapper(gzip.GzipFile(input_gz)) as text_file:
