@@ -37,15 +37,15 @@ LOAD_DATA_SANCOES           =    'load_data_sancoes.py'
 def download_files(download_files):
     for file in download_files:
         logging.info(f'Executando arquivo de download {file}')
-        subprocess.run([PREFIX, file], check=True)
+        subprocess.run([PREFIX, file], check=True, stderr=subprocess.PIPE)
 
 def extract_file(extract_file):
     logging.info(f'Executando arquivo de extração {extract_file}')
-    subprocess.run([PREFIX, extract_file], check=True)
+    subprocess.run([PREFIX, extract_file], check=True, stderr=subprocess.PIPE)
 
 def load_data(load_file):
     logging.info(f'Executando arquivo de carregamento {load_file}')
-    subprocess.run([PREFIX, load_file], check=True)
+    subprocess.run([PREFIX, load_file], check=True, stderr=subprocess.PIPE)
 
 def get_time():
     now = datetime.datetime.now()
@@ -107,6 +107,11 @@ if __name__ == "__main__":
         exit(1)
 
     except KeyboardInterrupt:
+        logging.critical(traceback.format_exc())
+        exit(1)
+
+    except subprocess.CalledProcessError as ex:
+        logging.critical(ex.stderr.decode('utf-8'))
         logging.critical(traceback.format_exc())
         exit(1)
 
