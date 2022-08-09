@@ -16,7 +16,7 @@ COMPLETED_DOWNLOAD = 100
 dictConfig(LogUtils.get_updated_dict_config())
 
 
-def download_file(url, output_file=None, chunk_size=8192, progress=True, total_retries=0):
+def download_file(url, output_file=None, chunk_size=8192, progress=True, total_retries=0, headers={'Accept-Encoding': None}):
     if not output_file:
         output_file = url.split('/')[-1]
     elif os.path.isdir(output_file):
@@ -25,7 +25,7 @@ def download_file(url, output_file=None, chunk_size=8192, progress=True, total_r
     file_size = 0
     try:
         with open(output_file, 'wb') as ouput:
-            response = requests.get(url, stream=True, headers={'Accept-Encoding': None})
+            response = requests.get(url, stream=True, headers=headers)
             file_size = int(response.headers.get('content-length', 0))
             if progress:
                 pbar = tqdm(total=file_size, unit='B', unit_scale=True, desc=output_file)
