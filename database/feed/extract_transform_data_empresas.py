@@ -7,6 +7,11 @@ from py2neo import Graph
 import gzip
 
 import datetime
+import logging
+from logging.config import dictConfig
+
+from log_utils.log_utils import LogUtils
+
 
 CNPJ_INDEX = 0
 TAMANHO_CPF = 11
@@ -30,12 +35,12 @@ def get_summary(set_participantes):
             cnpjs += 1
 
         else:
-            print('TAMANHO DO CPF / CNPJ INCORRETO: ', len(p))
+            logging.warning(f'TAMANHO DO CPF / CNPJ INCORRETO: {len(p)}')
             erros += 1
 
         total += 1
 
-    print('SUMMARY \n\nCPFs: {} \nCNPJs: {} \nERRORS: {} \n\nTOTAL: {}'.format(cpfs, cnpjs, erros, total))
+    logging.info('SUMMARY \n\nCPFs: {} \nCNPJs: {} \nERRORS: {} \n\nTOTAL: {}'.format(cpfs, cnpjs, erros, total))
 
 
 def get_query_response(neo4j: Graph, query):
@@ -82,6 +87,8 @@ def is_subset(set_a, set_b):
     assert set_a.issubset(set_b) == True
 
 if __name__ == '__main__':
+    dictConfig(LogUtils.get_updated_dict_config())
+
     start_time = '[START extract empresas]: ' + get_time()
 
     user = sys.argv[1] if len(sys.argv) > 1 else config(
@@ -127,5 +134,5 @@ if __name__ == '__main__':
 
     finish_time = '[FINISH extract empresas]: ' + get_time()
 
-    print(start_time)
-    print(finish_time)
+    logging.info(start_time)
+    logging.info(finish_time)

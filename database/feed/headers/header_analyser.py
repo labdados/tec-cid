@@ -1,3 +1,7 @@
+import logging
+from logging.config import dictConfig
+from log_utils.log_utils import LogUtils
+
 from headers.used_file import UsedFile
 
 from headers.used_file_utils import UsedFileUtils
@@ -9,7 +13,7 @@ from headers.cypher_utils import CypherUtils
 from headers.exceptions.missing_attributes_exception import MissingAttributesException
 
 class HeaderAnalyser:
-   
+    dictConfig(LogUtils.get_updated_dict_config())
     PREFIX = '/../../../dados'
 
     @staticmethod
@@ -62,7 +66,7 @@ class HeaderAnalyser:
             used_attributes = {value for value in file['used_attributes']}
 
             if (used_attributes.issubset(header)):
-                print(f'[INFO]: Todos os atributos que são utilizados do arquivo {file_name} estão presentes no seu header!')
+                logging.info(f'Todos os atributos que são utilizados do arquivo {file_name} estão presentes no seu header')
 
             else:
                 missing_attributes = used_attributes - header

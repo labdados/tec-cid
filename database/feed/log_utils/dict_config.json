@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "override_log_filename": true,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "standard": {
+            "format": "%(asctime)s,%(msecs)d [%(levelname)-1s] [%(filename)s:%(lineno)d]: %(message)s",
+            "datefmt": "%d-%m-%Y %H:%M:%S"
+        }
+    },
+    "handlers": {
+        "file_handler": {
+            "level": "DEBUG",
+            "filename": "/home/pedrock/Projetos/tec-cid/database/logs/06-2021/etl_1625024079.log",
+            "mode": "a",
+            "class": "logging.FileHandler",
+            "formatter": "standard"
+        },
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "standard",
+            "stream": "ext://sys.stdout"
+        }
+    },
+    "loggers": {
+        "": {
+            "handlers": [
+                "file_handler",
+                "console"
+            ],
+            "level": "DEBUG",
+            "propagate": true
+        }
+    }
+}

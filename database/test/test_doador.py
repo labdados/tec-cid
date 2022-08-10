@@ -24,7 +24,8 @@ class TestDoador(unittest.TestCase):
         total_doadores = self.comparar_total_doadores()
 
         if (not total_candidatos):
-            raise unittest.SkipTest("O total de candidatos de 2016 não é 11639.")
+            raise unittest.SkipTest(f"O total de candidatos de 2016 e 2020 não "
+                    + f"é {test_candidatos.TOTAL_CANDIDATOS_2016 + test_candidatos.TOTAL_CANDIDATOS_2020}")
 
         if (not total_doadores):
             raise unittest.SkipTest("O total de doadores não pode ser zero!")
