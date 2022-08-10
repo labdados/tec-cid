@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { MunicipiosService } from '../../services/municipios.service';
-import { Municipio } from '../../models/municipio.model';
-import { UnidadeGestoraService } from '../../services/unidade-gestora.service';
-import { EstatisticasService } from '../../services/estatisticas.service';
+import { MunicipiosService } from 'src/app/services/municipios.service';
+import { Municipio } from 'src/app/models/municipio.model';
+import { UnidadeGestoraService } from 'src/app/services/unidade-gestora.service';
+import { EstatisticasService } from 'src/app/services/estatisticas.service';
 import { Router } from '@angular/router';
-import { Gestao } from '../../models/gestao.model';
-import {CandidatosService} from '../../services/candidatos.service'
+import { Gestao } from 'src/app/models/gestao.model';
+import {CandidatosService} from 'src/app/services/candidatos.service'
 @Component({
   selector: 'app-filtros',
   templateUrl: './filtros.component.html',
@@ -14,6 +14,7 @@ import {CandidatosService} from '../../services/candidatos.service'
 export class FiltrosComponent implements OnInit, AfterViewInit {
   Loader : boolean = false
   exibir: boolean = false;
+  //instancia cidade usando a classe Municipio
   cidade: Municipio;
   valorLicitacoes: any;
   gestao: Gestao;
@@ -39,8 +40,15 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.municipiosService.getMunicipios();
+    this.RecebeMunicipios()
   }
+
+  RecebeMunicipios(){
+    this.municipiosService.ReqMunicipios().subscribe(data=>{
+      this.municipiosService.municipios = data.dados
+    })
+  }
+
 
   ngAfterViewInit() {
     this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#F5F5F5';
@@ -61,17 +69,22 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   get candidato() {
     return this.candidatosService.candidato
   }
-
+  
   displayFn(municipio?: Municipio): string | undefined {
     return municipio ? municipio.nome : undefined;
   }
 
   filtroMunicipio() {
-    this.municipiosService.getMunicipio(this.cidade.id);
-    this.getValorLicitacoes(this.cidade.id);
-    this.ErroLoad = false
-    this.GerenciaLoadBusca()
-    this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
+    if(this.cidade.id == undefined){
+      //evita erro de selecionar algo que não existe
+    }
+    else{
+      this.municipiosService.getMunicipio(this.cidade.id);
+      this.getValorLicitacoes(this.cidade.id);
+      this.ErroLoad = false
+      this.GerenciaLoadBusca()
+      this.unidadeGestoraService.getUnidadesGestorasByMunicipio(this.cidade.nome);
+    }
   }
 
   getValorLicitacoes(id: string) {

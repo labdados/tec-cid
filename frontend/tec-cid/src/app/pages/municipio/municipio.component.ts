@@ -18,7 +18,7 @@ export class MunicipioComponent implements OnInit, AfterViewInit {
   idMunicipio: any;
   tipoLic: any = '';
   codTipoLic: string = '';
-  gestao: Gestao = new Gestao(0, 0, '');
+  gestao: Gestao;
   valor_total_licitacoes: any = '';
 
   constructor(
@@ -55,7 +55,8 @@ export class MunicipioComponent implements OnInit, AfterViewInit {
   }
 
   getGestao() {
-    let ano = new Date().getFullYear();
+    //let ano = new Date().getFullYear();
+    let ano = 2020
     this.municipioService.getGestao(this.idMunicipio, ano).subscribe(res => {
       this.gestao = res.dados[0];
       this.candidatosService.getCandidato(this.gestao.id_candidato);
