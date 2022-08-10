@@ -22,6 +22,9 @@ class Municipio(GraphObject):
         return self.__node__
 
 class Licitacao(GraphObject):
+    __primarykey__ = "id_licitacao"
+
+    id_licitacao = Property()
     cd_ugestora = Property()
     cd_tipo_licitacao = Property()
     numero_licitacao = Property()
